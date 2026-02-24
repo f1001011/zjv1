@@ -2,7 +2,7 @@ import axios, { InternalAxiosRequestConfig } from 'axios'
 
 // 创建 axios 实例
 const request = axios.create({
-    baseURL: 'https://api.example.com', // 替换成你的接口
+    baseURL: 'http://www.v1.com', // 替换成你的接口
     timeout: 5000
 })
 
@@ -11,7 +11,7 @@ request.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
         const token = localStorage.getItem('token') || ''
         if (token) {
-            config.headers.set('Authorization', `Bearer ${token}`)
+            config.headers.set('Authorization', `${token}`)
         } else {
             config.headers.delete('Authorization')
         }
