@@ -1,0 +1,8 @@
+{
+  "login": "登录",
+  "username": "用户名",
+  "password": "密码",
+  "home": "首页",
+  "loginSuccess": "登录成功",
+  "loginFailed": "登录失败，请检查用户名或密码"
+}
