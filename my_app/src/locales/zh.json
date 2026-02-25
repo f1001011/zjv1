@@ -4,5 +4,48 @@
   "password": "密码",
   "home": "首页",
   "loginSuccess": "登录成功",
-  "loginFailed": "登录失败，请检查用户名或密码"
+  "loginFailed": "登录失败，请检查用户名或密码",
+  "logout": "退出登录",
+  "common": {
+    "cancel": "取消",
+    "confirm": "确认",
+    "success": "操作成功",
+    "viewAll": "查看全部",
+    "back": "返回",
+    "settings": "设置"
+  },
+  "balance": {
+    "title": "余额中心",
+    "totalAssets": "总资产",
+    "currency": "CNY",
+    "todayEarnings": "今日收益",
+    "available": "可用余额",
+    "frozen": "冻结金额",
+    "recentTx": "近期交易",
+    "monthlyIncome": "本月收入",
+    "monthlyExpense": "本月支出",
+    "actions": {
+      "deposit":  { "label": "充值", "subtitle": "快速充值到账户",   "placeholder": "请输入充值金额", "note": "充值即时到账，支持银行卡/支付宝" },
+      "withdraw": { "label": "提现", "subtitle": "提现到绑定银行卡", "placeholder": "请输入提现金额", "note": "提现1-3个工作日到账" },
+      "transfer": { "label": "转账", "subtitle": "转账给好友",       "placeholder": "请输入转账金额", "note": "转账实时到账，免手续费" },
+      "history":  { "label": "明细", "subtitle": "查看收支明细",     "placeholder": "搜索金额",       "note": "最多查询近180天交易记录" }
+    },
+    "tx": {
+      "wechat":  "微信支付收款",
+      "meituan": "美团外卖",
+      "salary":  "工资收入",
+      "didi":    "滴滴出行",
+      "coffee":  "咖啡厅消费"
+    },
+    "time": {
+      "minutesAgo": "{n}分钟前",
+      "hourAgo":    "{n}小时前",
+      "yesterday":  "昨天",
+      "daysAgo":    "{n}天前"
+    }
+  },
+  "modal": {
+    "confirmAction": "确认{action}",
+    "operationSuccess": "操作成功"
+  }
 }
