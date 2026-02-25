@@ -163,7 +163,7 @@ export default {
     }
   }
   
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .his {
       width: 100%;
       margin-right: 0px !important;

@@ -68,7 +68,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .pie {
       width: 100%;
       margin-top: 15px;

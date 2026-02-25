@@ -174,7 +174,7 @@
         }
       }
 
-      /deep/ .el-upload--picture-card {
+      >>> .el-upload--picture-card {
         width: 220px;
         height: 140px;
       }

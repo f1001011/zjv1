@@ -327,7 +327,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-ipad) {
+  @media only screen and (max-width: #{$device-ipad}) {
     .menu-left {
       .header {
         display: none;

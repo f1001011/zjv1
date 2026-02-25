@@ -122,11 +122,11 @@
     }
   }
 
-  /deep/ .el-table .cell {
+  >>> .el-table .cell {
     font-size: 13px;
   }
 
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .pro {
       width: 100% !important;
       margin-top: 15px;

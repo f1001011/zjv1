@@ -328,10 +328,10 @@
     width: 100%;
     height: 50%;
   }
-  /deep/ .el-dialog__body {
+  >>> .el-dialog__body {
     padding:0 20px;
   }
-  /deep/ .ql-editor {
+  >>> .ql-editor {
     min-height:150px;
   }
 </style>

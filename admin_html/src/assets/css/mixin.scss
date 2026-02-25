@@ -49,7 +49,7 @@
 * css3动画
 * 
 */
-@mixin animation($from:(width:0px), $to:(width: 100px), $name:mymove, $animate: mymove 2s 1 linear infinite) {
+@mixin animation($from:(width: 0px), $to:(width: 100px), $name:mymove, $animate: mymove 2s 1 linear infinite) {
   -webkit-animation: $animate;
   -o-animation: $animate;
   animation: $animate;
@@ -77,7 +77,7 @@
 
       @each $key,
       $value in $from {
-        $key: $value;
+        #{$key}: #{$value};
       }
     }
 
@@ -85,7 +85,7 @@
 
       @each $key,
       $value in $to {
-        $key: $value;
+        #{$key}: #{$value};
       }
     }
   }
@@ -125,16 +125,9 @@
   }
 }
 
-//背景透明，文字不透明。兼容IE8
+//背景透明，文字不透明
 @mixin betterTransparentize($color, $alpha) {
-  $c: rgba($color, $alpha);
-  $ie_c: ie_hex_str($c);
-  background: rgba($color, 1);
-  background: $c;
-  background: transparent \9;
-  zoom: 1;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie_c}, endColorstr=#{$ie_c});
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie_c}, endColorstr=#{$ie_c})";
+  background: rgba($color, $alpha);
 }
 
 //添加浏览器前缀

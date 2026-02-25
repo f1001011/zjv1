@@ -436,7 +436,7 @@
     }
   }
 
-  @media screen and (max-width: $device-ipad){
+  @media screen and (max-width: #{$device-ipad}){
     .mobile-hide {
       display: none !important;
     }

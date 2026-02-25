@@ -204,7 +204,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-ipad) {
+  @media only screen and (max-width: #{$device-ipad}) {
     .page-content {
       padding: 20px;
 

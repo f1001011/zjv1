@@ -430,7 +430,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-phone) { 
+  @media only screen and (max-width: #{$device-phone}) {
     .notice {
       width: 100%;
       height: 80vh;

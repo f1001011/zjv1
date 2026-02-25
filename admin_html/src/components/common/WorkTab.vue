@@ -313,7 +313,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .worktab {
       padding: 6px 10px;
     }

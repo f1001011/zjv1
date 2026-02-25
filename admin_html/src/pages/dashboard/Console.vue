@@ -105,7 +105,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-notebook)  {
+  @media only screen and (max-width: #{$device-notebook})  {
     .console {
       .row1{
         height: 350px;
@@ -117,7 +117,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-ipad) {
+  @media only screen and (max-width: #{$device-ipad}) {
     .console {
 
       .row {

@@ -105,8 +105,8 @@
     }
   }
 
-  @media screen and (max-width: $device-phone){
-    /deep/ .el-form {
+  @media screen and (max-width: #{$device-phone}){
+    >>> .el-form {
       padding-bottom: 15px;
     }
   }

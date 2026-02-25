@@ -178,14 +178,14 @@ export default {
     margin: auto;
   }
 
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .card {
       width: 100%;
       margin-top: 15px;
     }
   }
 
-  @media only screen and (max-width: $device-phone) { 
+  @media only screen and (max-width: #{$device-phone}) {
     .card {
       width: 100%;
       margin-top: 15px;

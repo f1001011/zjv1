@@ -62,7 +62,9 @@ exports.cssLoaders = function (options) {
   function generateSassResourceLoader() {
     var loaders = [
       cssLoader,
-      'sass-loader',
+      {
+        loader: 'sass-loader'
+      },
       {
         loader: 'sass-resources-loader',
         options: {

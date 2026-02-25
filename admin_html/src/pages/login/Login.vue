@@ -180,13 +180,13 @@
       height: 32px;
     }
 
-    /deep/ .el-input__inner {
+    >>> .el-input__inner {
       &:focus {
         border: 1px solid #4E83FD;
       }
     }
 
-    /deep/ .el-input--medium .el-input__inner {
+    >>> .el-input--medium .el-input__inner {
       height: 40px;
       line-height: 40px;
     }
@@ -280,7 +280,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-ipad-pro) {
+  @media only screen and (max-width: #{$device-ipad-pro}) {
     .login {
       width: 100%;
       height: 100vh;

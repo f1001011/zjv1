@@ -83,7 +83,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-phone) { 
+  @media only screen and (max-width: #{$device-phone}) {
     .page-content {
 
       .tips {

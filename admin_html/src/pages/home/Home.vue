@@ -128,7 +128,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .frame {
       width: 100%;
       padding-left: 0 !important;
