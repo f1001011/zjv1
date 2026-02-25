@@ -1,19 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import { createI18n } from 'vue-i18n'
-
-import en from './locales/en.json'
-import zh from './locales/zh.json'
-
-const i18n = createI18n({
-    legacy: false,
-    locale: 'zh', // 默认语言
-    fallbackLocale: 'en',
-    messages: { zh, en }
-})
+import { i18n } from './i18n'
+import { MotionPlugin } from '@vueuse/motion'
 
 const app = createApp(App)
 app.use(router)
 app.use(i18n)
+app.use(MotionPlugin)
 app.mount('#app')
