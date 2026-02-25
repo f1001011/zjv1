@@ -2,6 +2,8 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import BalanceCenter from '../views/BalanceCenter.vue'
+import Products from '../views/Products.vue'
+import Vip from '../views/Vip.vue'
 import { setLocale } from '../i18n'
 
 // ── 无需登录 ────────────────────────────────────────────────────────────────
@@ -12,7 +14,9 @@ const publicRoutes: Array<RouteRecordRaw> = [
 
 // ── 需要登录 ────────────────────────────────────────────────────────────────
 const authRoutes: Array<RouteRecordRaw> = [
-    { path: '/', name: 'Home', component: Home, meta: { requiresAuth: true } },
+    { path: '/',         name: 'Home',     component: Home,     meta: { requiresAuth: true } },
+    { path: '/products', name: 'Products', component: Products, meta: { requiresAuth: true } },
+    { path: '/vip',      name: 'Vip',      component: Vip,      meta: { requiresAuth: true } },
 ]
 
 const routes: Array<RouteRecordRaw> = [...publicRoutes, ...authRoutes]

@@ -1,4 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from 'axios'
+import { usePopup } from '@/composables/usePopup'
+import router from '@/router'
 
 // 创建 axios 实例
 const request = axios.create({
@@ -6,7 +8,7 @@ const request = axios.create({
     timeout: 5000
 })
 
-// 请求拦截器：自动带 token，如果没有就不带
+// 请求拦截器：自动带 token
 request.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
         const token = localStorage.getItem('token') || ''
@@ -20,12 +22,31 @@ request.interceptors.request.use(
     error => Promise.reject(error)
 )
 
-// 响应拦截器：统一处理返回
+// 响应拦截器：统一处理 code 1 / 0 / 204
 request.interceptors.response.use(
-    response => response.data, // 只返回 data
+    response => {
+        const { code, data, message } = response.data
+        const { showPopup } = usePopup()
+
+        // 成功
+        if (code === 1) return data
+
+        // token 过期
+        if (code === 204) {
+            localStorage.removeItem('token')
+            showPopup(message || 'Token 已过期，请重新登录', 'warning')
+            router.push({ name: 'Login' })
+            return Promise.reject(new Error(message))
+        }
+
+        // 业务失败（code === 0 或其他）
+        showPopup(message || '请求失败', 'error')
+        return Promise.reject(new Error(message))
+    },
     error => {
-        // 统一处理错误，比如 token 过期、网络错误
-        console.error('Request error:', error)
+        // 网络层错误（断网、超时等）
+        const { showPopup } = usePopup()
+        showPopup(error.message || '网络异常，请稍后重试', 'error')
         return Promise.reject(error)
     }
 )

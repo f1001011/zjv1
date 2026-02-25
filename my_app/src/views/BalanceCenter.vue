@@ -51,7 +51,7 @@
 
         <div class="balance-badge">
           <TrendingUp :size="13" />
-          <span>+¥2,341.50 {{ t('balance.todayEarnings') }}</span>
+          <span>+¥{{ balanceData?.todayEarnings.toLocaleString('zh-CN', { minimumFractionDigits: 2 }) ?? '--' }} {{ t('balance.todayEarnings') }}</span>
         </div>
 
         <div class="hero-divider"></div>
@@ -59,12 +59,12 @@
         <div class="hero-bottom">
           <div class="hero-stat">
             <span class="hs-label">{{ t('balance.available') }}</span>
-            <span class="hs-value">¥ 123,450.88</span>
+            <span class="hs-value">¥ {{ balanceData?.availableBalance.toLocaleString('zh-CN', { minimumFractionDigits: 2 }) ?? '--' }}</span>
           </div>
           <div class="hs-sep"></div>
           <div class="hero-stat">
             <span class="hs-label">{{ t('balance.frozen') }}</span>
-            <span class="hs-value amber">¥ 5,000.00</span>
+            <span class="hs-value amber">¥ {{ balanceData?.frozenAmount.toLocaleString('zh-CN', { minimumFractionDigits: 2 }) ?? '--' }}</span>
           </div>
         </div>
       </div>
@@ -154,24 +154,33 @@ import {
   ShoppingCart, Car, Banknote, Coffee, PiggyBank
 } from 'lucide-vue-next'
 import ActionModal from '@/components/ActionModal.vue'
+import { fetchBalanceData } from '@/api/balance'
+import type { BalanceData } from '@/types/balance'
 
 const router = useRouter()
 const { t } = useI18n()
 
+// ── 接口数据 ────────────────────────────────────────────────────────────────
+const balanceData = ref<BalanceData | null>(null)
+
 // ── Balance counter ────────────────────────────────────────────────────────
-const TARGET = 128450.88
 const animatedBalance = ref(0)
 
-onMounted(() => {
+const startRoll = (target: number) => {
   const duration = 2200
   const t0 = Date.now()
   const tick = () => {
     const p = Math.min((Date.now() - t0) / duration, 1)
-    animatedBalance.value = TARGET * (1 - Math.pow(1 - p, 4))
+    animatedBalance.value = target * (1 - Math.pow(1 - p, 4))
     if (p < 1) requestAnimationFrame(tick)
-    else animatedBalance.value = TARGET
+    else animatedBalance.value = target
   }
   setTimeout(() => requestAnimationFrame(tick), 500)
+}
+
+onMounted(async () => {
+  balanceData.value = await fetchBalanceData()
+  startRoll(balanceData.value.totalAssets)
 })
 
 const integerChars = computed(() =>
@@ -233,25 +242,55 @@ const actions = computed(() => [
   },
 ])
 
-// ── Stats ──────────────────────────────────────────────────────────────────
-const stats = computed(() => [
-  { label: t('balance.monthlyIncome'),  value: '¥32,100', color: '#00e5ff', icon: TrendingUp },
-  { label: t('balance.monthlyExpense'), value: '¥18,650', color: '#ff4d4d', icon: TrendingDown },
-  { label: t('balance.frozen'),         value: '¥5,000',  color: '#ffb800', icon: Lock },
-])
+// ── 相对时间格式化 ──────────────────────────────────────────────────────────
+const formatRelativeTime = (iso: string): string => {
+  const diff = Math.floor((Date.now() - new Date(iso).getTime()) / 1000)
+  if (diff < 3600)   return t('balance.time.minutesAgo', { n: Math.max(1, Math.floor(diff / 60)) })
+  if (diff < 86400)  return t('balance.time.hourAgo',    { n: Math.floor(diff / 3600) })
+  if (diff < 172800) return t('balance.time.yesterday')
+  return t('balance.time.daysAgo', { n: Math.floor(diff / 86400) })
+}
 
-// ── Transactions ───────────────────────────────────────────────────────────
-const transactions = computed(() => [
-  { id:1, name: t('balance.tx.wechat'),  time: t('balance.time.minutesAgo', { n: 2 }), type:'income',  amount:'3,200.00', icon:Banknote,     color:'#00e5ff' },
-  { id:2, name: t('balance.tx.meituan'), time: t('balance.time.hourAgo',    { n: 1 }), type:'expense', amount:'68.50',    icon:ShoppingCart, color:'#ff4d4d' },
-  { id:3, name: t('balance.tx.salary'),  time: t('balance.time.yesterday'),             type:'income',  amount:'18,000.00',icon:PiggyBank,    color:'#69ff47' },
-  { id:4, name: t('balance.tx.didi'),    time: t('balance.time.yesterday'),             type:'expense', amount:'45.20',    icon:Car,          color:'#ff4d4d' },
-  { id:5, name: t('balance.tx.coffee'),  time: t('balance.time.daysAgo',    { n: 2 }), type:'expense', amount:'38.00',    icon:Coffee,       color:'#ffb800' },
-])
+// ── 交易分类 → 图标/颜色映射（纯前端配置）────────────────────────────────────
+const CATEGORY_MAP: Record<string, { icon: any; color: string; nameKey: string }> = {
+  wechat:  { icon: Banknote,     color: '#00e5ff', nameKey: 'balance.tx.wechat'  },
+  meituan: { icon: ShoppingCart, color: '#ff4d4d', nameKey: 'balance.tx.meituan' },
+  salary:  { icon: PiggyBank,    color: '#69ff47', nameKey: 'balance.tx.salary'  },
+  didi:    { icon: Car,          color: '#ff4d4d', nameKey: 'balance.tx.didi'    },
+  coffee:  { icon: Coffee,       color: '#ffb800', nameKey: 'balance.tx.coffee'  },
+}
+
+// ── Stats（来自接口）──────────────────────────────────────────────────────────
+const stats = computed(() => {
+  const d = balanceData.value
+  const fmt = (n: number) => `¥${n.toLocaleString('zh-CN')}`
+  return [
+    { label: t('balance.monthlyIncome'),  value: d ? fmt(d.monthlyIncome)  : '--', color: '#00e5ff', icon: TrendingUp   },
+    { label: t('balance.monthlyExpense'), value: d ? fmt(d.monthlyExpense) : '--', color: '#ff4d4d', icon: TrendingDown },
+    { label: t('balance.frozen'),         value: d ? fmt(d.frozenAmount)   : '--', color: '#ffb800', icon: Lock         },
+  ]
+})
+
+// ── Transactions（来自接口）───────────────────────────────────────────────────
+const transactions = computed(() => {
+  if (!balanceData.value) return []
+  return balanceData.value.transactions.map(tx => {
+    const meta = CATEGORY_MAP[tx.category] ?? { icon: Banknote, color: '#00e5ff', nameKey: tx.category }
+    return {
+      id:     tx.id,
+      name:   meta.nameKey.startsWith('balance.') ? t(meta.nameKey) : tx.category,
+      time:   formatRelativeTime(tx.createdAt),
+      type:   tx.type,
+      amount: tx.amount.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+      icon:   meta.icon,
+      color:  meta.color,
+    }
+  })
+})
 
 // ── Modal ──────────────────────────────────────────────────────────────────
-const activeAction = ref<typeof actions[0] | null>(null)
-const openAction   = (a: typeof actions[0]) => { activeAction.value = a }
+const activeAction = ref<typeof actions.value[0] | null>(null)
+const openAction   = (a: typeof actions.value[0]) => { activeAction.value = a }
 const handleConfirm = () => { activeAction.value = null }
 </script>
 
@@ -261,7 +300,7 @@ const handleConfirm = () => { activeAction.value = null }
 
 .bc-root {
   min-height: 100vh;
-  background: #0c0c0f;
+  background: var(--bg-base);
   position: relative;
   overflow: hidden;
   font-family: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont,
@@ -292,7 +331,7 @@ const handleConfirm = () => { activeAction.value = null }
 /* ── Scroll container ─────────────────────────────────────────────────────── */
 .page-scroll {
   position: relative; z-index: 1;
-  max-width: 460px; margin: 0 auto; padding: 0 20px;
+  max-width: 460px; margin: 0 auto; padding: 0 20px 80px;
 }
 
 /* ── Glass card ───────────────────────────────────────────────────────────── */

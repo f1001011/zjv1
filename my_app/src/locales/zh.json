@@ -47,5 +47,15 @@
   "modal": {
     "confirmAction": "确认{action}",
     "operationSuccess": "操作成功"
+  },
+  "home": {
+    "greeting":      "早上好",
+    "welcome":       "欢迎回来",
+    "balanceLabel":  "账户余额",
+    "balanceCenter": "余额中心",
+    "loadingMore":   "加载中...",
+    "noMore":        "已经到底了",
+    "purchasable":   "可购 {n} 次",
+    "products":      "商品"
   }
 }

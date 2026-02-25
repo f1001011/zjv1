@@ -47,5 +47,15 @@
   "modal": {
     "confirmAction": "Confirm {action}",
     "operationSuccess": "Success"
+  },
+  "home": {
+    "greeting":      "Good morning",
+    "welcome":       "Welcome back",
+    "balanceLabel":  "Account Balance",
+    "balanceCenter": "Balance Center",
+    "loadingMore":   "Loading...",
+    "noMore":        "No more items",
+    "purchasable":   "Up to {n} times",
+    "products":      "Products"
   }
 }
