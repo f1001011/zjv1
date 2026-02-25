@@ -30,7 +30,7 @@
         <div class="bq-bar"></div>
         <div class="bq-left">
           <span class="bq-label">{{ t('home.balanceLabel') }}</span>
-          <span class="bq-amount">¥ {{ balanceDisplay }}</span>
+          <span class="bq-amount">{{ CURRENCY }} {{ balanceDisplay }}</span>
         </div>
         <button class="bq-btn" @click="router.push('/balance')">
           <ArrowRight :size="13" />{{ t('home.balanceCenter') }}
@@ -46,14 +46,16 @@
           <div class="carousel-track"
             :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
             <div v-for="banner in banners" :key="banner.id"
-              class="carousel-slide" :style="{ background: banner.gradient }">
+              class="carousel-slide"
+              :style="banner.imageUrl ? {} : { background: banner.gradient }">
+              <img v-if="banner.imageUrl" class="slide-bg-img" :src="banner.imageUrl" />
               <div class="slide-glow" :style="{ background: banner.glow }"></div>
               <div class="slide-content">
                 <span class="slide-tag">{{ banner.tag }}</span>
                 <div class="slide-title">{{ banner.title }}</div>
                 <div class="slide-sub">{{ banner.sub }}</div>
               </div>
-              <div class="slide-icon-wrap">
+              <div v-if="!banner.imageUrl" class="slide-icon-wrap">
                 <component :is="banner.icon" :size="54" class="slide-icon" />
               </div>
             </div>
@@ -88,7 +90,8 @@
           :enter="{ opacity:1, y:0, scale:1, transition:{ delay: Math.min(360 + i*45, 800), type:'spring', stiffness:260, damping:20 } }">
           <div class="product-img" :style="{ background: product.gradient }">
             <div class="product-img-glow" :style="{ background: product.glow }"></div>
-            <div class="product-icon-3d">
+            <img v-if="product.imageUrl" class="product-img-pic" :src="product.imageUrl" />
+            <div v-else class="product-icon-3d">
               <component :is="product.icon" :size="26" />
             </div>
             <span v-if="product.tag" class="product-tag-badge"
@@ -98,7 +101,7 @@
           </div>
           <div class="product-info">
             <div class="product-name">{{ product.name }}</div>
-            <div class="product-price" :style="{ color: product.priceColor }">¥{{ product.price }}</div>
+            <div class="product-price" :style="{ color: product.priceColor }">{{ CURRENCY }}{{ product.price }}</div>
             <div class="product-stock">
               <ShoppingBag :size="9" />{{ t('home.purchasable', { n: product.maxPurchase }) }}
             </div>
@@ -119,6 +122,7 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import type { Component } from 'vue'
+import { CURRENCY } from '@/config'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import {
@@ -419,6 +423,10 @@ onUnmounted(() => {
 .slide-sub { font-size:11px; color:rgba(255,255,255,0.65); letter-spacing:0.2px; }
 .slide-icon-wrap { position:relative; z-index:1; opacity:0.22; }
 .slide-icon { color:#fff; }
+.slide-bg-img {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:0;
+}
 
 .carousel-dots {
   display:flex; justify-content:center; gap:6px; margin-top:10px;
@@ -469,6 +477,11 @@ onUnmounted(() => {
   overflow:hidden;
 }
 .product-img-glow { position:absolute; inset:0; pointer-events:none; }
+.product-img-pic {
+  position:relative; z-index:1;
+  width:72px; height:72px; object-fit:cover;
+  border-radius:14px;
+}
 .product-icon-3d {
   position:relative; z-index:1;
   width:54px; height:54px; border-radius:16px;

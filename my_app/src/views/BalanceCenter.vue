@@ -34,7 +34,7 @@
         </div>
 
         <div class="balance-display">
-          <span class="currency-sym">¥</span>
+          <span class="currency-sym">{{ CURRENCY }}</span>
           <div class="digit-roller-wrap">
             <template v-for="(char, i) in integerChars" :key="i">
               <span v-if="char === ','" class="digit-sep">,</span>
@@ -51,7 +51,7 @@
 
         <div class="balance-badge">
           <TrendingUp :size="13" />
-          <span>+¥{{ balanceData?.todayEarnings.toLocaleString('zh-CN', { minimumFractionDigits: 2 }) ?? '--' }} {{ t('balance.todayEarnings') }}</span>
+          <span>+{{ CURRENCY }}{{ balanceData?.todayEarnings.toLocaleString('zh-CN', { minimumFractionDigits: 2 }) ?? '--' }} {{ t('balance.todayEarnings') }}</span>
         </div>
 
         <div class="hero-divider"></div>
@@ -59,12 +59,12 @@
         <div class="hero-bottom">
           <div class="hero-stat">
             <span class="hs-label">{{ t('balance.available') }}</span>
-            <span class="hs-value">¥ {{ balanceData?.availableBalance.toLocaleString('zh-CN', { minimumFractionDigits: 2 }) ?? '--' }}</span>
+            <span class="hs-value">{{ CURRENCY }} {{ balanceData?.availableBalance.toLocaleString('zh-CN', { minimumFractionDigits: 2 }) ?? '--' }}</span>
           </div>
           <div class="hs-sep"></div>
           <div class="hero-stat">
             <span class="hs-label">{{ t('balance.frozen') }}</span>
-            <span class="hs-value amber">¥ {{ balanceData?.frozenAmount.toLocaleString('zh-CN', { minimumFractionDigits: 2 }) ?? '--' }}</span>
+            <span class="hs-value amber">{{ CURRENCY }} {{ balanceData?.frozenAmount.toLocaleString('zh-CN', { minimumFractionDigits: 2 }) ?? '--' }}</span>
           </div>
         </div>
       </div>
@@ -127,7 +127,7 @@
             <div class="tx-time">{{ tx.time }}</div>
           </div>
           <div class="tx-amount" :class="tx.type">
-            {{ tx.type === 'income' ? '+' : '-' }}¥{{ tx.amount }}
+            {{ tx.type === 'income' ? '+' : '-' }}{{ CURRENCY }}{{ tx.amount }}
           </div>
         </div>
       </div>
@@ -145,6 +145,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted } from 'vue'
+import { CURRENCY } from '@/config'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import {
@@ -263,7 +264,7 @@ const CATEGORY_MAP: Record<string, { icon: any; color: string; nameKey: string }
 // ── Stats（来自接口）──────────────────────────────────────────────────────────
 const stats = computed(() => {
   const d = balanceData.value
-  const fmt = (n: number) => `¥${n.toLocaleString('zh-CN')}`
+  const fmt = (n: number) => `${CURRENCY}${n.toLocaleString('zh-CN')}`
   return [
     { label: t('balance.monthlyIncome'),  value: d ? fmt(d.monthlyIncome)  : '--', color: '#00e5ff', icon: TrendingUp   },
     { label: t('balance.monthlyExpense'), value: d ? fmt(d.monthlyExpense) : '--', color: '#ff4d4d', icon: TrendingDown },

@@ -16,6 +16,19 @@ export interface ProductItem {
   maxPurchase: number
   tag: string       // '热门' | '推荐' | '爆款' | '超值' | '精选' | ''
   iconKey: string   // 前端据此映射 lucide 图标
+  imageUrl?: string // 商品图片，有则优先展示
+}
+
+// ── Banner ────────────────────────────────────────────────────────────────────
+export interface BannerItem {
+  id: number
+  tag: string
+  title: string
+  sub: string
+  gradient: string
+  glow: string
+  iconKey: string   // 无图片时的备用图标
+  imageUrl?: string // Banner 图片，有则覆盖渐变背景
 }
 
 // ── 分页响应 ──────────────────────────────────────────────────────────────────

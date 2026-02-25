@@ -31,7 +31,7 @@
         <!-- Body -->
         <div class="modal-body">
           <div class="amount-wrap" :class="{ focused: isFocused }">
-            <span class="amount-prefix">¥</span>
+            <span class="amount-prefix">{{ CURRENCY }}</span>
             <input
               ref="inputRef"
               v-model="inputAmount"
@@ -50,7 +50,7 @@
               class="quick-btn"
               :class="{ active: inputAmount === String(amt) }"
               @click="inputAmount = String(amt)">
-              ¥{{ amt.toLocaleString() }}
+              {{ CURRENCY }}{{ amt.toLocaleString() }}
             </button>
           </div>
 
@@ -83,6 +83,7 @@
 
 <script lang="ts" setup>
 import { ref, nextTick, onMounted } from 'vue'
+import { CURRENCY } from '@/config'
 import { useI18n } from 'vue-i18n'
 import { X, Info, CheckCircle } from 'lucide-vue-next'
 
