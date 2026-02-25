@@ -30,14 +30,14 @@ class Login extends Validate
      * @var array
      */
     protected $message = [
-        'phone' => '手机号错误',
-        'pwd'     => '密码错误',
-        'upwd'     => '重复密码错误',
-        'user_name'     => '用户名错误',
-        'sfz'     => '身份证错误',
-        'agent_id'     => '推荐人ID错误',
-        'captcha'     => '验证码错误',
-        ];
+        'phone'     => '10010',
+        'pwd'       => '10001',
+        'upwd'      => '10011',
+        'user_name' => '10012',
+        'sfz'       => '10013',
+        'agent_id'  => '10006',
+        'captcha'   => '10014',
+    ];
 
     protected $scene = [
         'add'  =>  ['phone','pwd','sfz','upwd','user_name','agent_id','captcha'],

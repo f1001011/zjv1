@@ -38,35 +38,36 @@ class Login extends Base
         }
         $app_version = SysConfigModel::page_value($where);
 
-        if(empty($post['app_version'])){
-                return show(0, [], '系统提示：版本过低，请下载最新版本。');
-        }
-
-        if ($post['app_version'] != $app_version && $post['app_version'] != 1){
-            return show(0, [], '系统提示：版本过低，请下载最新版本。');
-        }
+//        if(empty($post['app_version'])){
+//                return show(0, [], '系统提示：版本过低，请下载最新版本。');
+//        }
+//
+//        if ($post['app_version'] != $app_version && $post['app_version'] != 1){
+//            return show(0, [], '系统提示：版本过低，请下载最新版本。');
+//        }
 
         // 验证失败
-        if (!$this->captcha($post['captcha'])) {
+        //if (!$this->captcha($post['captcha'])) {
             // return show(0, [], '验证码过期');
-        }
+        //}
 
         //1 判断 密码是否一样
         $UserInfo = UserModel::where('phone', $post['phone'])->find();
         if (empty($UserInfo)) {
-            return show(0, [], '用户不存在');
+            return show(0, [], lang(10000));
         }
 
         if (md5($post['pwd']) !== $UserInfo->getData('pwd')) {
-            return show(0, [], '密码错误');
+            return show(0, [], lang(10001));
         }
 
         if ($UserInfo->status != 1) {
-            return show(0, [], '用户冻结,请联系客服');
+            return show(0, [], lang(10002));
         }
         if ($UserInfo->is_real_name == 3) {
-            return show(0, [], '实名失败,请联系客服');
+            return show(0, [], lang(10003));
         }
+
         //成功了之后返回用户信息
         $token = api_token($UserInfo['id']);
         $tfind = TokenModel::where('user_id',$UserInfo['id'])->find();
@@ -109,37 +110,37 @@ class Login extends Base
         }
 
         if ($post['pwd'] !== $post['upwd']) {
-            return show(0, [], '两次密码不一致');
+            return show(0, [], lang(10004));
         }
 
 
-        // 验证失败
+        // 万能验证码验证失败
         if(is_code_off()){
             if (mb_strlen($post['captcha']) != 6 || !$this->captcha($post['captcha'])) {
-                return show(0, [cache('captcha.key')], '验证码过期');
+                return show(0, [cache('captcha.key')], lang(10005));
             }
         }
 
         //验证成功后查询 代理商是否正确
         $AgentInfo = UserModel::where('id', $post['agent_id'])->find();
         if (empty($AgentInfo)) {
-            return show(0, [], '推荐人ID错误');
+            return show(0, [], lang(10006));
         }
 
         //查询用户身份证，手机，名称，是否正确
         if (!empty(UserModel::where('phone', $post['phone'])->find())) {
-            return show(0, [], '手机号已经注册过了');
+            return show(0, [], lang(10007));
         }
 
-        if(!$this->isIdCard($post['sfz'])){
-            return show(0, [], '请输入正确身份证号');
-        }
-        if (!empty(Db::name('is_sfz')->where('sfzcode',$post['sfz'])->find())) {
-            return show(0, [], '身份证已经注册过了1');
-        }
-        if (!empty(UserModel::where('sfz', $post['sfz'])->find())) {
-            return show(0, [], '身份证已经注册过了2');
-        }
+//        if(!$this->isIdCard($post['sfz'])){
+//            return show(0, [], lang(10008));
+//        }
+//        if (!empty(Db::name('is_sfz')->where('sfzcode',$post['sfz'])->find())) {
+//            return show(0, [], lang(10009));
+//        }
+//        if (!empty(UserModel::where('sfz', $post['sfz'])->find())) {
+//            return show(0, [], lang(10009));
+//        }
 
         //写入数据库数据
         $data = [
@@ -148,8 +149,8 @@ class Login extends Base
             'user_name' => $post['user_name'],
             'sfz' => $post['sfz'],
             'agent_id' => $post['agent_id'],
-            'agent_id_1' => $post['agent_id'],
             'head_img'=>'/static/touxiang/'.rand(1,16).'.jpg',
+            'agent_id_1' => $post['agent_id'],
             'agent_id_2' => $AgentInfo['agent_id_1'],
             'agent_id_3' => $AgentInfo['agent_id_2'],
             'market_uid' => $AgentInfo['market_uid'],
@@ -165,7 +166,6 @@ class Login extends Base
         ];
 
         //注册获取奖励
-        ####待确定
 
         $GetId = UserModel::inserts($data);
         Db::name('is_sfz')->insert([
@@ -193,13 +193,13 @@ class Login extends Base
 
         // 验证失败
         if (!$this->captcha($post['captcha'])) {
-            return show(0, [cache('captcha.key')], '验证码过期');
+            return show(0, [cache('captcha.key')], lang(10005));
         }
 
 
         $UserInfo = UserModel::where('phone', $post['phone'])->where('sfz', $post['sfz'])->find();
         if (empty($UserInfo)) {
-            show(0, [], '用户不存在');
+            show(0, [], lang(10000));
         }
         UserModel::where('id', $UserInfo['id'])->update(['pwd' => md5($post['pwd'])]);
         return show(1);
