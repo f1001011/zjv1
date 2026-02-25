@@ -52,7 +52,6 @@ function isActive(item: typeof navItems[0]) {
   background: rgba(12, 12, 15, 0.82);
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .nav-inner {
@@ -60,6 +59,7 @@ function isActive(item: typeof navItems[0]) {
   max-width: 460px;
   display: flex;
   align-items: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .nav-item {

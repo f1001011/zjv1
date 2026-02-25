@@ -118,6 +118,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import type { Component } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import {
@@ -134,7 +135,7 @@ const router = useRouter()
 const { t, locale } = useI18n()
 
 // ── Icon map ──────────────────────────────────────────────────────────────────
-const ICON_MAP: Record<string, unknown> = {
+const ICON_MAP: Record<string, Component> = {
   layoutgrid: LayoutGrid, wifi: Wifi,       phone: Phone,       crown: Crown,
   gamepad2:   Gamepad2,   coffee: Coffee,   signal: Signal,     creditcard: CreditCard,
   music:      Music,      star:  Star,      sword:  Sword,      gem:   Gem,
@@ -214,7 +215,7 @@ const displayCategories = computed(() =>
   }))
 )
 
-function catLabel(cat: CategoryItem & { icon: unknown; color: string }) {
+function catLabel(cat: CategoryItem & { icon: Component; color: string }) {
   return locale.value === 'zh' ? cat.labelZh : cat.labelEn
 }
 
