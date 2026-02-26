@@ -10,15 +10,13 @@
 import PopupModal from '@/components/PopupModal.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import { usePopup } from '@/composables/usePopup'
+import { useTheme } from '@/composables/useTheme'
 
 const { state } = usePopup()
+useTheme()
 </script>
 
 <style>
-:root {
-  --bg-base: #0c0c0f;
-}
-
 .popup-msg {
   margin: 0;
   font-size: 15px;

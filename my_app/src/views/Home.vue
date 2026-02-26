@@ -123,6 +123,7 @@
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import type { Component } from 'vue'
 import { CURRENCY } from '@/config'
+import { colors } from '@/config/colors'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import {
@@ -157,12 +158,13 @@ const CATEGORY_VISUAL: Record<string, { gradient: string; glow: string; priceCol
 
 // ── Tag color map ─────────────────────────────────────────────────────────────
 const TAG_COLOR: Record<string, string> = {
-  '热门':'#ff4d4d', '推荐':'#69ff47', '爆款':'#ffb800', '超值':'#ffb800', '精选':'#69ff47',
+  '热门': colors.red,   '推荐': colors.lime,  '爆款': colors.amber,
+  '超值': colors.amber, '精选': colors.lime,
 }
 
 // ── Color map (colorKey → hex) ────────────────────────────────────────────────
 const COLOR_MAP: Record<string, string> = {
-  red:'#ff4d4d', cyan:'#00e5ff', amber:'#ffb800', green:'#69ff47',
+  red: colors.red, cyan: colors.cyan, amber: colors.amber, green: colors.lime,
 }
 
 // ── Carousel ──────────────────────────────────────────────────────────────────
@@ -322,9 +324,9 @@ onUnmounted(() => {
 }
 .bg-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
 .orb { position: absolute; border-radius: 50%; filter: blur(90px); }
-.orb-red  { width:480px; height:480px; top:-100px; left:-80px;  background:rgba(255,77,77,0.2);  animation:drift 16s ease-in-out infinite; }
-.orb-cyan { width:400px; height:400px; top:30%;    right:-60px; background:rgba(0,229,255,0.14); animation:drift 20s ease-in-out infinite reverse; }
-.orb-amber{ width:340px; height:340px; bottom:10%; left:15%;    background:rgba(255,184,0,0.12); animation:drift 24s ease-in-out infinite 5s; }
+.orb-red  { width:480px; height:480px; top:-100px; left:-80px;  background:var(--orb-red);   animation:drift 16s ease-in-out infinite; }
+.orb-cyan { width:400px; height:400px; top:30%;    right:-60px; background:var(--orb-cyan);  animation:drift 20s ease-in-out infinite reverse; }
+.orb-amber{ width:340px; height:340px; bottom:10%; left:15%;    background:var(--orb-amber); animation:drift 24s ease-in-out infinite 5s; }
 @keyframes drift {
   0%,100% { transform:translate(0,0) scale(1); }
   40%     { transform:translate(24px,-18px) scale(1.05); }
@@ -335,10 +337,10 @@ onUnmounted(() => {
 
 /* ── Glass card ────────────────────────────────────────────────────────────── */
 .glass-card {
-  background: rgba(255,255,255,0.04);
+  background: var(--bg-card);
   backdrop-filter: blur(28px) saturate(160%);
   -webkit-backdrop-filter: blur(28px) saturate(160%);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid var(--border);
   border-radius: 20px;
 }
 

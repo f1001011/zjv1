@@ -9,9 +9,10 @@
         @click="router.push(item.path)"
       >
         <div class="nav-icon-wrap">
-          <component :is="item.icon" :size="22" />
+          <component :is="item.icon" :size="20" />
           <span v-if="isActive(item)" class="nav-dot"></span>
         </div>
+        <span class="nav-label">{{ t(item.labelKey) }}</span>
       </button>
     </div>
   </nav>
@@ -20,19 +21,22 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { Home, Package, Crown, User } from 'lucide-vue-next'
+import { colors } from '@/config/colors'
 
 const router = useRouter()
 const route  = useRoute()
+const { t }  = useI18n()
 
 const navItems = [
-  { name: 'Home',          path: '/',         icon: Home,    color: '#ff4d4d' },
-  { name: 'Products',      path: '/products', icon: Package, color: '#00e5ff' },
-  { name: 'Vip',           path: '/vip',      icon: Crown,   color: '#ffb800' },
-  { name: 'BalanceCenter', path: '/balance',  icon: User,    color: '#69ff47' },
+  { name: 'Home',          path: '/',         icon: Home,    color: colors.red,   labelKey: 'nav.home'     },
+  { name: 'Products',      path: '/products', icon: Package, color: colors.cyan,  labelKey: 'nav.products' },
+  { name: 'Vip',           path: '/vip',      icon: Crown,   color: colors.amber, labelKey: 'nav.vip'      },
+  { name: 'BalanceCenter', path: '/balance',  icon: User,    color: colors.lime,  labelKey: 'nav.mine'     },
 ]
 
-const showNav = computed(() => route.name !== 'Login')
+const showNav = computed(() => !['Login', 'Register'].includes(route.name as string))
 
 function isActive(item: typeof navItems[0]) {
   return route.name === item.name
@@ -49,7 +53,7 @@ function isActive(item: typeof navItems[0]) {
   align-items: stretch;
   height: 64px;
   padding-bottom: env(safe-area-inset-bottom, 0px);
-  background: rgba(12, 12, 15, 0.82);
+  background: var(--nav-bg);
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
 }
@@ -65,8 +69,10 @@ function isActive(item: typeof navItems[0]) {
 .nav-item {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 4px;
   height: 100%;
   background: none;
   border: none;
@@ -92,12 +98,20 @@ function isActive(item: typeof navItems[0]) {
 
 .nav-dot {
   position: absolute;
-  bottom: -6px;
+  bottom: -4px;
   left: 50%;
   transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
   background: var(--nc);
+}
+
+.nav-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  line-height: 1;
+  font-family: 'Inter', 'PingFang SC', sans-serif;
 }
 </style>

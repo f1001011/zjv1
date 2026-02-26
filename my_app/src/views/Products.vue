@@ -24,7 +24,7 @@ import { Package } from 'lucide-vue-next'
 }
 .bg-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
 .orb { position: absolute; border-radius: 50%; filter: blur(90px); }
-.orb-cyan { width:400px; height:400px; top:20%; right:-60px; background:rgba(0,229,255,0.12); }
+.orb-cyan { width:400px; height:400px; top:20%; right:-60px; background:var(--orb-cyan); }
 .placeholder-body {
   position: relative; z-index: 1;
   display: flex; flex-direction: column; align-items: center; gap: 12px;

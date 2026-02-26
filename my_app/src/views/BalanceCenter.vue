@@ -314,13 +314,13 @@ const handleConfirm = () => { activeAction.value = null }
 .orb { position: absolute; border-radius: 50%; filter: blur(90px); }
 
 .orb-red  { width:480px; height:480px; top:-100px; left:-80px;
-            background: rgba(255,77,77,0.22);
+            background: var(--orb-red);
             animation: drift 16s ease-in-out infinite; }
 .orb-cyan { width:400px; height:400px; top:28%; right:-60px;
-            background: rgba(0,229,255,0.16);
+            background: var(--orb-cyan);
             animation: drift 20s ease-in-out infinite reverse; }
 .orb-amber{ width:340px; height:340px; bottom:8%; left:18%;
-            background: rgba(255,184,0,0.14);
+            background: var(--orb-amber);
             animation: drift 24s ease-in-out infinite 5s; }
 
 @keyframes drift {
@@ -337,10 +337,10 @@ const handleConfirm = () => { activeAction.value = null }
 
 /* ── Glass card ───────────────────────────────────────────────────────────── */
 .glass-card {
-  background: rgba(255,255,255,0.04);
+  background: var(--bg-card);
   backdrop-filter: blur(28px) saturate(160%);
   -webkit-backdrop-filter: blur(28px) saturate(160%);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid var(--border);
   border-radius: 20px;
 }
 
