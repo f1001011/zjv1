@@ -17,14 +17,16 @@ export const popupPresets: Record<string, PopupOptions> = {
   error: {
     width: '380px',
     minHeight: 'auto',
-    showClose: true,           // 显示叉按钮，需手动关闭
-    bgColor: 'linear-gradient(135deg, #450a0a, #7f1d1d)', // 深红渐变
+    showClose: true,
+    autoCloseDuration: 2000,
+    bgColor: 'linear-gradient(135deg, #450a0a, #7f1d1d)',
   },
   warning: {
     width: '380px',
     minHeight: 'auto',
-    showClose: true,           // 显示叉按钮，需手动关闭
-    bgColor: 'linear-gradient(135deg, #78350f, #92400e)', // 深橙渐变
+    showClose: true,
+    autoCloseDuration: 2000,
+    bgColor: 'linear-gradient(135deg, #78350f, #92400e)',
   },
   info: {
     width: '380px',

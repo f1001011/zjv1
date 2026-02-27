@@ -78,7 +78,9 @@ Route::group('api', function(){
     Route::post('user/service','/api.User/C_service');//专属客服查询
     Route::post('user/sculpture','/api.User/sculpture');//用户头像
     Route::post('user/head_edit','/api.User/headEdit');//修改用户头像
-})->middleware(\app\middleware\Auth::class);
+
+    Route::get('v2/goods/one',       '/v2.Goods/goodsOne');  // 商品详情
+})->middleware(\app\middleware\Auth::class,think\middleware\AllowCrossDomain::class);
 
 //不需要权限验证
 Route::group('/api', function(){
@@ -98,13 +100,19 @@ Route::group('/api', function(){
     Route::get('/menu/status', 'api.Index/MenuStatus'); //收益菜单图标状态
     Route::get('goods/income', '/api.Goods/income');    //收益明细
     Route::post('/phone_verify', '/api.Index/phoneVerify');    //手机发送验证码
+
+    Route::group('v2', function() {
+        Route::get('/goods/type_list', '/v2.Goods/typeList');  // 商品分类
+        Route::get('/goods/list', '/v2.Goods/goodsList'); // 商品列表
+    });
+
 })->middleware(think\middleware\AllowCrossDomain::class);
 
 Route::get('/v','/api.Login/version');//版本 解决前端兼容问题
 
 // v2 商品接口（需要权限验证）
-Route::group('v2', function(){
-    Route::get('goods/type_list', '/v2.Goods/typeList');  // 商品分类
-    Route::get('goods/list',      '/v2.Goods/goodsList'); // 商品列表
-    Route::get('goods/one',       '/v2.Goods/goodsOne');  // 商品详情
-})->middleware([\app\middleware\Auth::class, \think\middleware\AllowCrossDomain::class]);
+//Route::group('v2', function(){
+//    Route::get('goods/type_list', '/v2.Goods/typeList');  // 商品分类
+//    Route::get('goods/list',      '/v2.Goods/goodsList'); // 商品列表
+//    Route::get('goods/one',       '/v2.Goods/goodsOne');  // 商品详情
+//})->middleware([\app\middleware\Auth::class, \think\middleware\AllowCrossDomain::class]);

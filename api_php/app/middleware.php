@@ -1,12 +1,9 @@
 <?php
 // 全局中间件定义文件
 return [
-    // 全局请求缓存
-    // \think\middleware\CheckRequestCache::class,
+    // CORS — must be first so OPTIONS preflight is handled before auth/routing
     // 多语言加载
-     \think\middleware\LoadLangPack::class,
+    \think\middleware\LoadLangPack::class,
     // Session初始化
-     \think\middleware\SessionInit::class,
-    think\middleware\AllowCrossDomain::class,
-
+    \think\middleware\SessionInit::class,
 ];

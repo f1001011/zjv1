@@ -28,7 +28,7 @@ function show($code, $data = [], $msg = ""){
         session('sub_token',$token);
     }
     //输出json
-    return json_encode($result,JSON_UNESCAPED_UNICODE);
+    return json($result);
     exit;
 }
 
@@ -243,5 +243,8 @@ function curl_request($url, $datas = null, $method = 'post', $header = array("co
 
 
 
-
+function  language(int $code)
+{
+   return  lang($code."");
+}
 

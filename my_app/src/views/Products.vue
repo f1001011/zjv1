@@ -39,7 +39,7 @@
       <!-- 空状态 -->
       <div v-else-if="!loading && list.length === 0" class="empty-state">
         <PackageOpen :size="44" class="empty-icon" />
-        <p>暂无商品</p>
+        <p>{{ t('products.empty') }}</p>
       </div>
 
       <!-- 商品卡片 -->
@@ -51,8 +51,8 @@
         <div class="card-img-wrap">
           <img v-if="item.head_img" :src="item.head_img" class="card-img" />
           <div v-else class="card-img-placeholder"><TrendingUp :size="26" /></div>
-          <span v-if="item.is_examine === 1" class="badge badge-new">新手</span>
-          <span v-else-if="item.status === 0" class="badge badge-off">已下架</span>
+          <span v-if="item.status === 0" class="badge badge-off"><component :is="progressBadgeIcon(item)" :size="11" /></span>
+          <span v-else class="badge" :class="progressBadgeClass(item)"><component :is="progressBadgeIcon(item)" :size="11" /></span>
         </div>
 
         <!-- 内容 -->
@@ -61,29 +61,29 @@
 
           <div class="card-stats">
             <div class="stat-item">
-              <span class="stat-label">起投</span>
+              <span class="stat-label">{{ t('products.minInvest') }}</span>
               <span class="stat-val accent-red">¥{{ item.goods_money }}</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">日收益</span>
+              <span class="stat-label">{{ t('products.dailyReturn') }}</span>
               <span class="stat-val accent-green">¥{{ item.day_red }}</span>
             </div>
             <div class="stat-item">
-              <span class="stat-label">周期</span>
-              <span class="stat-val">{{ item.period }}天</span>
+              <span class="stat-label">{{ t('products.period') }}</span>
+              <span class="stat-val">{{ item.period }}{{ t('products.days') }}</span>
             </div>
           </div>
 
           <!-- 进度条 -->
           <div class="progress-wrap">
             <div class="progress-bar">
-              <div class="progress-fill" :style="{ width: Math.min(item.progress_rate, 100) + '%' }"></div>
+              <div class="progress-fill" :style="{ width: calcProgress(item) + '%' }"></div>
             </div>
-            <span class="progress-text">{{ item.progress_rate }}%</span>
+            <span class="progress-text">{{ calcProgress(item).toFixed(1) }}%</span>
           </div>
 
           <button class="buy-btn" :disabled="item.status === 0" @click="handleBuy(item)">
-            {{ item.status === 0 ? '已下架' : '立即投资' }}
+            {{ item.status === 0 ? t('products.soldOut') : t('products.invest') }}
           </button>
         </div>
       </div>
@@ -92,7 +92,7 @@
       <div v-if="list.length > 0" class="load-more-row">
         <button v-if="hasMore" class="load-more-btn" :disabled="loadingMore" @click="loadMore">
           <Loader2 v-if="loadingMore" :size="15" class="spinner" />
-          <span v-else>加载更多</span>
+          <span v-else>{{ t('products.loadMore') }}</span>
         </button>
         <p v-else class="no-more">{{ t('home.noMore') }}</p>
       </div>
@@ -104,7 +104,8 @@
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { TrendingUp, PackageOpen, Loader2 } from 'lucide-vue-next'
+import { TrendingUp, PackageOpen, Loader2, Flame, Zap } from 'lucide-vue-next'
+import type { Component } from 'vue'
 import { fetchGoodsTypes, fetchGoodsList } from '@/api/product'
 import type { GoodsType, GoodsItem } from '@/types/product'
 
@@ -140,10 +141,11 @@ async function loadList(reset = false) {
     loadingMore.value = true
   }
   try {
-    const res = (await fetchGoodsList(activeCat.value, page.value, 10)) as GoodsItem[]
-    if (reset) list.value = res
-    else list.value.push(...res)
-    hasMore.value = res.length === 10
+    const res = await fetchGoodsList(activeCat.value, page.value, 10)
+    const items = res.data ?? []
+    if (reset) list.value = items
+    else list.value.push(...items)
+    hasMore.value = res.current_page < res.last_page
     if (hasMore.value) page.value++
   } catch {
     hasMore.value = false
@@ -162,6 +164,25 @@ function selectCat(id: number) {
 function loadMore() {
   if (!hasMore.value || loadingMore.value) return
   loadList(false)
+}
+
+function calcProgress(item: GoodsItem): number {
+  if (!item.project_scale) return 0
+  return Math.min((Number(item.progress_rate) / item.project_scale) * 100, 100)
+}
+
+function progressBadgeIcon(item: GoodsItem): Component {
+  const p = calcProgress(item)
+  if (p >= 70) return Flame
+  if (p >= 30) return TrendingUp
+  return Zap
+}
+
+function progressBadgeClass(item: GoodsItem): string {
+  const p = calcProgress(item)
+  if (p >= 70) return 'badge-hot'
+  if (p >= 30) return 'badge-warm'
+  return 'badge-preheat'
 }
 
 function handleBuy(item: GoodsItem) {
@@ -238,9 +259,15 @@ onMounted(() => loadCategories())
 .card-img-wrap { position: relative; flex-shrink: 0; width: 84px; height: 84px; border-radius: 12px; overflow: hidden; background: rgba(255,255,255,0.05); }
 .card-img { width: 100%; height: 100%; object-fit: cover; }
 .card-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: rgba(255,77,77,0.6); }
-.badge { position: absolute; top: 5px; left: 5px; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 6px; }
-.badge-new { background: rgba(255,184,0,0.9); color: #000; }
-.badge-off { background: rgba(100,100,100,0.8); color: rgba(255,255,255,0.7); }
+.badge {
+  position: absolute; top: 5px; left: 5px;
+  width: 20px; height: 20px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.badge-preheat { background: rgba(0,176,255,0.88); color: #fff; }
+.badge-warm    { background: rgba(255,140,0,0.92); color: #fff; }
+.badge-hot     { background: rgba(255,50,50,0.92); color: #fff; }
+.badge-off     { background: rgba(80,80,80,0.85);  color: rgba(255,255,255,0.6); }
 
 .card-body { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .card-name { font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.9); letter-spacing: -0.2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

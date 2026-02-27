@@ -20,32 +20,32 @@ class Auth
     {
 
         //获取请求信息
-        $token = $request->header('token');
+        $token = $request->header('authorization');
         if (empty($token)) {
-            return response(show(204, [], lang(10015)));
+            return show(204, [], language(10015));
         }
 
-        $sign = $request->header('sign');
-        if (empty($sign)) {
-            return response(show(204, [], lang(10015)));
-        }
+//        $sign = $request->header('sign');
+//        if (empty($sign)) {
+//            return show(204, [], language(10015));
+//        }
         $time = $request->header('time');
         //当前时间戳
         if (empty($time) || $time+20 <= time()) {
-            return response(show(204, [], lang(10015)));
+            return show(204, [], language(10015));
         }
 
         //查询token 是否存在
         $find = TokenModel::page_one([['token', '=', $token]]);//token 后期可保存到 redis
         if (empty($find)) {
-            return response(show(204 ,[], lang(10015)));
+            return show(204, [], language(10015));
         }
-
-
-        //检查sign  是否正确
-        if ($sign  != md5($token.'&'.TC('sign_merch').'&'.$time)) {
-            return response(show(204 ,[], lang(10015)));
-        }
+//
+//
+//        //检查sign  是否正确
+//        if ($sign  != md5($token.'&'.TC('sign_merch').'&'.$time)) {
+//            return show(204, [], language(10015));
+//        }
 
         //查询用户信息
         // if (cache('UserInfo' . $find['user_id'])) { //用户信息 后期可保存到 redis

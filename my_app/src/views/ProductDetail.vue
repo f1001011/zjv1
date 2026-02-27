@@ -10,7 +10,7 @@
       <button class="back-btn" @click="router.back()">
         <ChevronLeft :size="22" />
       </button>
-      <span class="nav-title">商品详情</span>
+      <span class="nav-title">{{ t('detail.title') }}</span>
       <div class="nav-placeholder"></div>
     </div>
 
@@ -35,8 +35,8 @@
           <TrendingUp :size="56" />
         </div>
         <div class="hero-overlay"></div>
-        <span v-if="goods.is_examine === 1" class="hero-badge badge-new">新手专享</span>
-        <span v-else-if="goods.status === 0" class="hero-badge badge-off">已下架</span>
+        <span v-if="goods.is_examine === 1" class="hero-badge badge-new">{{ t('detail.badgeNew') }}</span>
+        <span v-else-if="goods.status === 0" class="hero-badge badge-off">{{ t('detail.soldOut') }}</span>
       </div>
 
       <!-- 主内容 -->
@@ -47,45 +47,45 @@
         <!-- 核心数据卡片 -->
         <div class="stats-card glass-card">
           <div class="stat-col">
-            <span class="stat-label">起投金额</span>
+            <span class="stat-label">{{ t('detail.minInvest') }}</span>
             <span class="stat-val accent-red">¥{{ goods.goods_money }}</span>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-col">
-            <span class="stat-label">日收益</span>
+            <span class="stat-label">{{ t('detail.dailyReturn') }}</span>
             <span class="stat-val accent-green">¥{{ goods.day_red }}</span>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-col">
-            <span class="stat-label">投资周期</span>
-            <span class="stat-val">{{ goods.period }}<em>天</em></span>
+            <span class="stat-label">{{ t('detail.period') }}</span>
+            <span class="stat-val">{{ goods.period }}<em>{{ t('detail.days') }}</em></span>
           </div>
         </div>
 
         <!-- 进度 -->
         <div class="section-card glass-card">
           <div class="section-row">
-            <span class="section-label">募集进度</span>
-            <span class="section-val accent-red">{{ goods.progress_rate }}%</span>
+            <span class="section-label">{{ t('detail.progress') }}</span>
+            <span class="section-val accent-red">{{ calcDetailProgress(goods) }}%</span>
           </div>
           <div class="progress-bar">
-            <div class="progress-fill" :style="{ width: Math.min(goods.progress_rate, 100) + '%' }"></div>
+            <div class="progress-fill" :style="{ width: calcDetailProgress(goods) + '%' }"></div>
           </div>
         </div>
 
         <!-- 项目规模 -->
         <div class="section-card glass-card">
           <div class="section-row">
-            <span class="section-label">项目规模</span>
+            <span class="section-label">{{ t('detail.scale') }}</span>
             <span class="section-val">¥{{ goods.project_scale?.toLocaleString() }}</span>
           </div>
           <div class="section-row" style="margin-top:12px">
-            <span class="section-label">购买限制</span>
-            <span class="section-val">{{ goods.buy_num === 0 ? '不限次数' : goods.buy_num + '次' }}</span>
+            <span class="section-label">{{ t('detail.buyLimit') }}</span>
+            <span class="section-val">{{ goods.buy_num === 0 ? t('detail.unlimited') : goods.buy_num + t('detail.times') }}</span>
           </div>
           <div class="section-row" style="margin-top:12px">
-            <span class="section-label">所需等级</span>
-            <span class="section-val">{{ goods.level_vip === 0 ? '无限制' : 'VIP ' + goods.level_vip }}</span>
+            <span class="section-label">{{ t('detail.levelReq') }}</span>
+            <span class="section-val">{{ goods.level_vip === 0 ? t('detail.noLimit') : 'VIP ' + goods.level_vip }}</span>
           </div>
         </div>
 
@@ -93,18 +93,18 @@
         <div class="income-card glass-card">
           <div class="income-title">
             <BarChart2 :size="15" class="income-icon" />
-            收益说明
+            {{ t('detail.incomeTitle') }}
           </div>
           <div class="income-row">
-            <span>每日收益</span>
+            <span>{{ t('detail.dailyIncome') }}</span>
             <span class="accent-green">¥{{ goods.day_red }}</span>
           </div>
           <div class="income-row">
-            <span>周期总收益</span>
+            <span>{{ t('detail.totalIncome') }}</span>
             <span class="accent-green">¥{{ (goods.day_red * goods.period).toFixed(2) }}</span>
           </div>
           <div class="income-row">
-            <span>到期返还本金</span>
+            <span>{{ t('detail.principal') }}</span>
             <span class="accent-red">¥{{ goods.goods_money }}</span>
           </div>
         </div>
@@ -114,21 +114,21 @@
     <!-- 错误状态 -->
     <div v-else class="empty-state">
       <PackageOpen :size="44" class="empty-icon" />
-      <p>商品不存在</p>
+      <p>{{ t('detail.notFound') }}</p>
     </div>
 
     <!-- 底部购买栏 -->
     <div v-if="goods" class="buy-bar">
       <div class="buy-bar-inner">
         <div class="buy-price-wrap">
-          <span class="buy-label">起投</span>
+          <span class="buy-label">{{ t('detail.minInvestLabel') }}</span>
           <span class="buy-price">¥{{ goods.goods_money }}</span>
         </div>
         <button
           class="buy-btn"
           :disabled="goods.status === 0"
           @click="handleBuy">
-          {{ goods.status === 0 ? '已下架' : '立即投资' }}
+          {{ goods.status === 0 ? t('detail.soldOut') : t('detail.invest') }}
         </button>
       </div>
     </div>
@@ -138,12 +138,14 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { ChevronLeft, TrendingUp, PackageOpen, BarChart2 } from 'lucide-vue-next'
 import { fetchGoodsOne } from '@/api/product'
 import type { GoodsItem } from '@/types/product'
 
 const route  = useRoute()
 const router = useRouter()
+const { t }  = useI18n()
 
 const goods   = ref<GoodsItem | null>(null)
 const loading = ref(true)
@@ -158,6 +160,11 @@ async function loadGoods() {
   } finally {
     loading.value = false
   }
+}
+
+function calcDetailProgress(item: GoodsItem): string {
+  if (!item.project_scale) return '0.0'
+  return Math.min((Number(item.progress_rate) / item.project_scale) * 100, 100).toFixed(1)
 }
 
 function handleBuy() {

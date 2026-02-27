@@ -18,9 +18,9 @@ class Login extends Validate
         'pwd'   => 'require|alphaNum|min:8|max:25',
         'upwd' => 'require|alphaNum|min:8|max:25',
         'user_name'=>'require|min:2|max:25',
-        'sfz'=>'require|alphaNum|min:15|max:25',
+        'sfz'=>'alphaNum|min:15|max:25',
         'agent_id'=>'require|integer',
-        'captcha'=>'require|alphaNum|min:3|max:10',
+        'captcha'=>'alphaNum|min:3|max:10',
     ];
 
     /**

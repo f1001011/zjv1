@@ -46,24 +46,28 @@ function isActive(item: typeof navItems[0]) {
 <style scoped>
 .bottom-nav {
   position: fixed;
-  bottom: 0; left: 0; right: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   display: flex;
   justify-content: center;
-  align-items: stretch;
-  height: 64px;
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-  background: var(--nav-bg);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  align-items: flex-end;
+  pointer-events: none;
 }
 
 .nav-inner {
   width: 100%;
   max-width: 460px;
+  height: 64px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   display: flex;
   align-items: center;
+  background: var(--nav-bg);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
   border-top: 1px solid rgba(255, 255, 255, 0.07);
+  pointer-events: auto;
 }
 
 .nav-item {

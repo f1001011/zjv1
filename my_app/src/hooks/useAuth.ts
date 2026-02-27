@@ -1,5 +1,6 @@
 import { useRouter } from 'vue-router'
-import { loginByPhone as loginApi, register as registerApi } from '../api/auth'
+import { loginByPhone as loginApi, register as registerApi, fetchUserInfo } from '../api/auth'
+import { setUserBalance, clearUserBalance } from '@/stores/user'
 
 export function useAuth() {
   const router = useRouter()
@@ -7,7 +8,13 @@ export function useAuth() {
   const login = async (phone: string, password: string) => {
     const res = await loginApi({ phone, pwd: password })
     const token = (res as any).token
-    if (token) localStorage.setItem('token', token)
+    if (token) {
+      localStorage.setItem('token', token)
+      try {
+        const info = await fetchUserInfo()
+        setUserBalance(Number(info.money) || 0)
+      } catch { /* silent */ }
+    }
     router.push({ name: 'Home' })
     return res
   }
@@ -19,6 +26,7 @@ export function useAuth() {
   }
 
   const logout = () => {
+    clearUserBalance()
     localStorage.removeItem('token')
     router.push({ name: 'Login' })
   }

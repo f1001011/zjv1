@@ -64,4 +64,8 @@ return array(
     10054 => 'Missing avatar info',
     10055 => 'Avatar update failed',
     10056 => 'Minimum withdrawal amount is %s',
+
+    // Goods v2 controller related
+    10057 => 'Invalid goods ID',
+    10058 => 'Goods not found',
 );

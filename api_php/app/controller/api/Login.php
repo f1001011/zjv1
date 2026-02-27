@@ -54,18 +54,18 @@ class Login extends Base
         //1 判断 密码是否一样
         $UserInfo = UserModel::where('phone', $post['phone'])->find();
         if (empty($UserInfo)) {
-            return show(0, [], lang(10000));
+            return show(0, [], language(10000));
         }
 
         if (md5($post['pwd']) !== $UserInfo->getData('pwd')) {
-            return show(0, [], lang(10001));
+            return show(0, [], language(10001));
         }
 
         if ($UserInfo->status != 1) {
-            return show(0, [], lang(10002));
+            return show(0, [], language(10002));
         }
         if ($UserInfo->is_real_name == 3) {
-           // return show(0, [], lang(10003));
+           // return show(0, [], language(10003));
         }
 
         //成功了之后返回用户信息
@@ -110,36 +110,36 @@ class Login extends Base
         }
 
         if ($post['pwd'] !== $post['upwd']) {
-            return show(0, [], lang(10004));
+            return show(0, [], language(10004));
         }
 
 
         // 万能验证码验证失败
-        if(is_code_off()){
-            if (mb_strlen($post['captcha']) != 6 || !$this->captcha($post['captcha'])) {
-                return show(0, [cache('captcha.key')], lang(10005));
-            }
-        }
+//        if(is_code_off()){
+//            if (mb_strlen($post['captcha']) != 6 || !$this->captcha($post['captcha'])) {
+//                return show(0, [cache('captcha.key')], language(10005));
+//            }
+//        }
 
         //验证成功后查询 代理商是否正确
         $AgentInfo = UserModel::where('id', $post['agent_id'])->find();
         if (empty($AgentInfo)) {
-            return show(0, [], lang(10006));
+            return show(0, [], language(10006));
         }
 
         //查询用户身份证，手机，名称，是否正确
         if (!empty(UserModel::where('phone', $post['phone'])->find())) {
-            return show(0, [], lang(10007));
+            return show(0, [], language(10007));
         }
 
 //        if(!$this->isIdCard($post['sfz'])){
-//            return show(0, [], lang(10008));
+//            return show(0, [], language(10008));
 //        }
 //        if (!empty(Db::name('is_sfz')->where('sfzcode',$post['sfz'])->find())) {
-//            return show(0, [], lang(10009));
+//            return show(0, [], language(10009));
 //        }
 //        if (!empty(UserModel::where('sfz', $post['sfz'])->find())) {
-//            return show(0, [], lang(10009));
+//            return show(0, [], language(10009));
 //        }
 
         //写入数据库数据
@@ -147,7 +147,7 @@ class Login extends Base
             'phone' => $post['phone'],
             'pwd' => md5($post['pwd']),
             'user_name' => $post['user_name'],
-            'sfz' => $post['sfz'],
+//            'sfz' => $post['sfz'],
             'agent_id' => $post['agent_id'],
             'head_img'=>'/static/touxiang/'.rand(1,16).'.jpg',
             'agent_id_1' => $post['agent_id'],
@@ -168,13 +168,13 @@ class Login extends Base
         //注册获取奖励
 
         $GetId = UserModel::inserts($data);
-        Db::name('is_sfz')->insert([
-            'sfzcode'=>$post['sfz']
-        ]);
-        if ($GetId) {
-            return show(1, [], 'ok');
-        }
-        return show(0, [], 'no');
+//        Db::name('is_sfz')->insert([
+//            'sfzcode'=>$post['sfz']
+//        ]);
+//        if ($GetId) {
+//            return show(1, [], 'ok');
+//        }
+        return show(1, [], 'ok');
     }
 
     public function forget()
@@ -193,13 +193,13 @@ class Login extends Base
 
         // 验证失败
         if (!$this->captcha($post['captcha'])) {
-            return show(0, [cache('captcha.key')], lang(10005));
+            return show(0, [cache('captcha.key')], language(10005));
         }
 
 
         $UserInfo = UserModel::where('phone', $post['phone'])->where('sfz', $post['sfz'])->find();
         if (empty($UserInfo)) {
-            show(0, [], lang(10000));
+            show(0, [], language(10000));
         }
         UserModel::where('id', $UserInfo['id'])->update(['pwd' => md5($post['pwd'])]);
         return show(1);

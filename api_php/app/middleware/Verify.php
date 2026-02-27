@@ -34,7 +34,7 @@ class Verify
             cache('order_repeat_'.$request->UserInfo['id'],time(),5);
             return $next($request);
         }else{
-            return response(show(0, [], lang(10016)));
+            return response(show(0, [], language(10016)));
         }
         return $next($request);
     }

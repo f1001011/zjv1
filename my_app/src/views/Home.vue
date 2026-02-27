@@ -133,8 +133,10 @@ import {
   Wifi, Signal, CreditCard, Music,
   Sword, Gem, ShoppingCart, Car,
 } from 'lucide-vue-next'
-import { fetchCategories, fetchProducts, fetchHomeBalance } from '@/api/product'
-import type { CategoryItem, ProductItem } from '@/types/product'
+import { fetchGoodsTypes, fetchGoodsList } from '@/api/product'
+import type { GoodsType, GoodsItem } from '@/types/product'
+import { fetchUserInfo } from '@/api/auth'
+import { userBalance, setUserBalance } from '@/stores/user'
 
 const router = useRouter()
 const { t, locale } = useI18n()
@@ -171,83 +173,96 @@ const COLOR_MAP: Record<string, string> = {
 const currentSlide = ref(0)
 let autoTimer: ReturnType<typeof setInterval> | null = null
 
-const banners = [
-  { id:1, tag:'限时优惠', title:'充值立享 8 折', sub:'银行卡 / 支付宝 / 微信 均可',
+const banners = computed(() => [
+  { id:1, tag:t('home.banner1.tag'), title:t('home.banner1.title'), sub:t('home.banner1.sub'),
     gradient:'linear-gradient(135deg,#ff4d4d,#ff1744)',
     glow:'radial-gradient(circle at 30% 50%,rgba(255,255,255,0.18),transparent 60%)',
     icon: Zap },
-  { id:2, tag:'新用户专享', title:'首充赠送 50 元', sub:'注册即送，充值立到账',
+  { id:2, tag:t('home.banner2.tag'), title:t('home.banner2.title'), sub:t('home.banner2.sub'),
     gradient:'linear-gradient(135deg,#00e5ff,#00b0ff)',
     glow:'radial-gradient(circle at 30% 50%,rgba(255,255,255,0.18),transparent 60%)',
     icon: Gift },
-  { id:3, tag:'限时秒杀', title:'低至 1 折起', sub:'每日 10:00 准时开抢',
+  { id:3, tag:t('home.banner3.tag'), title:t('home.banner3.title'), sub:t('home.banner3.sub'),
     gradient:'linear-gradient(135deg,#ffb800,#ff6d00)',
     glow:'radial-gradient(circle at 30% 50%,rgba(255,255,255,0.18),transparent 60%)',
     icon: Flame },
-  { id:4, tag:'VIP 专属', title:'会员特权礼包', sub:'专属折扣 · 优先客服 · 专属礼包',
+  { id:4, tag:t('home.banner4.tag'), title:t('home.banner4.title'), sub:t('home.banner4.sub'),
     gradient:'linear-gradient(135deg,#69ff47,#00e676)',
     glow:'radial-gradient(circle at 30% 50%,rgba(255,255,255,0.18),transparent 60%)',
     icon: Crown },
-]
+])
 
 const goTo       = (i: number) => { currentSlide.value = i }
-const next       = () => { currentSlide.value = (currentSlide.value + 1) % banners.length }
+const next       = () => { currentSlide.value = (currentSlide.value + 1) % banners.value.length }
 const startAuto  = () => { autoTimer = setInterval(next, 2000) }
 const pauseAuto  = () => { if (autoTimer) { clearInterval(autoTimer); autoTimer = null } }
 const resumeAuto = () => { if (!autoTimer) startAuto() }
 
 // ── Balance ───────────────────────────────────────────────────────────────────
-const homeBalance = ref(0)
 const balanceDisplay = computed(() =>
-  homeBalance.value.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  userBalance.value.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 )
 
 async function loadHomeBalance() {
+  const token = localStorage.getItem('token')
+  if (!token) return
   try {
-    const data = await fetchHomeBalance()
-    homeBalance.value = data.totalAssets
+    const info = await fetchUserInfo()
+    setUserBalance(Number(info.money_balance) || 0)
   } catch { /* silent */ }
 }
 
 // ── Categories ────────────────────────────────────────────────────────────────
-const activeCategory  = ref('all')
-const categoriesRaw   = ref<CategoryItem[]>([])
+const activeCategory  = ref(0)
+const categoriesRaw   = ref<GoodsType[]>([])
 
-const displayCategories = computed(() =>
-  categoriesRaw.value.map(cat => ({
-    ...cat,
-    icon:  ICON_MAP[cat.iconKey]  ?? LayoutGrid,
-    color: COLOR_MAP[cat.colorKey] ?? '#ff4d4d',
+const VISUAL_LIST = Object.values(CATEGORY_VISUAL)
+const ICON_LIST   = Object.values(ICON_MAP)
+const COLOR_LIST  = Object.values(COLOR_MAP)
+
+const displayCategories = computed(() => [
+  { key: 0, labelZh: t('home.allCategory'), labelEn: t('home.allCategory'), icon: LayoutGrid, color: '#ff4d4d' },
+  ...categoriesRaw.value.map((cat, i) => ({
+    key:     cat.id,
+    labelZh: cat.type_name,
+    labelEn: cat.type_name,
+    icon:    ICON_LIST[i % ICON_LIST.length] ?? LayoutGrid,
+    color:   COLOR_LIST[i % COLOR_LIST.length] ?? '#ff4d4d',
   }))
-)
+])
 
-function catLabel(cat: CategoryItem & { icon: Component; color: string }) {
+function catLabel(cat: { labelZh: string; labelEn: string }) {
   return locale.value === 'zh' ? cat.labelZh : cat.labelEn
 }
 
 async function loadCategories() {
   try {
-    categoriesRaw.value = await fetchCategories()
+    categoriesRaw.value = await fetchGoodsTypes()
   } catch { /* silent */ }
 }
 
 // ── Products ──────────────────────────────────────────────────────────────────
-const productList = ref<ProductItem[]>([])
+const productList = ref<GoodsItem[]>([])
 const page        = ref(1)
 const hasMore     = ref(true)
 const isLoading   = ref(false)
 const PAGE_SIZE   = 10
 
 const displayProducts = computed(() =>
-  productList.value.map(p => {
-    const visual = CATEGORY_VISUAL[p.category] ?? CATEGORY_VISUAL['data']
+  productList.value.map((p, i) => {
+    const visual = VISUAL_LIST[i % VISUAL_LIST.length]
     return {
-      ...p,
-      icon:       ICON_MAP[p.iconKey] ?? Wifi,
+      id:         p.id,
+      name:       p.goods_name,
+      price:      p.goods_money,
+      maxPurchase: p.buy_num,
+      imageUrl:   p.head_img ?? undefined,
+      tag:        p.is_examine === 1 ? '新手' : '',
+      icon:       Wifi,
       gradient:   visual.gradient,
       glow:       visual.glow,
       priceColor: visual.priceColor,
-      tagColor:   TAG_COLOR[p.tag] ?? '',
+      tagColor:   p.is_examine === 1 ? (TAG_COLOR['推荐'] ?? '') : '',
     }
   })
 )
@@ -262,13 +277,9 @@ async function loadProducts(reset = false) {
     hasMore.value = true
   }
   try {
-    const result = await fetchProducts({
-      category: activeCategory.value,
-      page:     page.value,
-      pageSize: PAGE_SIZE,
-    })
-    productList.value = reset ? result.list : [...productList.value, ...result.list]
-    hasMore.value = result.hasMore
+    const result = await fetchGoodsList(activeCategory.value, page.value, PAGE_SIZE)
+    productList.value = reset ? result.data : [...productList.value, ...result.data]
+    hasMore.value = result.current_page < result.last_page
     page.value++
   } catch {
     hasMore.value = false

@@ -102,7 +102,7 @@ async function handleLogin() {
     await login(phone.value, password.value)
     showPopup(t('loginSuccess'), 'loginSuccess')
   } catch {
-    showPopup(t('loginFailed'), 'loginFailed')
+    // 错误信息由 request 拦截器统一弹出
   } finally {
     loading.value = false
   }

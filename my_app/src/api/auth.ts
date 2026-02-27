@@ -3,6 +3,9 @@ import request from './request'
 export const loginByPhone = (data: { phone: string; pwd: string }) =>
   request.post('/login', data)
 
+export const fetchUserInfo = (): Promise<{ money: number; [key: string]: any }> =>
+  request.get('/user')
+
 // ── 图形验证码（本地 mock，注册时前端自绘）────────────────────────────────────
 const CAPTCHA_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
 export const fetchCaptcha = (): Promise<{ captchaId: string; code: string }> =>

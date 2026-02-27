@@ -131,19 +131,20 @@ const agentErr = ref('')
 const captchaCanvas = ref<HTMLCanvasElement | null>(null)
 const captchaId     = ref('')
 const captchaCode   = ref('')   // 仅 mock 阶段使用，真实接口不会暴露
-const canvasW = 120
+const canvasW = 110
 const canvasH = 52
 
 const CHAR_COLORS = ['#ff4d4d', '#00e5ff', '#ffb800', '#69ff47', '#ff8080', '#80f0ff', '#ffd060']
 
 function drawCaptcha(canvas: HTMLCanvasElement, code: string) {
   const dpr = window.devicePixelRatio || 1
-  const W = canvas.offsetWidth  || canvasW
-  const H = canvas.offsetHeight || canvasH
+  const W = canvasW
+  const H = canvasH
 
-  // 按 DPR 设置绘制缓冲区，避免高分屏模糊/裁剪
   canvas.width  = W * dpr
   canvas.height = H * dpr
+  canvas.style.width  = W + 'px'
+  canvas.style.height = H + 'px'
 
   const ctx = canvas.getContext('2d')!
   ctx.scale(dpr, dpr)
@@ -227,7 +228,6 @@ async function handleRegister() {
     await register(phone.value, code.value, password.value, agentId.value)
     showPopup(t('auth.registerSuccess'), 'success')
   } catch {
-    showPopup(t('auth.registerFailed'), 'loginFailed')
     loadCaptcha()   // 失败后刷新验证码
   } finally {
     loading.value = false
@@ -335,11 +335,11 @@ async function handleRegister() {
   display:flex; gap:10px; align-items:stretch; margin-bottom:6px;
 }
 .captcha-input-wrap {
-  flex:1; margin-bottom:0;
+  flex:1; min-width:0; margin-bottom:0;
 }
 .captcha-img-wrap {
-  flex-shrink:0; position:relative;
-  width:120px; height:52px; border-radius:14px; overflow:hidden;
+  flex:0 0 110px; position:relative;
+  width:110px; height:52px; border-radius:14px; overflow:hidden;
   border:1px solid rgba(255,255,255,0.1);
   cursor:pointer;
   transition:border-color 0.2s, transform 0.15s;
@@ -350,7 +350,7 @@ async function handleRegister() {
 }
 .captcha-img-wrap:hover .captcha-refresh-hint { opacity:1; }
 .captcha-canvas {
-  display:block; width:100%; height:100%;
+  display:block;
 }
 .captcha-refresh-hint {
   position:absolute; inset:0;

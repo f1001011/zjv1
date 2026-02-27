@@ -96,7 +96,7 @@ watch(
   () => props.modelValue,
   (val) => {
     clearTimer()
-    if (val && !props.showClose) {
+    if (val && props.autoCloseDuration > 0) {
       timer = setTimeout(close, props.autoCloseDuration)
     }
   },
@@ -115,30 +115,34 @@ const boxStyle = computed(() => ({
 </script>
 
 <style scoped>
-/* ── 遮罩层 ── */
+/* ── 遮罩层：约束在 app 460px 内，无蒙层背景 ── */
 .popup-overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 460px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.52);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
 }
 
 /* ── 弹窗主体 ── */
 .popup-box {
   position: relative;
+  box-sizing: border-box;
   padding: 40px 36px 36px;
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.07),
     0 24px 64px rgba(0, 0, 0, 0.55),
     0 0 60px rgba(99, 102, 241, 0.12);
-  overflow: hidden;
-  max-width: 92vw;
+  width: calc(100% - 40px);
   max-height: 88vh;
   overflow-y: auto;
+  pointer-events: auto;
 }
 
 /* 磨砂光晕伪元素 */

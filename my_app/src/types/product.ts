@@ -20,7 +20,7 @@ export interface GoodsItem {
   sort: number
   buy_num: number           // 0无限次
   level_vip: number
-  progress_rate: number     // 投资进度 %
+  progress_rate: number     // 已投金额（非百分比）
 }
 
 // ── 前端 Mock 兼容类型（Home.vue 等仍在使用）──────────────────────────────────
