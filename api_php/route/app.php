@@ -80,6 +80,9 @@ Route::group('api', function(){
     Route::post('user/head_edit','/api.User/headEdit');//修改用户头像
 
     Route::get('v2/goods/one',       '/v2.Goods/goodsOne');  // 商品详情
+
+    Route::get('v2/vip/info',        '/v2.Vip/info');        // VIP 信息
+    Route::get('v2/vip/log',         '/v2.Vip/log');         // VIP 经验记录
 })->middleware(\app\middleware\Auth::class,think\middleware\AllowCrossDomain::class);
 
 //不需要权限验证
