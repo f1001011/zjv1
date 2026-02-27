@@ -2,7 +2,7 @@
   <div class="worktab">
     <vue-scroll :ops="ops" ref="scroll">
       <ul class="tabs" ref="tabs">
-        <li v-for="(i, index) in worktabs" :key="i.path" 
+        <li v-for="(i, index) in worktabs" :key="i.path"
           :ref="i.path"
           :class="{'activ-tab' : i.path === activeTab}"
           @click="clickWorktab(i.path)"

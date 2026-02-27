@@ -47,7 +47,7 @@
 
 /**
 * css3动画
-* 
+*
 */
 @mixin animation($from:(width: 0px), $to:(width: 100px), $name:mymove, $animate: mymove 2s 1 linear infinite) {
   -webkit-animation: $animate;

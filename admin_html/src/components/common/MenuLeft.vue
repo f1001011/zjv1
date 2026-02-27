@@ -100,13 +100,13 @@
         getMenuListApi().then(res=>{
           if(res.code == 1){
             this.menuList = res.data.data
-            
+
             return;
           }
           this.$router.push('/login')
         })
         this.menuList = []
-        
+
       },
       // 获取主题
       getTheme(theme) {

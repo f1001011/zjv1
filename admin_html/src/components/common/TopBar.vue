@@ -87,7 +87,7 @@
         setting: state => state.setting.setting,
       }),
       topWidth() {
-        return this.menuOpen ? `calc(100% - ${menuLeftOpenWidth})` : 
+        return this.menuOpen ? `calc(100% - ${menuLeftOpenWidth})` :
         `calc(100% - ${menuLeftShrinkWidth})`
       }
     },
@@ -189,7 +189,7 @@
         }else {
           this.showNoticeFunc(false)
         }
-        
+
         setTimeout(() => {
           this.showNotice = !this.showNotice
         }, 50)
@@ -367,7 +367,7 @@
           text-align: center;
           cursor: pointer;
           transition: background-color .3s;
-          
+
           i {
             font-size: 16px;
           }

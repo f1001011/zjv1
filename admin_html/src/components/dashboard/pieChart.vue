@@ -10,7 +10,7 @@
       <ve-pie :data="chartData" :settings="chartSettings" :extend="chartExtend"></ve-pie>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -44,10 +44,10 @@
       }
     },
     mounted() {
-      
+
     },
     methods: {
-      
+
     }
   };
 </script>

@@ -16,9 +16,9 @@
     </div>
 
     <!-- 个性化 -->
-    <personality 
-      :show="personalityOpen" 
-      @click="personalityShow" 
+    <personality
+      :show="personalityOpen"
+      @click="personalityShow"
       @closePersonality="closePersonality"
     />
   </div>

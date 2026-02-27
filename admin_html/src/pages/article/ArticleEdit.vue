@@ -24,20 +24,20 @@
         @ready="onEditorReady($event)"
       />
 
-      <el-upload 
-        class="upload-demo" 
-        action="" 
-        :before-upload='beforeUpload' 
-        :data="uploadData" 
+      <el-upload
+        class="upload-demo"
+        action=""
+        :before-upload='beforeUpload'
+        :data="uploadData"
         :headers="headers"
         :on-success='upScuccess'
-        ref="upload" 
+        ref="upload"
         style="display:none"
       >
-        <el-button 
-          type="primary" 
-          id="imgInput" 
-          v-loading.fullscreen.lock="fullscreenLoading" 
+        <el-button
+          type="primary"
+          id="imgInput"
+          v-loading.fullscreen.lock="fullscreenLoading"
           element-loading-text="插入中,请稍候"
         >
           点击上传
@@ -68,7 +68,7 @@
   import 'quill/dist/quill.snow.css'
   import 'quill/dist/quill.bubble.css'
   import '@/config/quill/quill.scss'
-  
+
   export default {
     components: {
       quillEditor
@@ -136,13 +136,13 @@
         quill.setSelection(cursorIndex+1)
       },
       onEditorBlur(quill) {
-        
+
       },
       onEditorFocus(quill) {
-        
+
       },
       onEditorReady(quill) {
-        
+
       },
       handleRemove(file, fileList) {
         // console.log(file, fileList);

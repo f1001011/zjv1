@@ -20,7 +20,7 @@
       </tao-table>
     </div>
   </div>
-   
+
 </template>
 <script>
   export default {
@@ -114,7 +114,7 @@
 <style lang="scss" scoped>
   .pro {
     flex: 1;
-    padding-bottom: 30px; 
+    padding-bottom: 30px;
 
     .table-box {
       padding: 0 8px;
@@ -130,7 +130,7 @@
     .pro {
       width: 100% !important;
       margin-top: 15px;
-      padding-bottom: 30px; 
+      padding-bottom: 30px;
     }
   }
 </style>

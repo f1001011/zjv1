@@ -6,7 +6,7 @@
         <span>流量趋势</span>
       </p>
     </div>
-    
+
     <div id="chart"></div>
   </div>
 </template>
@@ -30,7 +30,7 @@
             left: '0',
             right: '0',
             bottom: '22%',
-            containLabel: true 
+            containLabel: true
           }
         }
       }
@@ -40,7 +40,7 @@
         setting: state => state.setting.setting
       })
     },
-    watch: { 
+    watch: {
       'setting.themeModel': {
         handler(theme) {
           // this.getTheme(theme)
@@ -147,7 +147,7 @@
             },
             nameRotate: 270,  // 坐标轴名字旋转
             splitLine: {    // gird 区域中的分割线
-              show: false, 
+              show: false,
               lineStyle: {
                 color: '#eee',
                 width: 1,
@@ -155,7 +155,7 @@
               }
             },
             axisTick: {      // 坐标轴的刻度
-              show: false,  
+              show: false,
               length: 0,      // 长度
               lineStyle: {
                 color: 'red',  // 默认取轴线的颜色
@@ -164,7 +164,7 @@
               }
             },
             axisLabel: {      // 坐标轴的标签
-              show: true,  
+              show: true,
               inside: false,  // 是否朝内
               rotate: 0,     // 旋转角度
               margin: 8,     // 刻度标签与轴线之间的距离
@@ -214,7 +214,7 @@
                     ])
                   }
                 }
-              }, 
+              },
               areaStyle: {
                 normal: {
                   //颜色渐变函数 前四个参数分别表示四个位置依次为左、下、右、上
@@ -289,7 +289,7 @@
                     }
                   ])
                 }
-              }, 
+              },
               data: this.data.data[1]
             }
           ]

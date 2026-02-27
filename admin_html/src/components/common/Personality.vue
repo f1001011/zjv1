@@ -99,7 +99,7 @@
         setting: state => state.setting.setting
       })
     },
-    watch: { 
+    watch: {
       'setting.theme'(theme) {
         this.currentTheme = theme
       },
@@ -317,7 +317,7 @@
       display: flex;
       flex-wrap: wrap;
       margin-top: 25px;
-       
+
       .item {
         width: 65px;
         box-sizing: border-box;
@@ -371,7 +371,7 @@
       display: flex;
       flex-wrap: wrap;
       margin-top: 20px;
-       
+
       .item {
         width: 65px;
         margin-right: 15px;

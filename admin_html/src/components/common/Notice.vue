@@ -1,5 +1,5 @@
 <template>
-  <div class="notice" :style="{transform: show ? 'scaleY(1)' : 'scaleY(0.9)', opacity: show ? 1 : 0}" 
+  <div class="notice" :style="{transform: show ? 'scaleY(1)' : 'scaleY(0.9)', opacity: show ? 1 : 0}"
     @click.stop="" v-show="visible"
   >
     <ul class="bar">
@@ -236,7 +236,7 @@
     border-radius: 4px;
     overflow: hidden;
     transition: all .35s;
-    transform-origin: center top 0px; 
+    transform-origin: center top 0px;
     will-change: top, left;
 
     .bar {
@@ -248,7 +248,7 @@
       border-bottom: 1px solid #F0F0F0;
       padding: 0 20px;
       box-sizing: border-box;
-      
+
       li {
         height: 38px;
         flex: 1;
@@ -263,7 +263,7 @@
         &:last-of-type {
           margin-right: 0;
         }
-        
+
         &:hover {
           color: #2d8cf0;
         }
@@ -278,7 +278,7 @@
     .content {
       width: 100%;
       height: calc(100% - 80px);
-      
+
       .scroll {
         height: 100%;
 

@@ -79,7 +79,7 @@
       changeColumn(show, index) {
         let columns = this.columns
 
-        columns.map((item, i) => { 
+        columns.map((item, i) => {
           if(index === i) {
             item.show = show
           }

@@ -72,7 +72,7 @@ exports.cssLoaders = function (options) {
           resources: [
             resolveResource('veribles.scss'),
             resolveResource('mixin.scss')
-          ]  
+          ]
         }
       }
     ];
