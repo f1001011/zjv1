@@ -10,7 +10,7 @@
       <ve-pie :data="chartData" :settings="chartSettings" :extend="chartExtend"></ve-pie>
     </div>
   </div>
-  
+
 </template>
 
 <script>
@@ -44,10 +44,10 @@
       }
     },
     mounted() {
-      
+
     },
     methods: {
-      
+
     }
   };
 </script>
@@ -68,7 +68,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .pie {
       width: 100%;
       margin-top: 15px;

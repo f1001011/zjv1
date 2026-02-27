@@ -16,9 +16,9 @@
     </div>
 
     <!-- 个性化 -->
-    <personality 
-      :show="personalityOpen" 
-      @click="personalityShow" 
+    <personality
+      :show="personalityOpen"
+      @click="personalityShow"
       @closePersonality="closePersonality"
     />
   </div>
@@ -128,7 +128,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .frame {
       width: 100%;
       padding-left: 0 !important;

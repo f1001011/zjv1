@@ -79,7 +79,7 @@
       changeColumn(show, index) {
         let columns = this.columns
 
-        columns.map((item, i) => { 
+        columns.map((item, i) => {
           if(index === i) {
             item.show = show
           }
@@ -105,8 +105,8 @@
     }
   }
 
-  @media screen and (max-width: $device-phone){
-    /deep/ .el-form {
+  @media screen and (max-width: #{$device-phone}){
+    >>> .el-form {
       padding-bottom: 15px;
     }
   }

@@ -394,7 +394,7 @@ getOrderApi,
     }
   }
 
-  @media only screen and (max-width: $device-notebook)  {
+  @media only screen and (max-width: #{$device-notebook})  {
     .card {
       padding-top: 0 !important;
 
@@ -418,7 +418,7 @@ getOrderApi,
     }
   }
 
-  @media only screen and (max-width: $device-ipad) {
+  @media only screen and (max-width: #{$device-ipad}) {
     .card {
 
       ul {
@@ -438,7 +438,7 @@ getOrderApi,
     }
   }
 
-  @media only screen and (max-width: $device-phone) {
+  @media only screen and (max-width: #{$device-phone}) {
     .card {
 
       ul {

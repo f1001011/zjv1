@@ -20,7 +20,7 @@
       </tao-table>
     </div>
   </div>
-   
+
 </template>
 <script>
   export default {
@@ -114,7 +114,7 @@
 <style lang="scss" scoped>
   .pro {
     flex: 1;
-    padding-bottom: 30px; 
+    padding-bottom: 30px;
 
     .table-box {
       padding: 0 8px;
@@ -122,15 +122,15 @@
     }
   }
 
-  /deep/ .el-table .cell {
+  >>> .el-table .cell {
     font-size: 13px;
   }
 
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .pro {
       width: 100% !important;
       margin-top: 15px;
-      padding-bottom: 30px; 
+      padding-bottom: 30px;
     }
   }
 </style>

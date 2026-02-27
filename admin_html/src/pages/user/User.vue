@@ -28,7 +28,7 @@
     <div class="info">
       <h1 class="title">基本设置</h1>
 
-      <el-form :model="form" class="form" :rules="rules" ref="ruleForm" 
+      <el-form :model="form" class="form" :rules="rules" ref="ruleForm"
         label-width="86px"
         label-position="top"
       >
@@ -239,7 +239,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .page-content {
 
       .header {

@@ -243,7 +243,7 @@
         width: 100%;
         height: 100%;
     }
-    /deep/ .ql-container {
+    >>> .ql-container {
         height: 400px;
       }
 </style>

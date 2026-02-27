@@ -331,7 +331,7 @@
     background-color: rgb(145, 143, 143);
     /*滚动条的背景颜色*/
   }
- /deep/ .ql-container {
+ >>> .ql-container {
    height: 300px;
  }
  .box{}

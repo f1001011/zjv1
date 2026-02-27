@@ -88,7 +88,7 @@
       }
     }
 
-    /deep/ .el-form {
+    >>> .el-form {
       .el-form-item {
         max-width: 700px;
       }

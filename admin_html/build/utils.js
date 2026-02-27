@@ -62,7 +62,9 @@ exports.cssLoaders = function (options) {
   function generateSassResourceLoader() {
     var loaders = [
       cssLoader,
-      'sass-loader',
+      {
+        loader: 'sass-loader'
+      },
       {
         loader: 'sass-resources-loader',
         options: {
@@ -70,7 +72,7 @@ exports.cssLoaders = function (options) {
           resources: [
             resolveResource('veribles.scss'),
             resolveResource('mixin.scss')
-          ]  
+          ]
         }
       }
     ];

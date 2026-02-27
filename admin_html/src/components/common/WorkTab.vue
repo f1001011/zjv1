@@ -2,7 +2,7 @@
   <div class="worktab">
     <vue-scroll :ops="ops" ref="scroll">
       <ul class="tabs" ref="tabs">
-        <li v-for="(i, index) in worktabs" :key="i.path" 
+        <li v-for="(i, index) in worktabs" :key="i.path"
           :ref="i.path"
           :class="{'activ-tab' : i.path === activeTab}"
           @click="clickWorktab(i.path)"
@@ -313,7 +313,7 @@
     }
   }
 
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .worktab {
       padding: 6px 10px;
     }

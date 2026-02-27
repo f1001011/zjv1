@@ -88,7 +88,7 @@ export default {
     }, 10)
   },
   methods: {
-    
+
   }
 }
 </script>
@@ -98,7 +98,7 @@ export default {
     flex: 1;
     position: relative;
   }
-  
+
   .progress {
     width: 230px;
     height: 230px;
@@ -121,12 +121,12 @@ export default {
     stroke-dashoffset: 0px;
     transition: stroke-dasharray 0.7s ease-out 0s, stroke 0.7s ease-out 0s;
   }
-  
+
   .circle_track{
     stroke-dasharray: 255px, 295px;
     stroke-dashoffset: 0px;
   }
-  
+
   svg{
     overflow: initial;
     position: absolute;
@@ -147,17 +147,17 @@ export default {
     margin-top: -7px;
 
     i {
-      font-size: 20px; 
-      color: #409EFF; 
-      position: relative; 
+      font-size: 20px;
+      color: #409EFF;
+      position: relative;
       top: -30px;
-      background: #EAF4FF; 
+      background: #EAF4FF;
       padding: 10px;
       border-radius: 50%;
     }
 
     p {
-      color: #409EFF; 
+      color: #409EFF;
       font-size: 36px !important;
       padding: 0;
       margin: 0;
@@ -178,14 +178,14 @@ export default {
     margin: auto;
   }
 
-  @media only screen and (max-width: $device-ipad) { 
+  @media only screen and (max-width: #{$device-ipad}) {
     .card {
       width: 100%;
       margin-top: 15px;
     }
   }
 
-  @media only screen and (max-width: $device-phone) { 
+  @media only screen and (max-width: #{$device-phone}) {
     .card {
       width: 100%;
       margin-top: 15px;

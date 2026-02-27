@@ -6,10 +6,10 @@
         <span>访问量</span>
       </p>
     </div>
-    
+
     <div class="histogram">
-      <ve-histogram 
-        :data="chartData" 
+      <ve-histogram
+        :data="chartData"
         :extend="chartExtend"
       />
     </div>
@@ -23,7 +23,7 @@ export default {
     this.chartExtend = {
       // ---- legend ----
       legend: {
-        type: 'plain',  
+        type: 'plain',
         bottom: -1000,
         itemWidth: 10,  // 设置宽度
         itemHeight: 10, // 设置高度
@@ -162,8 +162,8 @@ export default {
       margin: auto;
     }
   }
-  
-  @media only screen and (max-width: $device-ipad) { 
+
+  @media only screen and (max-width: #{$device-ipad}) {
     .his {
       width: 100%;
       margin-right: 0px !important;

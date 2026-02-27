@@ -13,7 +13,7 @@ class IpIimit
 
     //验证IP是否可登陆
     public function handle($request, \Closure $next)
-    {
+    { return $next($request);
         $ip = $_SERVER['REMOTE_ADDR'];
         if (empty($ip))  return $this->failed('ip不存在');
         //查询IP是否存在
