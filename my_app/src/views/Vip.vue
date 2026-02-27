@@ -268,6 +268,7 @@ onUnmounted(() => { observer?.disconnect() })
   position: relative; z-index: 1;
   height: 100vh; overflow-y: auto;
   padding-bottom: 80px;
+  max-width: 460px; margin: 0 auto;
 }
 .vip-scroll::-webkit-scrollbar { display: none; }
 

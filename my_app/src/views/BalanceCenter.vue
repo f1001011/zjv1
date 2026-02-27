@@ -151,7 +151,7 @@ import { useI18n } from 'vue-i18n'
 import {
   ChevronLeft, ChevronRight, Settings, Wallet,
   TrendingUp, TrendingDown, Lock,
-  ArrowDownCircle, ArrowUpCircle, ArrowLeftRight, ClipboardList,
+  ArrowDownCircle, ArrowUpCircle, ClipboardList, LogOut,
   ShoppingCart, Car, Banknote, Coffee, PiggyBank
 } from 'lucide-vue-next'
 import ActionModal from '@/components/ActionModal.vue'
@@ -218,18 +218,6 @@ const actions = computed(() => [
     glowColor: 'radial-gradient(circle,rgba(0,229,255,0.8),transparent)',
   },
   {
-    key: 'transfer',
-    label:       t('balance.actions.transfer.label'),
-    subtitle:    t('balance.actions.transfer.subtitle'),
-    placeholder: t('balance.actions.transfer.placeholder'),
-    note:        t('balance.actions.transfer.note'),
-    icon: ArrowLeftRight,
-    c1: '#ffb800', c2: '#ff6d00',
-    glow: 'rgba(255,184,0,0.55)',
-    gradient: 'linear-gradient(135deg,#ffb800,#ff6d00)',
-    glowColor: 'radial-gradient(circle,rgba(255,184,0,0.8),transparent)',
-  },
-  {
     key: 'history',
     label:       t('balance.actions.history.label'),
     subtitle:    t('balance.actions.history.subtitle'),
@@ -240,6 +228,18 @@ const actions = computed(() => [
     glow: 'rgba(105,255,71,0.55)',
     gradient: 'linear-gradient(135deg,#69ff47,#00e676)',
     glowColor: 'radial-gradient(circle,rgba(105,255,71,0.8),transparent)',
+  },
+  {
+    key: 'logout',
+    label:       t('logout'),
+    subtitle:    '',
+    placeholder: '',
+    note:        '',
+    icon: LogOut,
+    c1: '#6b7280', c2: '#4b5563',
+    glow: 'rgba(107,114,128,0.45)',
+    gradient: 'linear-gradient(135deg,#6b7280,#4b5563)',
+    glowColor: 'radial-gradient(circle,rgba(107,114,128,0.6),transparent)',
   },
 ])
 
@@ -289,9 +289,18 @@ const transactions = computed(() => {
   })
 })
 
+// ── Logout ─────────────────────────────────────────────────────────────────
+const handleLogout = () => {
+  localStorage.removeItem('token')
+  router.push({ name: 'Login' })
+}
+
 // ── Modal ──────────────────────────────────────────────────────────────────
 const activeAction = ref<typeof actions.value[0] | null>(null)
-const openAction   = (a: typeof actions.value[0]) => { activeAction.value = a }
+const openAction   = (a: typeof actions.value[0]) => {
+  if (a.key === 'logout') { handleLogout(); return }
+  activeAction.value = a
+}
 const handleConfirm = () => { activeAction.value = null }
 </script>
 

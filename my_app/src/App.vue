@@ -23,6 +23,7 @@ html, body {
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+  background: #080c18;
 }
 .popup-msg {
   margin: 0;

@@ -4,6 +4,7 @@ namespace app\controller\v2;
 
 use app\controller\Base;
 use app\model\VipModel;
+use app\model\VipLogModel;
 
 class Vip extends Base
 {
@@ -44,13 +45,16 @@ class Vip extends Base
         ]);
     }
 
-    // GET /api/v2/vip/log  (暂无 user_id 字段，返回空列表)
+    // GET /api/v2/vip/log
     public function log()
     {
-        return show(1, [
-            'list'    => [],
-            'hasMore' => false,
-            'total'   => 0,
-        ]);
+        $page  = $this->request->get('page/d', 1);
+        $limit = $this->request->get('limit/d', 10);
+        if ($page  <= 0) $page  = 1;
+        if ($limit <= 0) $limit = 10;
+        if ($limit > 20) $limit = 20;
+
+        $result = VipLogModel::getUserLog(intval($this->UserInfo->id), $page, $limit);
+        return show(1, $result);
     }
 }

@@ -212,7 +212,7 @@ onMounted(() => loadCategories())
   70%     { transform:translate(-10px,10px) scale(0.97); }
 }
 
-.page-header { position: relative; z-index: 2; padding: 56px 20px 16px; }
+.page-header { position: relative; z-index: 2; padding: 56px 20px 16px; max-width: 460px; margin: 0 auto; }
 .page-title  { font-size: 22px; font-weight: 800; color: rgba(255,255,255,0.92); letter-spacing: -0.3px; }
 
 .cat-bar-wrap {
@@ -221,6 +221,7 @@ onMounted(() => loadCategories())
   backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255,255,255,0.06);
   padding: 0 16px;
+  max-width: 460px; margin: 0 auto;
 }
 .cat-bar { display: flex; gap: 6px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
 .cat-bar::-webkit-scrollbar { display: none; }
@@ -237,7 +238,7 @@ onMounted(() => loadCategories())
   box-shadow: 0 2px 12px rgba(255,77,77,0.4);
 }
 
-.list-body { position: relative; z-index: 1; padding: 16px 16px 0; display: flex; flex-direction: column; gap: 14px; }
+.list-body { position: relative; z-index: 1; padding: 16px 16px 0; display: flex; flex-direction: column; gap: 14px; max-width: 460px; margin: 0 auto; }
 
 .card-skeleton { display: flex; gap: 14px; padding: 16px; border-radius: 18px; }
 .sk-img { width: 80px; height: 80px; border-radius: 12px; flex-shrink: 0; background: rgba(255,255,255,0.06); animation: shimmer 1.4s infinite; }

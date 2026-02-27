@@ -196,7 +196,8 @@ onMounted(() => loadGoods())
 
 /* ── 导航栏 ── */
 .nav-bar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+  position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 20;
+  width: 100%; max-width: 460px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 48px 16px 12px;
   background: rgba(8,12,24,0.6);
@@ -215,8 +216,8 @@ onMounted(() => loadGoods())
 
 /* ── 封面图 ── */
 .hero-wrap {
-  position: relative; width: 100%; height: 260px;
-  margin-top: 96px; overflow: hidden;
+  position: relative; width: 100%; max-width: 460px; height: 260px;
+  margin-top: 96px; margin-left: auto; margin-right: auto; overflow: hidden;
   background: rgba(255,255,255,0.04);
 }
 .hero-img { width: 100%; height: 100%; object-fit: cover; }
@@ -237,7 +238,7 @@ onMounted(() => loadGoods())
 .badge-off { background: rgba(80,80,80,0.85); color: rgba(255,255,255,0.7); }
 
 /* ── 主内容 ── */
-.content-wrap { position: relative; z-index: 2; padding: 0 16px; margin-top: -20px; display: flex; flex-direction: column; gap: 14px; }
+.content-wrap { position: relative; z-index: 2; padding: 0 16px; margin-top: -20px; display: flex; flex-direction: column; gap: 14px; max-width: 460px; margin-left: auto; margin-right: auto; }
 
 .goods-name { font-size: 20px; font-weight: 800; color: rgba(255,255,255,0.95); letter-spacing: -0.3px; line-height: 1.3; }
 
@@ -290,9 +291,10 @@ onMounted(() => loadGoods())
 
 /* ── 底部购买栏 ── */
 .buy-bar {
-  position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 20;
+  width: 100%; max-width: 460px;
   padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-  background: rgba(8,12,24,0.85);
+  background: rgba(8,12,24,0.96);
   backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
   border-top: 1px solid rgba(255,255,255,0.06);
 }

@@ -64,8 +64,8 @@ function isActive(item: typeof navItems[0]) {
   display: flex;
   align-items: center;
   background: var(--nav-bg);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   pointer-events: auto;
 }
