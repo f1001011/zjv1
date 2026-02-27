@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import BalanceCenter from '../views/BalanceCenter.vue'
 import Products from '../views/Products.vue'
+import ProductDetail from '../views/ProductDetail.vue'
 import Vip from '../views/Vip.vue'
 import { setLocale } from '@/i18n'
 
@@ -17,8 +18,9 @@ const publicRoutes: Array<RouteRecordRaw> = [
 
 // ── 需要登录 ────────────────────────────────────────────────────────────────
 const authRoutes: Array<RouteRecordRaw> = [
-    { path: '/products', name: 'Products', component: Products, meta: { requiresAuth: true } },
-    { path: '/vip',      name: 'Vip',      component: Vip,      meta: { requiresAuth: true } },
+    { path: '/products',    name: 'Products',      component: Products,      meta: { requiresAuth: true } },
+    { path: '/products/:id', name: 'ProductDetail', component: ProductDetail, meta: { requiresAuth: true } },
+    { path: '/vip',         name: 'Vip',           component: Vip,           meta: { requiresAuth: true } },
 ]
 
 const routes: Array<RouteRecordRaw> = [...publicRoutes, ...authRoutes]

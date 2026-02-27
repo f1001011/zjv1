@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26)
  File Encoding         : 65001
 
- Date: 27/02/2026 16:42:47
+ Date: 27/02/2026 17:13:36
 */
 
 SET NAMES utf8mb4;
@@ -509,6 +509,57 @@ INSERT INTO `ntp_common_goods` VALUES (15, 1, '污水处理5', 10000.00, 10000.0
 INSERT INTO `ntp_common_goods` VALUES (16, 3, '新用户体验', 588.00, 1500.00, 128.00, 120, 0, 1, '平安银行', '2023-05-29 10:19:10', 'topic/20230611/222c7cd97fa234bd1413f1776da6e07e.png', '//topic/20230607/e73007ae97f7e08a46e755d08aaa2a0e.png', 1, 0, 1, 0, 10.00, 0.00, 0.00, 0.00, 0, 0);
 
 -- ----------------------------
+-- Table structure for ntp_common_goods_copy1
+-- ----------------------------
+DROP TABLE IF EXISTS `ntp_common_goods_copy1`;
+CREATE TABLE `ntp_common_goods_copy1`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `goods_type_id` int(12) NOT NULL COMMENT '商品分类',
+  `goods_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品名称',
+  `goods_money` decimal(20, 2) NOT NULL COMMENT '投注价格，最低价格，起投金额',
+  `project_scale` decimal(20, 2) NOT NULL DEFAULT 0.00 COMMENT '万元 项目规模',
+  `day_red` decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '每日分红 展示，实际分红以天数为准 每日收益',
+  `period` int(12) NOT NULL DEFAULT 0 COMMENT '投资周期  展示，实际周期以天数为准',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 下架，1 上架',
+  `red_way` int(12) NOT NULL DEFAULT 1 COMMENT '1 到期还本还息 ',
+  `warrant` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '担保公司',
+  `create_time` datetime NOT NULL,
+  `head_img` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '封面图，顶部图',
+  `bottom_img` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '详情下图',
+  `is_examine` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1 是新手体验产品',
+  `sort` int(12) NOT NULL DEFAULT 0 COMMENT '商品排序',
+  `is_coupon` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否可用优惠卷，0 不可用。1可用',
+  `del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 正常，1 删除',
+  `progress_rate` decimal(20, 2) NOT NULL DEFAULT 0.00 COMMENT '投资进度',
+  `goods_agent_1` decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '一级返佣',
+  `goods_agent_2` decimal(12, 2) NOT NULL DEFAULT 0.00,
+  `goods_agent_3` decimal(12, 2) NOT NULL DEFAULT 0.00,
+  `buy_num` int(11) NOT NULL DEFAULT 0 COMMENT '0无限次 可以购买次数',
+  `level_vip` int(11) NOT NULL DEFAULT 0 COMMENT '可购买等级  0 随便购买',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '项目表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ntp_common_goods_copy1
+-- ----------------------------
+INSERT INTO `ntp_common_goods_copy1` VALUES (1, 5, '清洁能源', 1000.00, 13860.00, 220.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '///////topic/20230531/ded24f9fbabfee4c40e4a83c9f84e927.jpg', '///topic/20230607/d2816f88ee2a4652ff2e648a7df77b8f.png', 0, 0, 1, 0, 1000.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (2, 3, '新手体验', 1000.00, 1000.00, 220.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/b049dfd7ae0cd7ec67609d36dd174798.jpg', '/topic/1000.png', 1, 0, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (3, 5, '清洁能源', 3000.00, 36650.00, 650.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '////topic/20230531/7e6734d3db3063bf17cfa8b5988cb14b.jpg', '///topic/20230603/8fa9a62e7f882e3184c93ecec6aa98dd.png', 0, 0, 1, 0, 1500.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (4, 5, '清洁能源', 5000.00, 54280.00, 1280.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '//topic/20230531/21dc50e47a5a69107c9b064a4ce64944.jpg', '/topic/20230603/9ae8aa8774b173e612d6b430d5d85a1b.png', 0, 0, 1, 0, 2000.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (5, 5, '清洁能源', 8000.00, 118000.00, 2040.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '//topic/20230531/d9befcadf877f395519ccd57bb88651a.jpg', '/topic/20230603/28dc545af2216cf0a6719f6c6567dff7.png', 0, 0, 1, 0, 3000.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (6, 5, '清洁能源', 10000.00, 158600.00, 2560.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '///topic/20230531/1fecfa7798ae6e440e9c5653df243c5e.jpg', '/topic/20230606/c481aeca24a794ce2efb3572866dd0fc.png', 0, 0, 1, 0, 4000.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (7, 3, '新手体验', 3000.00, 2000.00, 650.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/b49f2774740eef9d244a104d29b4e07a.jpg', '/topic/3000.png', 1, 0, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (8, 3, '新手体验', 5000.00, 3000.00, 1280.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/316dc75dc562b981510f973959c65ea9.jpg', '/topic/5000.png', 1, 0, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (9, 3, '新手体验', 8000.00, 5000.00, 2040.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/d5421f5c06fb1455c14579f9fd1eec8f.jpg', '/topic/8000.png', 1, 0, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (10, 3, '新手体验', 10000.00, 10000.00, 2560.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/e6723aceb63ac83e5c032f526f6e4181.jpg', '/topic/10000.png', 1, 0, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (11, 1, '污水处理1', 1000.00, 1000.00, 100.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:27:02', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/f99f9acd701c2327140483595b6ab640.png', 1, 5, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (12, 1, '污水处理2', 3000.00, 3000.00, 300.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:28:46', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/39338b5d894d13d44189892111eaed91.png', 1, 4, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (13, 1, '污水处理3', 5000.00, 5000.00, 500.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:29:27', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/b07b74742501567092be0e4345de0b11.png', 1, 3, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (14, 1, '污水处理4', 8000.00, 8000.00, 800.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:30:13', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/18c1f06da63714eed48003326a1cd39b.png', 1, 2, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (15, 1, '污水处理5', 10000.00, 10000.00, 1000.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:31:17', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/4bd3f77772802b666e7848083480f5dc.png', 1, 1, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods_copy1` VALUES (16, 3, '新用户体验', 588.00, 1500.00, 128.00, 120, 0, 1, '平安银行', '2023-05-29 10:19:10', 'topic/20230611/222c7cd97fa234bd1413f1776da6e07e.png', '//topic/20230607/e73007ae97f7e08a46e755d08aaa2a0e.png', 1, 0, 1, 0, 10.00, 0.00, 0.00, 0.00, 0, 0);
+
+-- ----------------------------
 -- Table structure for ntp_common_goods_coupon
 -- ----------------------------
 DROP TABLE IF EXISTS `ntp_common_goods_coupon`;
@@ -930,6 +981,8 @@ CREATE TABLE `ntp_common_user`  (
   `agent_id_2` int(12) NOT NULL DEFAULT 0 COMMENT '2级',
   `agent_id_3` int(12) NOT NULL DEFAULT 0,
   `agent_id` int(12) NOT NULL DEFAULT 0 COMMENT '上级代理，防止以后用到无限级',
+  `level_vip` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'vip等级',
+  `current_experience` int(11) NOT NULL DEFAULT 0 COMMENT '当前经验(已经获得的经验)',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sel`(`user_name`, `phone`, `agent_id_1`, `agent_id_2`, `agent_id_3`, `agent_id`) USING BTREE,
   INDEX `agent_id`(`agent_id`) USING BTREE,
@@ -976,6 +1029,41 @@ CREATE TABLE `ntp_common_user_welfare_log`  (
 
 -- ----------------------------
 -- Records of ntp_common_user_welfare_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ntp_common_vip
+-- ----------------------------
+DROP TABLE IF EXISTS `ntp_common_vip`;
+CREATE TABLE `ntp_common_vip`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `experience` int(11) NOT NULL DEFAULT 0 COMMENT '需要经验',
+  `vip` int(11) NOT NULL DEFAULT 0 COMMENT 'vip等级',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Fixed;
+
+-- ----------------------------
+-- Records of ntp_common_vip
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ntp_common_vip_log
+-- ----------------------------
+DROP TABLE IF EXISTS `ntp_common_vip_log`;
+CREATE TABLE `ntp_common_vip_log`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `start_exp` int(11) NOT NULL DEFAULT 0 COMMENT '开始经验',
+  `end_exp` int(11) NOT NULL DEFAULT 0 COMMENT '结束经验',
+  `start_level` int(11) NOT NULL DEFAULT 0 COMMENT '开始等级',
+  `end_level` int(11) NOT NULL DEFAULT 0 COMMENT '结束等级',
+  `create_time` datetime NOT NULL,
+  `update_time` datetime NOT NULL,
+  `remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ntp_common_vip_log
 -- ----------------------------
 
 -- ----------------------------

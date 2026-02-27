@@ -254,6 +254,13 @@ export const allowRouters = [
         }
       },
       {
+        path: 'viplist',
+        component: () => import('@/pages/content/VipList'),
+        meta: {
+          title: 'VIP等级管理'
+        }
+      },
+      {
         path: 'productClass',
         component: () => import('@/pages/content/ProductClass'),
         meta: {

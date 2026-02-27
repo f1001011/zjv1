@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26)
  File Encoding         : 65001
 
- Date: 27/02/2026 16:42:59
+ Date: 27/02/2026 17:13:48
 */
 
 SET NAMES utf8mb4;
@@ -212,6 +212,37 @@ CREATE TABLE `ntp_common_article_type`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `ntp_common_goods`;
 CREATE TABLE `ntp_common_goods`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `goods_type_id` int(12) NOT NULL COMMENT '商品分类',
+  `goods_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品名称',
+  `goods_money` decimal(20, 2) NOT NULL COMMENT '投注价格，最低价格，起投金额',
+  `project_scale` decimal(20, 2) NOT NULL DEFAULT 0.00 COMMENT '万元 项目规模',
+  `day_red` decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '每日分红 展示，实际分红以天数为准 每日收益',
+  `period` int(12) NOT NULL DEFAULT 0 COMMENT '投资周期  展示，实际周期以天数为准',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 下架，1 上架',
+  `red_way` int(12) NOT NULL DEFAULT 1 COMMENT '1 到期还本还息 ',
+  `warrant` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '担保公司',
+  `create_time` datetime NOT NULL,
+  `head_img` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '封面图，顶部图',
+  `bottom_img` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '详情下图',
+  `is_examine` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1 是新手体验产品',
+  `sort` int(12) NOT NULL DEFAULT 0 COMMENT '商品排序',
+  `is_coupon` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否可用优惠卷，0 不可用。1可用',
+  `del` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0 正常，1 删除',
+  `progress_rate` decimal(20, 2) NOT NULL DEFAULT 0.00 COMMENT '投资进度',
+  `goods_agent_1` decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '一级返佣',
+  `goods_agent_2` decimal(12, 2) NOT NULL DEFAULT 0.00,
+  `goods_agent_3` decimal(12, 2) NOT NULL DEFAULT 0.00,
+  `buy_num` int(11) NOT NULL DEFAULT 0 COMMENT '0无限次 可以购买次数',
+  `level_vip` int(11) NOT NULL DEFAULT 0 COMMENT '可购买等级  0 随便购买',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '项目表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for ntp_common_goods_copy1
+-- ----------------------------
+DROP TABLE IF EXISTS `ntp_common_goods_copy1`;
+CREATE TABLE `ntp_common_goods_copy1`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `goods_type_id` int(12) NOT NULL COMMENT '商品分类',
   `goods_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品名称',
@@ -550,6 +581,8 @@ CREATE TABLE `ntp_common_user`  (
   `agent_id_2` int(12) NOT NULL DEFAULT 0 COMMENT '2级',
   `agent_id_3` int(12) NOT NULL DEFAULT 0,
   `agent_id` int(12) NOT NULL DEFAULT 0 COMMENT '上级代理，防止以后用到无限级',
+  `level_vip` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'vip等级',
+  `current_experience` int(11) NOT NULL DEFAULT 0 COMMENT '当前经验(已经获得的经验)',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sel`(`user_name`, `phone`, `agent_id_1`, `agent_id_2`, `agent_id_3`, `agent_id`) USING BTREE,
   INDEX `agent_id`(`agent_id`) USING BTREE,
@@ -585,6 +618,33 @@ CREATE TABLE `ntp_common_user_welfare_log`  (
   INDEX `uid`(`uid`) USING BTREE,
   INDEX `wid`(`wid`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '公益捐款记录表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for ntp_common_vip
+-- ----------------------------
+DROP TABLE IF EXISTS `ntp_common_vip`;
+CREATE TABLE `ntp_common_vip`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `experience` int(11) NOT NULL DEFAULT 0 COMMENT '需要经验',
+  `vip` int(11) NOT NULL DEFAULT 0 COMMENT 'vip等级',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Fixed;
+
+-- ----------------------------
+-- Table structure for ntp_common_vip_log
+-- ----------------------------
+DROP TABLE IF EXISTS `ntp_common_vip_log`;
+CREATE TABLE `ntp_common_vip_log`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `start_exp` int(11) NOT NULL DEFAULT 0 COMMENT '开始经验',
+  `end_exp` int(11) NOT NULL DEFAULT 0 COMMENT '结束经验',
+  `start_level` int(11) NOT NULL DEFAULT 0 COMMENT '开始等级',
+  `end_level` int(11) NOT NULL DEFAULT 0 COMMENT '结束等级',
+  `create_time` datetime NOT NULL,
+  `update_time` datetime NOT NULL,
+  `remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ntp_common_wares

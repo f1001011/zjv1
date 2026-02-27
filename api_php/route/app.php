@@ -101,3 +101,10 @@ Route::group('/api', function(){
 })->middleware(think\middleware\AllowCrossDomain::class);
 
 Route::get('/v','/api.Login/version');//版本 解决前端兼容问题
+
+// v2 商品接口（需要权限验证）
+Route::group('v2', function(){
+    Route::get('goods/type_list', '/v2.Goods/typeList');  // 商品分类
+    Route::get('goods/list',      '/v2.Goods/goodsList'); // 商品列表
+    Route::get('goods/one',       '/v2.Goods/goodsOne');  // 商品详情
+})->middleware([\app\middleware\Auth::class, \think\middleware\AllowCrossDomain::class]);

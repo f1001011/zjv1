@@ -1,25 +1,48 @@
-// ── 分类 ──────────────────────────────────────────────────────────────────────
-export interface CategoryItem {
-  key: string       // 'all' | 'data' | 'phone' | 'member' | 'game' | 'life'
-  labelZh: string
-  labelEn: string
-  iconKey: string   // 前端据此映射 lucide 图标
-  colorKey: string  // 'red' | 'cyan' | 'amber' | 'green'
+// ── 后端真实类型 ───────────────────────────────────────────────────────────────
+export interface GoodsType {
+  id: number
+  type_name: string
+  status: number
+  sort: number
 }
 
-// ── 商品 ──────────────────────────────────────────────────────────────────────
+export interface GoodsItem {
+  id: number
+  goods_type_id: number
+  goods_name: string
+  goods_money: number       // 起投金额
+  project_scale: number     // 项目规模
+  day_red: number           // 每日收益
+  period: number            // 投资周期(天)
+  status: number            // 0下架 1上架
+  head_img: string | null   // 封面图
+  is_examine: number        // 1=新手体验
+  sort: number
+  buy_num: number           // 0无限次
+  level_vip: number
+  progress_rate: number     // 投资进度 %
+}
+
+// ── 前端 Mock 兼容类型（Home.vue 等仍在使用）──────────────────────────────────
+export interface CategoryItem {
+  key: string
+  labelZh: string
+  labelEn: string
+  iconKey: string
+  colorKey: string
+}
+
 export interface ProductItem {
   id: number
   category: string
   name: string
   price: number
   maxPurchase: number
-  tag: string       // '热门' | '推荐' | '爆款' | '超值' | '精选' | ''
-  iconKey: string   // 前端据此映射 lucide 图标
-  imageUrl?: string // 商品图片，有则优先展示
+  tag: string
+  iconKey: string
+  imageUrl?: string
 }
 
-// ── Banner ────────────────────────────────────────────────────────────────────
 export interface BannerItem {
   id: number
   tag: string
@@ -27,25 +50,22 @@ export interface BannerItem {
   sub: string
   gradient: string
   glow: string
-  iconKey: string   // 无图片时的备用图标
-  imageUrl?: string // Banner 图片，有则覆盖渐变背景
+  iconKey: string
+  imageUrl?: string
 }
 
-// ── 分页响应 ──────────────────────────────────────────────────────────────────
 export interface ProductListData {
   list: ProductItem[]
   total: number
   hasMore: boolean
 }
 
-// ── 请求参数 ──────────────────────────────────────────────────────────────────
 export interface ProductListParams {
-  category: string  // 'all' 或具体分类 key
+  category: string
   page: number
   pageSize: number
 }
 
-// ── 首页余额快览（轻量版，不含交易记录）──────────────────────────────────────
 export interface HomeBalanceData {
   totalAssets: number
 }

@@ -262,6 +262,12 @@ Route::rule('wares/del$', 'admin/product.wares/del');//兑换商品删除
 Route::rule('config/list$', 'admin/config.SysConfig/index');//系统配置列表
 Route::rule('config/update$', 'admin/config.SysConfig/update');//系统配置修改
 
+//VIP等级管理
+Route::rule('vip/index$', 'admin/vip.Vip/index');
+Route::rule('vip/add$', 'admin/vip.Vip/add');
+Route::rule('vip/edit$', 'admin/vip.Vip/edit');
+Route::rule('vip/del$', 'admin/vip.Vip/del');
+
 //公益文章
 // Route::group('welfare',function(){
 //     Route::rule('list$', 'admin/content.Welfare/list');//公益文章列表
