@@ -30,9 +30,11 @@ class TouziProduct extends Validate
         'is_coupon'=>'require|number',
         'progress_rate'=>'require|float',
         'id'=>'require|number',
-//        'goods_agent_1'=>'require|float',
-//        'goods_agent_2'=>'require|float',
-//        'goods_agent_3'=>'require|float',
+        'level_vip'=>'number',
+        'buy_num'=>'number',
+        'goods_agent_1'=>'require|float',
+        'goods_agent_2'=>'require|float',
+        'goods_agent_3'=>'require|float',
     ];
 
     /**
@@ -59,6 +61,8 @@ class TouziProduct extends Validate
         'goods_agent_1' => '1级返佣',
         'goods_agent_2' => '2级返佣',
         'goods_agent_3' => '3级返佣',
+        'buy_num' => '购买次数',
+        'level_vip' => '限制vip等级',
     ];
 
     /**
@@ -66,8 +70,8 @@ class TouziProduct extends Validate
      * @var \string[][]
      */
     protected $scene = [
-        'edit' => ['goods_agent_1','goods_agent_2','goods_agent_3','progress_rate','goods_type_id','goods_name','goods_money','project_scale','period','status','warrant','head_img','bottom_img','is_examine','sort','is_coupon','id'],
-        'add' => ['goods_agent_1','goods_agent_2','goods_agent_3','progress_rate','goods_type_id','goods_name','goods_money','project_scale','period','status','warrant','head_img','bottom_img','is_examine','sort','is_coupon'],
+        'edit' => ['level_vip','buy_num','goods_agent_1','goods_agent_2','goods_agent_3','progress_rate','goods_type_id','goods_name','goods_money','project_scale','period','status','warrant','head_img','bottom_img','is_examine','sort','is_coupon','id'],
+        'add' => ['level_vip','buy_num','goods_agent_1','goods_agent_2','goods_agent_3','progress_rate','goods_type_id','goods_name','goods_money','project_scale','period','status','warrant','head_img','bottom_img','is_examine','sort','is_coupon'],
         'del' => ['id'],
     ];
 }

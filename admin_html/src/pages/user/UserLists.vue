@@ -41,7 +41,7 @@
      </el-form>
    </div>
 
-    <el-table  height="500px" style="width: 100%;margin-top: 15px;" border :data="roleList" :showPage="false" @selection-change="handleSelectionChange" :key="Math.random()">
+    <el-table height="80vh" style="width: 100%;margin-top: 15px;" border :data="roleList" :showPage="false" @selection-change="handleSelectionChange" :key="Math.random()">
       <el-table-column type="selection" label="ID" prop="id" :selectable='selectEnable'/>
       <el-table-column label="ID" width="65" prop="id" />
       <el-table-column label="用户电话" width="95" prop="phone" />
@@ -252,7 +252,7 @@
     </el-dialog>
 
     <template v-if="allpage>10">
-      <el-pagination @current-change="handleCurrentChange" :current-page="1" :page-size="10" layout="total, prev, pager, next, jumper"
+      <el-pagination @current-change="handleCurrentChange" @size-change="handleSizeChange" :current-page="1" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes, total, prev, pager, next, jumper"
         :total="allpage">
       </el-pagination>
     </template>
@@ -297,7 +297,7 @@
         allpage: 1, //总页数
         showItem: 5, //分页显示得中间按钮个数
         current: 1, //当前页
-        dvEdit: false,
+        pageSize: 10,
         dialogTitle: '',
         infotitle:'',
         operate_pwd:'',//操作密码
@@ -501,6 +501,7 @@
         this.current = index;
         getUserListApi({
           page: index,
+          limit: this.pageSize,
         }).then(res => {
           this.roleList = res.data.data;
           this.allpage = res.data.total;
@@ -508,7 +509,7 @@
       },
       getUserList() {
 
-        getUserListApi(this.searchParameter).then(res => {
+        getUserListApi({...this.searchParameter, limit: this.pageSize}).then(res => {
           this.roleList = res.data.data
           this.allpage = res.data.total;
         })
@@ -518,6 +519,11 @@
       },
       search() {
         this.getUserList()
+      },
+      handleSizeChange(val) {
+        this.pageSize = val;
+        this.current = 1;
+        this.getUserList();
       },
       showDialog(type, row) {
         this.dvEdit = true;

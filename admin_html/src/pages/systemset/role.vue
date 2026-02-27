@@ -44,9 +44,11 @@
     </el-dialog>
     <template v-if="allpage>10">
           <el-pagination @current-change="handleCurrentChange"
+                         @size-change="handleSizeChange"
                          :current-page="1"
-                         :page-size="10"
-                         layout="total, prev, pager, next, jumper"
+                         :page-sizes="[10, 20, 50, 100]"
+                         :page-size="pageSize"
+                         layout="sizes, total, prev, pager, next, jumper"
                          :total="allpage">
           </el-pagination>
     </template>
@@ -61,6 +63,7 @@
         allpage:1,//总页数
         showItem:5,//分页显示得中间按钮个数
         current:1,//当前页
+        pageSize: 10,
         dvEdit: false,
         dialogTitle: '',
         form: {
@@ -85,13 +88,14 @@
                 this.current = index;
                 getRoleListApi({
                   page:index,
+                  limit: this.pageSize,
                 }).then(res => {
                   this.roleList = res.data.data;
                   this.allpage = res.data.total;
                 })
       },
       getUserList(){
-        getRoleListApi().then(res => {
+        getRoleListApi({limit: this.pageSize}).then(res => {
           this.roleList = res.data.data
           this.allpage = res.data.total;
         })
@@ -103,6 +107,11 @@
             status:status,
             }).then(res => {
           })
+      },
+      handleSizeChange(val) {
+        this.pageSize = val;
+        this.current = 1;
+        this.getUserList();
       },
       showDialog(type,row) {
         this.dvEdit = true

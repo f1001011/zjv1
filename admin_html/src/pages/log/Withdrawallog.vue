@@ -34,7 +34,7 @@
         <el-button @click="expand(true)" v-else>展开</el-button>
       </el-col>
     </el-row>
-    <el-table height="500px" style="margin-top: 15px" border  :data="roleList" :showPage="false" @selection-change="handleSelectionChange">
+    <el-table height="80vh" style="margin-top: 15px" border  :data="roleList" :showPage="false" @selection-change="handleSelectionChange">
       <el-table-column type="selection" label="ID" prop="id" :selectable='selectEnable'/>
       <el-table-column width="100" label=" 用户 / 号码" prop="user_name">
         <template slot-scope="scope">
@@ -142,9 +142,11 @@
     </el-dialog>
     <template v-if="allpage>20">
             <el-pagination @current-change="handleCurrentChange"
+                           @size-change="handleSizeChange"
                            :current-page="1"
-                           :page-size="20"
-                           layout="total, prev, pager, next, jumper"
+                           :page-sizes="[10, 20, 50, 100]"
+                           :page-size="pageSize"
+                           layout="sizes, total, prev, pager, next, jumper"
                            :total="allpage">
             </el-pagination>
         </template>
@@ -186,6 +188,7 @@
         allpage:1,//总页数
         showItem:5,//分页显示得中间按钮个数
         current:1,//当前页
+        pageSize: 20,
         dvEdit: false,
         dialogTitle: '',
         money_change_type:'',
@@ -406,6 +409,7 @@
                 this.current = index;
                 getPayListApi({
                   page:index,
+                  limit: this.pageSize,
                 }).then(res => {
                   this.roleList = res.data.data;
                   for (let item of this.roleList) {
@@ -418,9 +422,14 @@
                   this.allpage = res.data.total;
                 })
       },
+      handleSizeChange(val) {
+        this.pageSize = val;
+        this.current = 1;
+        this.getUserList();
+      },
 
       getUserList(){
-        getPayListApi({uid:this.searchParameter.uid,pay_type:this.searchParameter.pay_type,status:this.searchParameter.status,'user_name': this.searchParameter.user_name,'is_excel':this.is_excel,'page':this.current}).then(res => {
+        getPayListApi({uid:this.searchParameter.uid,pay_type:this.searchParameter.pay_type,status:this.searchParameter.status,'user_name': this.searchParameter.user_name,'is_excel':this.is_excel,'page':this.current,limit:this.pageSize}).then(res => {
           this.roleList = res.data.data
           for (let item of this.roleList) {
             if (item.type === 1) {

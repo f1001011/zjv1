@@ -107,12 +107,15 @@
     </el-dialog>
     <template v-if="allpage>10">
           <el-pagination @current-change="handleCurrentChange"
+             @size-change="handleSizeChange"
              :current-page="1"
-             :page-size="10"
-             layout="total, prev, pager, next, jumper"
+             :page-sizes="[10, 20, 50, 100]"
+             :page-size="pageSize"
+             layout="sizes, total, prev, pager, next, jumper"
              :total="allpage">
           </el-pagination>
     </template>
+
   </div>
 </template>
 
@@ -128,6 +131,8 @@
         dvEdit: false,
         dialogTitle: '',
         allpage:10,
+        current: 1,
+        pageSize: 10,
         form: {
           username: '',
           desc: '',
@@ -191,7 +196,7 @@
     },
     methods: {
       getUserList() {
-        getConfigListApi().then(res => {
+        getConfigListApi({limit: this.pageSize}).then(res => {
           this.roleList = res.data.data;
           this.allpage = res.data.total;
         })
@@ -296,10 +301,16 @@
                this.current = index;
                getConfigListApi({
                  page:index,
+                 limit: this.pageSize,
                }).then(res => {
                  this.roleList = res.data.data;
                  this.allpage = res.data.total;
                })
+     },
+     handleSizeChange(val) {
+       this.pageSize = val;
+       this.current = 1;
+       this.getUserList();
      },
     handleAvatarError: function(error, file) {
         window.wxc.xcConfirm(error, window.wxc.xcConfirm.typeEnum.error);

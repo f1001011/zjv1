@@ -14,7 +14,7 @@
           </el-col>
         </el-row>
         <div>
-            <el-table height="500px" border style="margin-top: 15px" :data="dataList" :showPage="false">
+            <el-table height="80vh" border style="margin-top: 15px" :data="dataList" :showPage="false">
                 <el-table-column label="ID" prop="id" width="50"/>
                 <el-table-column label="产品名称" prop="goods_name" width="" />
                 <el-table-column label="起投价格" prop="goods_money" width="" />
@@ -43,9 +43,11 @@
         <div>
             <template v-if="allpage>10">
                 <el-pagination @current-change="handleCurrentChange"
+                        @size-change="handleSizeChange"
                         :current-page="current"
-                        :page-size="10"
-                        layout="total, prev, pager, next, jumper"
+                        :page-sizes="[10, 20, 50, 100]"
+                        :page-size="pageSize"
+                        layout="sizes, total, prev, pager, next, jumper"
                         :total="allpage">
                 </el-pagination>
             </template>
@@ -101,6 +103,7 @@
                 allpage: 1, //总页数
                 showItem: 5, //分页显示得中间按钮个数
                 current: 1, //当前页
+                pageSize: 10,
                 showDialog: false,
                 form: {},
                 uploadImage: baseUrl + '/upload/video',
@@ -120,7 +123,7 @@
             getProductList() {
                 let data = {
                     page: this.current,
-                    limit: 10,
+                    limit: this.pageSize,
                     goods_id:this.form_goods_id
                 }
                 getProductLevelListApi(data).then(res => {
@@ -206,6 +209,11 @@
             handleCurrentChange(index){
                 this.current = index;
                 this.getProductList()
+            },
+            handleSizeChange(val) {
+                this.pageSize = val;
+                this.current = 1;
+                this.getProductList();
             },
             onSubmit() {
                 if(this.editProductType == 'edit') {

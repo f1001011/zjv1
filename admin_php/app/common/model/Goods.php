@@ -12,7 +12,7 @@ class Goods extends Model
 
     public static function page_list($where,$limit,$page,$order)
     {
-       // $map=self::whereMap();
+        // $map=self::whereMap();
         return self::where($where)
             //->where($map)
             ->order($order)
@@ -24,7 +24,23 @@ class Goods extends Model
                 $item['bottom_img'] =  config_image($item['bottom_img']);
                 $item['bottom_img_text'] =  config_image($item['bottom_img']);
                 $item['goods_day_red'] = GoodsDay::page_column($item['id']);
-
+                return $item;
+            });
+    }
+    public static function page_listv2($where,$limit,$page,$order)
+    {
+       // $map=self::whereMap();
+        return self::where($where)
+            //->where($map)
+            ->order($order)
+            ->paginate(['list_rows'=>$limit,'page'=>$page], false)->each(function($item, $key){
+                $item['red_way_text'] =  self::getRedWay($item['red_way']);
+                $item['goods_type_name'] =  GoodsType::page_one_value($item['goods_type_id']);
+                $item['head_img_text'] =  config_image($item['head_img']);
+                $item['head_img'] =  config_image($item['head_img']);
+                $item['bottom_img'] =  config_image($item['bottom_img']);
+                $item['bottom_img_text'] =  config_image($item['bottom_img']);
+                //$item['goods_day_red'] = GoodsDay::page_column($item['id']);
                 return $item;
             });
     }

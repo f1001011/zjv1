@@ -20,7 +20,7 @@
       <el-button @click="search">搜索</el-button>
     </el-row>
 
-    <el-table height="500px" style="margin-top: 15px" border @sort-change="sortChange" :data="roleList" :showPage="false">
+    <el-table height="80vh" style="margin-top: 15px" border @sort-change="sortChange" :data="roleList" :showPage="false">
       <el-table-column label="ID" width="80" prop="id"/>
       <el-table-column width="100" label="ID/ 用户 / 手机" prop="user_name">
         <template slot-scope="scope">
@@ -82,9 +82,11 @@
     </el-dialog>
     <template v-if="allpage>10">
             <el-pagination @current-change="handleCurrentChange"
+                           @size-change="handleSizeChange"
                            :current-page="1"
-                           :page-size="10"
-                           layout="total, prev, pager, next, jumper"
+                           :page-sizes="[10, 20, 50, 100]"
+                           :page-size="pageSize"
+                           layout="sizes, total, prev, pager, next, jumper"
                            :total="allpage">
             </el-pagination>
         </template>
@@ -99,6 +101,7 @@
         allpage:1,//总页数
         showItem:5,//分页显示得中间按钮个数
         current:1,//当前页
+        pageSize: 10,
         dvEdit: false,
         dialogTitle: '',
         form: {
@@ -217,6 +220,7 @@
         this.current = index;
         getMoneyListApi({
           page:index,
+          limit: this.pageSize,
           user_name:this.user_name,
           uid:this.uid,
           create_time_sort:this.create_time_sort,'class':this.currencyType,status:this.status,type:this.type
@@ -224,6 +228,11 @@
           this.roleList = res.data.data;
           this.allpage = res.data.total;
         })
+      },
+      handleSizeChange(val) {
+        this.pageSize = val;
+        this.current = 1;
+        this.getUserList();
       },
       getMoneyListApi:function(index){
                 this.current = index;
@@ -236,7 +245,7 @@
                 })
       },
       getUserList(){
-        getMoneyListApi({uid:this.uid,create_time_sort:this.create_time_sort,'class':this.currencyType,status:this.status,type:this.type}).then(res => {
+        getMoneyListApi({uid:this.uid,create_time_sort:this.create_time_sort,'class':this.currencyType,status:this.status,type:this.type,limit:this.pageSize}).then(res => {
           this.roleList = res.data.data
            this.allpage = res.data.total;
           console.log(res.data)

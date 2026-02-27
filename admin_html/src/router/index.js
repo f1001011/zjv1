@@ -247,6 +247,13 @@ export const allowRouters = [
         }
       },
       {
+        path: 'productv2',
+        component: () => import('@/pages/content/ProductV2'),
+        meta: {
+          title: '产品列表V2'
+        }
+      },
+      {
         path: 'productClass',
         component: () => import('@/pages/content/ProductClass'),
         meta: {

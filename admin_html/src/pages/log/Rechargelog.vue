@@ -68,7 +68,7 @@
         </el-col>
     </el-row>
 
-    <el-table height="600px" style="margin-top: 15px" border :data="roleList" :showPage="false">
+    <el-table height="80vh" style="margin-top: 15px" border :data="roleList" :showPage="false">
 
 
       <el-table-column label="ID" prop="id"/>
@@ -141,9 +141,11 @@
 
     <template v-if="allpage>10">
             <el-pagination @current-change="handleCurrentChange"
+                           @size-change="handleSizeChange"
                            :current-page="1"
-                           :page-size="10"
-                           layout="total, prev, pager, next, jumper"
+                           :page-sizes="[10, 20, 50, 100]"
+                           :page-size="pageSize"
+                           layout="sizes, total, prev, pager, next, jumper"
                            :total="allpage">
             </el-pagination>
         </template>
@@ -196,6 +198,7 @@
         allpage:1,//总页数
         showItem:5,//分页显示得中间按钮个数
         current:1,//当前页
+        pageSize: 10,
         dvEdit: false,
         dialogVisible:false,
         dialogTitle: '充值处理',
@@ -280,17 +283,23 @@
       handleCurrentChange:function(index){
         this.current = index;
         this.searchParameter.page = index;
+        this.searchParameter.limit = this.pageSize;
         getRechargeListApi(this.searchParameter).then(res => {
             this.roleList = res.data.data;
             this.allpage = res.data.total;
         })
+      },
+      handleSizeChange(val) {
+        this.pageSize = val;
+        this.current = 1;
+        this.getUserList();
       },
 
       getUserList(){
         if(this.$route.query.id >0){
           this.searchParameter.id = this.$route.query.id
         }
-        getRechargeListApi(this.searchParameter).then(res => {
+        getRechargeListApi({...this.searchParameter, limit: this.pageSize}).then(res => {
           this.roleList = res.data.data
            this.allpage = res.data.total;
           console.log(res.data)

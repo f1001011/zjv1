@@ -7,7 +7,7 @@
             </el-col>
         </el-row>
         <div>
-            <el-table height="500px" border  :data="dataList" :showPage="false">
+            <el-table height="80vh" border  :data="dataList" :showPage="false">
               <el-table-column label="ID" prop="id" width="80"/>
                 <el-table-column label="分类名称" prop="goods_type_name" width="100"/>
                 <el-table-column label="产品名称" prop="goods_name" width="100" />
@@ -21,6 +21,8 @@
                 </el-table-column>
                 <el-table-column label="项目规模" prop="project_scale" width="100"/>
                 <el-table-column label="投资进度" prop="progress_rate" width="100"/>
+                <el-table-column label="VIP等级" prop="level_vip" width="80"/>
+                <el-table-column label="购买次数限制" prop="buy_num" width="100"/>
                 <el-table-column label="一级返佣(元)" prop="goods_agent_1" width="50"/>
                 <el-table-column label="二级返佣(元)" prop="goods_agent_2" width="50"/>
                 <el-table-column label="三级返佣(元)" prop="goods_agent_3" width="50"/>
@@ -62,9 +64,11 @@
         <div>
             <template v-if="allpage>10">
                 <el-pagination @current-change="handleCurrentChange"
+                        @size-change="handleSizeChange"
                         :current-page="current"
-                        :page-size="10"
-                        layout="total, prev, pager, next, jumper"
+                        :page-sizes="[10, 20, 50, 100]"
+                        :page-size="pageSize"
+                        layout="sizes, total, prev, pager, next, jumper"
                         :total="allpage">
                 </el-pagination>
             </template>
@@ -101,6 +105,12 @@
                 </el-form-item>
                 <el-form-item label="投资进度">
                     <el-input v-model="form.progress_rate"></el-input>
+                </el-form-item>
+                <el-form-item label="VIP等级">
+                    <el-input v-model.number="form.level_vip" placeholder="0表示不限制"></el-input>
+                </el-form-item>
+                <el-form-item label="购买次数限制">
+                    <el-input v-model.number="form.buy_num" placeholder="0表示不限制"></el-input>
                 </el-form-item>
 
                 <!-- <el-form-item label="一级返佣">
@@ -184,6 +194,7 @@
                 allpage: 1, //总页数
                 showItem: 5, //分页显示得中间按钮个数
                 current: 1, //当前页
+                pageSize: 10,
                 showDialog: false,
                 form: {},
                 uploadImage: baseUrl + '/upload/video',
@@ -227,7 +238,8 @@
             */
             getProductList() {
                 let data = {
-                    page: this.current
+                    page: this.current,
+                    limit: this.pageSize
                 }
                 getProductListApi(data).then(res => {
                     this.allpage = res.data.total;
@@ -311,6 +323,11 @@
             handleCurrentChange(index){
                 this.current = index;
                 this.getProductList()
+            },
+            handleSizeChange(val) {
+                this.pageSize = val;
+                this.current = 1;
+                this.getProductList();
             },
             onSubmit() {
 

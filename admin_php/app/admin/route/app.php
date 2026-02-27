@@ -201,6 +201,12 @@ Route::rule('desktop/add$', 'admin/desktop.desktop/add');
 Route::rule('desktop/edit$', 'admin/desktop.desktop/edit');
 Route::rule('desktop/status$', 'admin/desktop.desktop/status');
 
+//版本2
+Route::rule('productv2/index$', 'admin/productv2.Goods/index');
+Route::rule('productv2/add$', 'admin/productv2.Goods/add');
+Route::rule('productv2/edit$', 'admin/productv2.Goods/edit');
+Route::rule('productv2/del', 'admin/productv2.Goods/del');
+//######
 //产品添加
 Route::rule('product/index$', 'admin/product.TouziProduct/index');
 Route::rule('product/add$', 'admin/product.TouziProduct/add');
