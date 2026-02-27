@@ -31,7 +31,10 @@
     "passwordError": "密码不能少于6位",
     "codeSent": "验证码已发送",
     "registerSuccess": "注册成功，欢迎加入！",
-    "registerFailed": "注册失败，请稍后重试"
+    "registerFailed": "注册失败，请稍后重试",
+    "inviteCode": "邀请码",
+    "inviteCodePlaceholder": "请输入邀请码",
+    "inviteCodeError": "请输入邀请码"
   },
   "common": {
     "cancel": "取消",

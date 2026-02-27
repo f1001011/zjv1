@@ -30,13 +30,13 @@ class Login extends Base
             // 验证失败 输出错误信息
             return show(0, [], $e->getError());
         }
-        $where = array();
-        if(isset($post['osName']) &&  $post['osName'] == 'ios'){
-            $where['name'] = 'app_version_ios';
-        }else {
-            $where['name'] = 'app_version';
-        }
-        $app_version = SysConfigModel::page_value($where);
+//        $where = array();
+//        if(isset($post['osName']) &&  $post['osName'] == 'ios'){
+//            $where['name'] = 'app_version_ios';
+//        }else {
+//            $where['name'] = 'app_version';
+//        }
+//        $app_version = SysConfigModel::page_value($where);
 
 //        if(empty($post['app_version'])){
 //                return show(0, [], '系统提示：版本过低，请下载最新版本。');
@@ -65,7 +65,7 @@ class Login extends Base
             return show(0, [], lang(10002));
         }
         if ($UserInfo->is_real_name == 3) {
-            return show(0, [], lang(10003));
+           // return show(0, [], lang(10003));
         }
 
         //成功了之后返回用户信息

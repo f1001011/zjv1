@@ -5,18 +5,16 @@ export function useAuth() {
   const router = useRouter()
 
   const login = async (phone: string, password: string) => {
-    const res = await loginApi({ phone, password })
+    const res = await loginApi({ phone, pwd: password })
     const token = (res as any).token
     if (token) localStorage.setItem('token', token)
     router.push({ name: 'Home' })
     return res
   }
 
-  const register = async (phone: string, code: string, password: string) => {
-    const res = await registerApi({ phone, code, password })
-    const token = (res as any).token
-    if (token) localStorage.setItem('token', token)
-    router.push({ name: 'Home' })
+  const register = async (phone: string, code: string, password: string, agentId: string) => {
+    const res = await registerApi({ phone, captcha: code, pwd: password, upwd: password, agent_id: agentId })
+    router.push({ name: 'Login' })
     return res
   }
 

@@ -1,47 +1,48 @@
 <template>
   <div class='page-content'>
-   <div slot="top">
-     <el-form label-width="90px">
-       <el-row :gutter="20">
-         <el-col :xs="24" :sm="12" :lg="3">
-           <el-input placeholder="手机号" v-model="searchParameter.phone"></el-input>
-         </el-col>
-         <el-col :xs="24" :sm="12" :lg="3">
-           <el-input placeholder="ID查询" v-model="searchParameter.id"></el-input>
-         </el-col>
-         <el-col :xs="24" :sm="12" :lg="3">
-           <el-input placeholder="用户名" v-model="searchParameter.user_name"></el-input>
-         </el-col>
-         <el-col :xs="24" :sm="12" :lg="3">
-           <el-input placeholder="团队号" v-model="searchParameter.user_team"></el-input>
-         </el-col>
-         <el-col :xs="24" :sm="12" :lg="4">
-                 <el-date-picker
-                   v-model="searchParameter.start"
-                   type="date"
-                   placeholder="开始日期">
-                 </el-date-picker>
-         </el-col>
-         <el-col :xs="24" :sm="12" :lg="4" style="margin-left: 30px;">
-                 <el-date-picker
-                   v-model="searchParameter.end"
-                   type="date"
-                   placeholder="结束日期">
-                 </el-date-picker>
-         </el-col>
-       </el-row>
-       <el-row :xs="24" :sm="12" :lg="6" style="margin-top: 10px;">
-         <el-button @click="search">搜索</el-button>
-         <el-button @click="showDialog('add')" v-if="addBtnFlag">新增用户</el-button>
-         <el-button @click="selectPass(2)">身份证多选通过</el-button>
-         <el-button @click="selectPass(3)">身份证多选拒绝</el-button>
-         <el-button @click="expand(false)" v-if="is_show">关闭</el-button>
-         <el-button @click="expand(true)" v-else>展开</el-button>
-       </el-row>
-     </el-form>
-   </div>
+    <div class="toolbar">
+      <div class="toolbar-title">用户列表</div>
+      <div class="toolbar-actions">
+        <el-button class="btn-add" type="primary" icon="el-icon-plus" @click="showDialog('add')" v-if="addBtnFlag">新增用户</el-button>
+      </div>
+    </div>
 
-    <el-table height="80vh" style="width: 100%;margin-top: 15px;" border :data="roleList" :showPage="false" @selection-change="handleSelectionChange" :key="Math.random()">
+    <div class="search-wrap">
+      <el-form label-width="0">
+        <el-row :gutter="12">
+          <el-col :xs="24" :sm="12" :lg="3">
+            <el-input size="small" placeholder="手机号" prefix-icon="el-icon-mobile-phone" v-model="searchParameter.phone" clearable></el-input>
+          </el-col>
+          <el-col :xs="24" :sm="12" :lg="3">
+            <el-input size="small" placeholder="ID查询" prefix-icon="el-icon-search" v-model="searchParameter.id" clearable></el-input>
+          </el-col>
+          <el-col :xs="24" :sm="12" :lg="3">
+            <el-input size="small" placeholder="用户名" prefix-icon="el-icon-user" v-model="searchParameter.user_name" clearable></el-input>
+          </el-col>
+          <el-col :xs="24" :sm="12" :lg="3">
+            <el-input size="small" placeholder="团队号" prefix-icon="el-icon-s-custom" v-model="searchParameter.user_team" clearable></el-input>
+          </el-col>
+          <el-col :xs="24" :sm="12" :lg="4">
+            <el-date-picker size="small" style="width:100%" v-model="searchParameter.start" type="date" placeholder="开始日期"></el-date-picker>
+          </el-col>
+          <el-col :xs="24" :sm="12" :lg="4">
+            <el-date-picker size="small" style="width:100%" v-model="searchParameter.end" type="date" placeholder="结束日期"></el-date-picker>
+          </el-col>
+        </el-row>
+        <el-row style="margin-top:10px;">
+          <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+          <el-button size="small" type="success" icon="el-icon-check" @click="selectPass(2)">身份证多选通过</el-button>
+          <el-button size="small" type="danger" icon="el-icon-close" @click="selectPass(3)">身份证多选拒绝</el-button>
+          <el-button size="small" icon="el-icon-arrow-down" @click="expand(false)" v-if="is_show">收起列</el-button>
+          <el-button size="small" icon="el-icon-arrow-right" @click="expand(true)" v-else>展开列</el-button>
+        </el-row>
+      </el-form>
+    </div>
+
+    <div class="table-wrap">
+    <el-table height="calc(80vh - 160px)" style="width:100%" stripe :data="roleList" :showPage="false"
+      :header-cell-style="headerCellStyle" :cell-style="cellStyle"
+      @selection-change="handleSelectionChange" :key="Math.random()">
       <el-table-column type="selection" label="ID" prop="id" :selectable='selectEnable'/>
       <el-table-column label="ID" width="65" prop="id" />
       <el-table-column label="用户电话" width="95" prop="phone" />
@@ -109,17 +110,18 @@
             <el-switch   v-model="scope.row.is_withdraw" @change="changesWithdrawal(scope.row.is_withdraw,scope.row,'is_withdraw')" :active-value="1" :inactive-value="0"></el-switch>
         </template>
       </el-table-column> -->
-      <el-table-column label="操作" width="80px">
+      <el-table-column label="操作" width="130" align="center" fixed="right">
         <template slot-scope="scope">
-          <el-button type="text" icon="el-icon-edit" @click="showDialog('edit',scope.row)" v-if="updateBtnFlag">
-            编辑
-          </el-button>
-          <el-button type="text" style="color: #FA6962" icon="el-icon-delete" @click="deleteUser(scope.row)" v-if="deleteBtnFlag">
-            删除
-          </el-button>
+          <el-button type="primary" size="mini" plain icon="el-icon-edit" @click="showDialog('edit',scope.row)" v-if="updateBtnFlag">编辑</el-button>
+          <el-button type="danger" size="mini" plain icon="el-icon-delete" @click="deleteUser(scope.row)" v-if="deleteBtnFlag">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+    </div>
+    <div class="pagination-wrap">
+      <el-pagination @current-change="handleCurrentChange" @size-change="handleSizeChange" :current-page="current" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes, total, prev, pager, next, jumper" :total="allpage">
+      </el-pagination>
+    </div>
 
     <el-dialog :title="dialogTitle" width="500px" :visible.sync="dvEdit">
       <el-form ref="form" :model="form" label-width="120px">
@@ -251,11 +253,6 @@
       </span>
     </el-dialog>
 
-    <template v-if="allpage>10">
-      <el-pagination @current-change="handleCurrentChange" @size-change="handleSizeChange" :current-page="1" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize" layout="sizes, total, prev, pager, next, jumper"
-        :total="allpage">
-      </el-pagination>
-    </template>
   </div>
 </template>
 
@@ -525,6 +522,12 @@
         this.current = 1;
         this.getUserList();
       },
+      headerCellStyle() {
+        return { background: '#f0f4ff', color: '#303133', fontWeight: '600', fontSize: '13px', borderBottom: '2px solid #dce6ff' };
+      },
+      cellStyle() {
+        return { fontSize: '13px', color: '#606266' };
+      },
       showDialog(type, row) {
         this.dvEdit = true;
         if(type == 'edit'){
@@ -643,27 +646,30 @@
 </script>
 
 <style lang='scss' scoped>
-  .page-content {
-    width: 100%;
-    height: 100%;
-    overflow: auto !important;
-  }
-  >>> .el-table::-webkit-scrollbar {
-    width: 8px !important; /*滚动条宽度*/
-    height: 8px !important; /*滚动条高度*/
-  }
-  >>> .el-table__body-wrapper::-webkit-scrollbar {
-    width: 8px !important; /*滚动条宽度*/
-    height: 8px !important; /*滚动条高度*/
-  }
-  >>> .el-table__body-wrapper::-webkit-scrollbar-track {
-    border-radius: 10px; /*滚动条的背景区域的圆角*/
-    -webkit-box-shadow: inset 0 0 6px rgba(238,238,238, 0.3);
-    background-color: #eeeeee; /*滚动条的背景颜色*/
-  }
-  >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
-    border-radius: 10px; /*滚动条的圆角*/
-    -webkit-box-shadow: inset 0 0 6px rgba(145, 143, 0143, 0.3);
-    background-color: rgb(145, 143, 143); /*滚动条的背景颜色*/
-  }
+.page-content {
+  width: 100%; height: 100%;
+  background: #f5f7fa; padding: 16px; box-sizing: border-box;
+}
+.toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: #fff; border-radius: 8px; padding: 14px 20px;
+  margin-bottom: 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.toolbar-title { font-size: 16px; font-weight: 600; color: #1a1a2e; }
+.btn-add {
+  background: linear-gradient(135deg, #4f7cff, #6a5acd); border: none; border-radius: 6px;
+  &:hover { background: linear-gradient(135deg, #3a6aee, #5a4abd); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79,124,255,0.35); }
+}
+.search-wrap {
+  background: #fff; border-radius: 8px; padding: 16px 20px;
+  margin-bottom: 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+.table-wrap { background: #fff; border-radius: 8px; box-shadow: 0 1px 6px rgba(0,0,0,0.06); overflow: hidden; }
+.pagination-wrap { display: flex; justify-content: flex-end; padding: 12px 0 4px; }
+>>> .el-table th { background: #f0f4ff !important; }
+>>> .el-table--striped .el-table__body tr.el-table__row--striped td { background: #fafbff; }
+>>> .el-table tbody tr:hover > td { background: #eef2ff !important; }
+>>> .el-table__body-wrapper::-webkit-scrollbar { width: 6px; height: 6px; }
+>>> .el-table__body-wrapper::-webkit-scrollbar-track { border-radius: 10px; background-color: #f0f0f0; }
+>>> .el-table__body-wrapper::-webkit-scrollbar-thumb { border-radius: 10px; background-color: #c0c4cc; }
 </style>

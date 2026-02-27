@@ -11,7 +11,7 @@
  Target Server Version : 50726 (5.7.26)
  File Encoding         : 65001
 
- Date: 24/02/2026 16:39:46
+ Date: 27/02/2026 16:42:47
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,7 @@ CREATE TABLE `ntp_common_address`  (
   `create_time` datetime NULL DEFAULT NULL,
   `update_time` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 314 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ntp_common_address
@@ -62,7 +62,7 @@ CREATE TABLE `ntp_common_admin`  (
 -- ----------------------------
 -- Records of ntp_common_admin
 -- ----------------------------
-INSERT INTO `ntp_common_admin` VALUES (1, 'admin', 'd3Q1ODg4ODg=', '2021-03-11 16:15:26', 1, 1, '123', '0', '0', NULL, 'd3Q1ODg4ODg=');
+INSERT INTO `ntp_common_admin` VALUES (1, 'admin', 'MTIzNDU2', '2021-03-11 16:15:26', 1, 1, '123', '0', '0', NULL, 'd3Q1ODg4ODg=');
 INSERT INTO `ntp_common_admin` VALUES (5, 'admin1', 'MTIzNDU2', '2023-04-12 13:01:51', 1, 0, '0', '0', 'NFMWT5IJHS655DJC', NULL, 'YWExMjM0NTY=');
 INSERT INTO `ntp_common_admin` VALUES (6, 'admin2', 'MTIzNDU2', '2023-04-12 13:01:51', 1, 0, '0', '0', 'NFMWT5IJHS655DJC', NULL, 'YWExMjM0NTY=');
 INSERT INTO `ntp_common_admin` VALUES (7, 'wangxi', 'MTIzNDU2', '2023-05-31 15:07:12', 1, 0, '0', '0', 'KJDT5QBSRDF4XZDT', NULL, 'YWExMjM0NTY=');
@@ -87,7 +87,7 @@ CREATE TABLE `ntp_common_admin_log`  (
   `browser` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作浏览器',
   `action` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '操作',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '后台操作日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '后台操作日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_admin_log
@@ -109,7 +109,7 @@ CREATE TABLE `ntp_common_admin_menu`  (
   `icon` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图标地址',
   `sort` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 729 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '后台菜单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 730 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '后台菜单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_admin_menu
@@ -156,18 +156,19 @@ INSERT INTO `ntp_common_admin_menu` VALUES (708, 4, '充值列表', 0, 0, '2021-
 INSERT INTO `ntp_common_admin_menu` VALUES (709, 4, '提现列表', 1, 0, '2021-03-25 14:19:22', '2023-06-07 20:44:48', '/log/withdrawallog', NULL, 0);
 INSERT INTO `ntp_common_admin_menu` VALUES (714, 4, '订单列表', 1, NULL, '2021-03-30 17:03:28', '2021-03-30 17:03:30', '/log/order', NULL, 0);
 INSERT INTO `ntp_common_admin_menu` VALUES (715, 11, '套餐列表', 1, NULL, '2021-03-30 17:03:32', '2021-03-30 17:03:33', '/extension/videovipList', NULL, 0);
-INSERT INTO `ntp_common_admin_menu` VALUES (717, 8, '产品列表', 1, NULL, '2022-11-02 14:37:36', '2022-11-02 14:37:38', '/extension/product', '', 0);
+INSERT INTO `ntp_common_admin_menu` VALUES (717, 8, '产品列表', 0, NULL, '2022-11-02 14:37:36', '2022-11-02 14:37:38', '/extension/product', '', 0);
 INSERT INTO `ntp_common_admin_menu` VALUES (718, 10, '轮播图列表', 1, NULL, '2022-11-02 14:42:55', '2022-11-02 14:42:57', '/extension/ads', '', 0);
 INSERT INTO `ntp_common_admin_menu` VALUES (719, 8, '产品分类', 1, NULL, '2022-11-08 10:17:51', '2022-11-08 10:17:53', '/extension/productClass', '', 0);
-INSERT INTO `ntp_common_admin_menu` VALUES (720, 8, '产品天数', 1, NULL, '2022-11-08 10:27:04', '2022-11-08 10:27:05', '/extension/productLev', '', 0);
-INSERT INTO `ntp_common_admin_menu` VALUES (721, 8, '积分商品列表', 1, 1, '2023-04-24 13:05:49', '2023-04-24 13:05:49', '/extension/wareslist', NULL, 0);
+INSERT INTO `ntp_common_admin_menu` VALUES (720, 8, '产品天数', 0, NULL, '2022-11-08 10:27:04', '2022-11-08 10:27:05', '/extension/productLev', '', 0);
+INSERT INTO `ntp_common_admin_menu` VALUES (721, 8, '积分商品列表', 0, 1, '2023-04-24 13:05:49', '2023-04-24 13:05:49', '/extension/wareslist', NULL, 0);
 INSERT INTO `ntp_common_admin_menu` VALUES (722, 4, '资金审查', 1, 0, '2021-03-25 14:19:22', '2021-03-25 14:19:22', '/log/rexaminationlog', NULL, 0);
 INSERT INTO `ntp_common_admin_menu` VALUES (723, 7, '公益列表', 1, 0, NULL, NULL, '/extension/welfareList', NULL, 0);
 INSERT INTO `ntp_common_admin_menu` VALUES (724, 7, '邀请奖励', 1, 0, '2021-03-25 14:19:22', '2021-03-25 14:19:22', '/extension/invitation', '', 0);
 INSERT INTO `ntp_common_admin_menu` VALUES (725, 4, '积分商品兑换列表', 1, 5, '2023-05-24 19:21:58', '2023-05-24 19:21:58', '/log/exchange', NULL, 0);
 INSERT INTO `ntp_common_admin_menu` VALUES (726, 3, '用户充值', 1, 5, '2023-05-28 18:58:54', '2023-05-28 18:58:54', '/user/recharge', NULL, 0);
 INSERT INTO `ntp_common_admin_menu` VALUES (727, 3, '用户金额修改', 1, 5, '2023-05-28 18:59:10', '2023-05-28 18:59:10', '/user/amountEdit', NULL, 0);
-INSERT INTO `ntp_common_admin_menu` VALUES (728, 8, '产品价格列表', 1, 5, '2023-05-28 23:14:48', '2023-05-28 23:14:48', '/extension/productMoney', NULL, 0);
+INSERT INTO `ntp_common_admin_menu` VALUES (728, 8, '产品价格列表', 0, 5, '2023-05-28 23:14:48', '2023-05-28 23:14:48', '/extension/productMoney', NULL, 0);
+INSERT INTO `ntp_common_admin_menu` VALUES (729, 8, '产品列表2', 1, 1, '2026-02-27 11:54:26', '2026-02-27 11:54:26', '/extension/productV2', NULL, 0);
 
 -- ----------------------------
 -- Table structure for ntp_common_admin_power
@@ -343,11 +344,12 @@ CREATE TABLE `ntp_common_admin_token`  (
   `admin_uid` int(10) NULL DEFAULT NULL COMMENT '管理员ID',
   `type` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '后台确定单点登陆' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '后台确定单点登陆' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_admin_token
 -- ----------------------------
+INSERT INTO `ntp_common_admin_token` VALUES (1, '6af642d7f4a4012a07496b6faec91b51v28h6z75kl7', '2026-02-27 11:52:51', 1, 1);
 
 -- ----------------------------
 -- Table structure for ntp_common_ads
@@ -388,7 +390,7 @@ CREATE TABLE `ntp_common_agent_path`  (
   `agent_id` int(11) NOT NULL COMMENT '直属代理ID',
   `times` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 33679 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户所有上一级' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户所有上一级' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ntp_common_agent_path
@@ -481,28 +483,30 @@ CREATE TABLE `ntp_common_goods`  (
   `goods_agent_1` decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '一级返佣',
   `goods_agent_2` decimal(12, 2) NOT NULL DEFAULT 0.00,
   `goods_agent_3` decimal(12, 2) NOT NULL DEFAULT 0.00,
+  `buy_num` int(11) NOT NULL DEFAULT 0 COMMENT '0无限次 可以购买次数',
+  `level_vip` int(11) NOT NULL DEFAULT 0 COMMENT '可购买等级  0 随便购买',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '项目表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_goods
 -- ----------------------------
-INSERT INTO `ntp_common_goods` VALUES (1, 5, '清洁能源', 1000.00, 13860.00, 220.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '///////topic/20230531/ded24f9fbabfee4c40e4a83c9f84e927.jpg', '///topic/20230607/d2816f88ee2a4652ff2e648a7df77b8f.png', 0, 0, 1, 0, 1000.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (2, 3, '新手体验', 1000.00, 1000.00, 220.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/b049dfd7ae0cd7ec67609d36dd174798.jpg', '/topic/1000.png', 1, 0, 1, 1, 100.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (3, 5, '清洁能源', 3000.00, 36650.00, 650.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '////topic/20230531/7e6734d3db3063bf17cfa8b5988cb14b.jpg', '///topic/20230603/8fa9a62e7f882e3184c93ecec6aa98dd.png', 0, 0, 1, 0, 1500.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (4, 5, '清洁能源', 5000.00, 54280.00, 1280.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '//topic/20230531/21dc50e47a5a69107c9b064a4ce64944.jpg', '/topic/20230603/9ae8aa8774b173e612d6b430d5d85a1b.png', 0, 0, 1, 0, 2000.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (5, 5, '清洁能源', 8000.00, 118000.00, 2040.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '//topic/20230531/d9befcadf877f395519ccd57bb88651a.jpg', '/topic/20230603/28dc545af2216cf0a6719f6c6567dff7.png', 0, 0, 1, 0, 3000.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (6, 5, '清洁能源', 10000.00, 158600.00, 2560.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '///topic/20230531/1fecfa7798ae6e440e9c5653df243c5e.jpg', '/topic/20230606/c481aeca24a794ce2efb3572866dd0fc.png', 0, 0, 1, 0, 4000.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (7, 3, '新手体验', 3000.00, 2000.00, 650.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/b49f2774740eef9d244a104d29b4e07a.jpg', '/topic/3000.png', 1, 0, 1, 1, 100.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (8, 3, '新手体验', 5000.00, 3000.00, 1280.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/316dc75dc562b981510f973959c65ea9.jpg', '/topic/5000.png', 1, 0, 1, 1, 100.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (9, 3, '新手体验', 8000.00, 5000.00, 2040.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/d5421f5c06fb1455c14579f9fd1eec8f.jpg', '/topic/8000.png', 1, 0, 1, 1, 100.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (10, 3, '新手体验', 10000.00, 10000.00, 2560.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/e6723aceb63ac83e5c032f526f6e4181.jpg', '/topic/10000.png', 1, 0, 1, 1, 100.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (11, 1, '污水处理1', 1000.00, 1000.00, 100.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:27:02', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/f99f9acd701c2327140483595b6ab640.png', 1, 5, 1, 1, 100.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (12, 1, '污水处理2', 3000.00, 3000.00, 300.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:28:46', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/39338b5d894d13d44189892111eaed91.png', 1, 4, 1, 1, 100.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (13, 1, '污水处理3', 5000.00, 5000.00, 500.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:29:27', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/b07b74742501567092be0e4345de0b11.png', 1, 3, 1, 1, 100.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (14, 1, '污水处理4', 8000.00, 8000.00, 800.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:30:13', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/18c1f06da63714eed48003326a1cd39b.png', 1, 2, 1, 1, 100.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (15, 1, '污水处理5', 10000.00, 10000.00, 1000.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:31:17', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/4bd3f77772802b666e7848083480f5dc.png', 1, 1, 1, 1, 100.00, 0.00, 0.00, 0.00);
-INSERT INTO `ntp_common_goods` VALUES (16, 3, '新用户体验', 588.00, 1500.00, 128.00, 120, 0, 1, '平安银行', '2023-05-29 10:19:10', 'topic/20230611/222c7cd97fa234bd1413f1776da6e07e.png', '//topic/20230607/e73007ae97f7e08a46e755d08aaa2a0e.png', 1, 0, 1, 0, 10.00, 0.00, 0.00, 0.00);
+INSERT INTO `ntp_common_goods` VALUES (1, 5, '清洁能源', 1000.00, 13860.00, 220.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '///////topic/20230531/ded24f9fbabfee4c40e4a83c9f84e927.jpg', '///topic/20230607/d2816f88ee2a4652ff2e648a7df77b8f.png', 0, 0, 1, 0, 1000.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (2, 3, '新手体验', 1000.00, 1000.00, 220.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/b049dfd7ae0cd7ec67609d36dd174798.jpg', '/topic/1000.png', 1, 0, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (3, 5, '清洁能源', 3000.00, 36650.00, 650.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '////topic/20230531/7e6734d3db3063bf17cfa8b5988cb14b.jpg', '///topic/20230603/8fa9a62e7f882e3184c93ecec6aa98dd.png', 0, 0, 1, 0, 1500.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (4, 5, '清洁能源', 5000.00, 54280.00, 1280.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '//topic/20230531/21dc50e47a5a69107c9b064a4ce64944.jpg', '/topic/20230603/9ae8aa8774b173e612d6b430d5d85a1b.png', 0, 0, 1, 0, 2000.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (5, 5, '清洁能源', 8000.00, 118000.00, 2040.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '//topic/20230531/d9befcadf877f395519ccd57bb88651a.jpg', '/topic/20230603/28dc545af2216cf0a6719f6c6567dff7.png', 0, 0, 1, 0, 3000.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (6, 5, '清洁能源', 10000.00, 158600.00, 2560.00, 120, 1, 1, '中国人民保险机构', '2023-04-12 09:47:20', '///topic/20230531/1fecfa7798ae6e440e9c5653df243c5e.jpg', '/topic/20230606/c481aeca24a794ce2efb3572866dd0fc.png', 0, 0, 1, 0, 4000.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (7, 3, '新手体验', 3000.00, 2000.00, 650.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/b49f2774740eef9d244a104d29b4e07a.jpg', '/topic/3000.png', 1, 0, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (8, 3, '新手体验', 5000.00, 3000.00, 1280.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/316dc75dc562b981510f973959c65ea9.jpg', '/topic/5000.png', 1, 0, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (9, 3, '新手体验', 8000.00, 5000.00, 2040.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/d5421f5c06fb1455c14579f9fd1eec8f.jpg', '/topic/8000.png', 1, 0, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (10, 3, '新手体验', 10000.00, 10000.00, 2560.00, 120, 0, 1, '中国人民保险机构', '2023-04-12 10:03:03', 'topic/20230601/e6723aceb63ac83e5c032f526f6e4181.jpg', '/topic/10000.png', 1, 0, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (11, 1, '污水处理1', 1000.00, 1000.00, 100.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:27:02', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/f99f9acd701c2327140483595b6ab640.png', 1, 5, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (12, 1, '污水处理2', 3000.00, 3000.00, 300.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:28:46', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/39338b5d894d13d44189892111eaed91.png', 1, 4, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (13, 1, '污水处理3', 5000.00, 5000.00, 500.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:29:27', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/b07b74742501567092be0e4345de0b11.png', 1, 3, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (14, 1, '污水处理4', 8000.00, 8000.00, 800.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:30:13', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/18c1f06da63714eed48003326a1cd39b.png', 1, 2, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (15, 1, '污水处理5', 10000.00, 10000.00, 1000.00, 1, 1, 1, '中国环境监测', '2023-05-28 22:31:17', '/topic/20230531/37bc39cddac65bd30d1aae70b7404ce8.jpg', 'topic/20230604/4bd3f77772802b666e7848083480f5dc.png', 1, 1, 1, 0, 100.00, 0.00, 0.00, 0.00, 0, 0);
+INSERT INTO `ntp_common_goods` VALUES (16, 3, '新用户体验', 588.00, 1500.00, 128.00, 120, 0, 1, '平安银行', '2023-05-29 10:19:10', 'topic/20230611/222c7cd97fa234bd1413f1776da6e07e.png', '//topic/20230607/e73007ae97f7e08a46e755d08aaa2a0e.png', 1, 0, 1, 0, 10.00, 0.00, 0.00, 0.00, 0, 0);
 
 -- ----------------------------
 -- Table structure for ntp_common_goods_coupon
@@ -542,82 +546,11 @@ CREATE TABLE `ntp_common_goods_day`  (
   `remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `withdrawable_money` decimal(12, 2) NOT NULL COMMENT '到天数释放可提现金额',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '项目天数表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '项目天数表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_goods_day
 -- ----------------------------
-INSERT INTO `ntp_common_goods_day` VALUES (1, 1, 1, 7, 220.00, 1540.00, '2023-04-12 09:50:15', '', 105.00);
-INSERT INTO `ntp_common_goods_day` VALUES (2, 1, 1, 15, 220.00, 3300.00, '2023-04-12 09:51:20', NULL, 257.00);
-INSERT INTO `ntp_common_goods_day` VALUES (3, 1, 1, 30, 220.00, 6600.00, '2023-04-27 13:43:21', NULL, 990.00);
-INSERT INTO `ntp_common_goods_day` VALUES (4, 1, 1, 60, 220.00, 13200.00, '2023-04-27 13:43:25', NULL, 3168.00);
-INSERT INTO `ntp_common_goods_day` VALUES (5, 1, 1, 90, 220.00, 19800.00, '2023-04-27 14:22:11', NULL, 8019.00);
-INSERT INTO `ntp_common_goods_day` VALUES (6, 1, 1, 120, 220.00, 26400.00, '2023-04-27 14:22:34', NULL, 26400.00);
-INSERT INTO `ntp_common_goods_day` VALUES (7, 3, 2, 7, 650.00, 4550.00, '2023-04-27 14:22:58', NULL, 312.00);
-INSERT INTO `ntp_common_goods_day` VALUES (8, 3, 2, 15, 650.00, 9750.00, '2023-04-27 14:23:18', NULL, 737.00);
-INSERT INTO `ntp_common_goods_day` VALUES (9, 3, 2, 30, 650.00, 19500.00, '2023-04-27 13:43:21', NULL, 2925.00);
-INSERT INTO `ntp_common_goods_day` VALUES (10, 3, 2, 60, 650.00, 39000.00, '2023-04-27 13:43:21', NULL, 9360.00);
-INSERT INTO `ntp_common_goods_day` VALUES (11, 3, 2, 90, 650.00, 58500.00, '2023-04-27 13:43:21', NULL, 23693.00);
-INSERT INTO `ntp_common_goods_day` VALUES (12, 3, 2, 120, 650.00, 78000.00, '2023-04-27 13:43:21', NULL, 78000.00);
-INSERT INTO `ntp_common_goods_day` VALUES (13, 4, 3, 7, 1280.00, 8960.00, '2023-04-12 09:50:15', '', 596.00);
-INSERT INTO `ntp_common_goods_day` VALUES (14, 4, 3, 15, 1280.00, 19200.00, '2023-04-12 09:51:20', '', 1296.00);
-INSERT INTO `ntp_common_goods_day` VALUES (15, 4, 3, 30, 1280.00, 38400.00, '2023-04-27 13:43:21', '', 5760.00);
-INSERT INTO `ntp_common_goods_day` VALUES (16, 4, 3, 60, 1280.00, 76800.00, '2023-04-27 13:43:25', '', 18432.00);
-INSERT INTO `ntp_common_goods_day` VALUES (17, 4, 3, 90, 1280.00, 115200.00, '2023-04-27 14:22:11', '', 46656.00);
-INSERT INTO `ntp_common_goods_day` VALUES (18, 4, 3, 120, 1280.00, 153600.00, '2023-04-27 14:22:34', '', 153600.00);
-INSERT INTO `ntp_common_goods_day` VALUES (19, 5, 4, 7, 2040.00, 14280.00, '2023-04-12 09:50:15', '', 981.00);
-INSERT INTO `ntp_common_goods_day` VALUES (20, 5, 4, 15, 2040.00, 30600.00, '2023-04-12 09:51:20', '', 2525.00);
-INSERT INTO `ntp_common_goods_day` VALUES (21, 5, 4, 30, 2040.00, 61200.00, '2023-04-27 13:43:21', '', 9180.00);
-INSERT INTO `ntp_common_goods_day` VALUES (22, 5, 4, 60, 2040.00, 122400.00, '2023-04-27 13:43:25', '', 29376.00);
-INSERT INTO `ntp_common_goods_day` VALUES (23, 5, 4, 90, 2040.00, 183600.00, '2023-04-27 14:22:11', '', 74358.00);
-INSERT INTO `ntp_common_goods_day` VALUES (24, 5, 4, 120, 2040.00, 244800.00, '2023-04-27 14:22:34', '', 244800.00);
-INSERT INTO `ntp_common_goods_day` VALUES (25, 6, 5, 7, 2560.00, 17920.00, '2023-04-12 09:50:15', '', 1205.00);
-INSERT INTO `ntp_common_goods_day` VALUES (26, 6, 5, 15, 2560.00, 38400.00, '2023-04-12 09:51:20', '', 3139.00);
-INSERT INTO `ntp_common_goods_day` VALUES (27, 6, 5, 30, 2560.00, 76800.00, '2023-04-27 13:43:21', '', 11520.00);
-INSERT INTO `ntp_common_goods_day` VALUES (28, 6, 5, 60, 2560.00, 153600.00, '2023-04-27 13:43:25', '', 36864.00);
-INSERT INTO `ntp_common_goods_day` VALUES (29, 6, 5, 90, 2560.00, 230400.00, '2023-04-27 14:22:11', '', 93312.00);
-INSERT INTO `ntp_common_goods_day` VALUES (30, 6, 5, 120, 2560.00, 307200.00, '2023-04-27 14:22:34', '', 307200.00);
-INSERT INTO `ntp_common_goods_day` VALUES (31, 2, 6, 7, 220.00, 1540.00, '2023-04-12 09:50:15', '', 105.00);
-INSERT INTO `ntp_common_goods_day` VALUES (32, 2, 6, 15, 220.00, 3300.00, '2023-04-12 09:51:20', '', 257.00);
-INSERT INTO `ntp_common_goods_day` VALUES (33, 2, 6, 30, 220.00, 6600.00, '2023-04-27 13:43:21', '', 990.00);
-INSERT INTO `ntp_common_goods_day` VALUES (34, 2, 6, 60, 220.00, 13200.00, '2023-04-27 13:43:25', '', 3168.00);
-INSERT INTO `ntp_common_goods_day` VALUES (35, 2, 6, 90, 220.00, 19800.00, '2023-04-27 14:22:11', '', 8019.00);
-INSERT INTO `ntp_common_goods_day` VALUES (36, 2, 6, 120, 220.00, 26400.00, '2023-04-27 14:22:34', '', 26400.00);
-INSERT INTO `ntp_common_goods_day` VALUES (37, 7, 7, 7, 650.00, 4550.00, '2023-04-27 14:22:58', '', 312.00);
-INSERT INTO `ntp_common_goods_day` VALUES (38, 7, 7, 15, 650.00, 9750.00, '2023-04-27 14:23:18', '', 737.00);
-INSERT INTO `ntp_common_goods_day` VALUES (39, 7, 7, 30, 650.00, 19500.00, '2023-04-27 13:43:21', '', 2925.00);
-INSERT INTO `ntp_common_goods_day` VALUES (40, 7, 7, 60, 650.00, 39000.00, '2023-04-27 13:43:21', '', 9360.00);
-INSERT INTO `ntp_common_goods_day` VALUES (41, 7, 7, 90, 650.00, 58500.00, '2023-04-27 13:43:21', '', 23693.00);
-INSERT INTO `ntp_common_goods_day` VALUES (42, 7, 7, 120, 650.00, 78000.00, '2023-04-27 13:43:21', '', 78000.00);
-INSERT INTO `ntp_common_goods_day` VALUES (43, 8, 8, 7, 1280.00, 8960.00, '2023-04-12 09:50:15', '', 596.00);
-INSERT INTO `ntp_common_goods_day` VALUES (44, 8, 8, 15, 1280.00, 19200.00, '2023-04-12 09:51:20', '', 1296.00);
-INSERT INTO `ntp_common_goods_day` VALUES (45, 8, 8, 30, 1280.00, 38400.00, '2023-04-27 13:43:21', '', 5760.00);
-INSERT INTO `ntp_common_goods_day` VALUES (46, 8, 8, 60, 1280.00, 76800.00, '2023-04-27 13:43:25', '', 18432.00);
-INSERT INTO `ntp_common_goods_day` VALUES (47, 8, 8, 90, 1280.00, 115200.00, '2023-04-27 14:22:11', '', 46656.00);
-INSERT INTO `ntp_common_goods_day` VALUES (48, 8, 8, 120, 1280.00, 153600.00, '2023-04-27 14:22:34', '', 153600.00);
-INSERT INTO `ntp_common_goods_day` VALUES (49, 9, 9, 7, 2040.00, 14280.00, '2023-04-12 09:50:15', '', 981.00);
-INSERT INTO `ntp_common_goods_day` VALUES (50, 9, 9, 15, 2040.00, 30600.00, '2023-04-12 09:51:20', '', 2525.00);
-INSERT INTO `ntp_common_goods_day` VALUES (51, 9, 9, 30, 2040.00, 61200.00, '2023-04-27 13:43:21', '', 9180.00);
-INSERT INTO `ntp_common_goods_day` VALUES (52, 9, 9, 60, 2040.00, 122400.00, '2023-04-27 13:43:25', '', 29376.00);
-INSERT INTO `ntp_common_goods_day` VALUES (53, 9, 9, 90, 2040.00, 183600.00, '2023-04-27 14:22:11', '', 74358.00);
-INSERT INTO `ntp_common_goods_day` VALUES (54, 9, 9, 120, 2040.00, 244800.00, '2023-04-27 14:22:34', '', 244800.00);
-INSERT INTO `ntp_common_goods_day` VALUES (55, 10, 10, 7, 2560.00, 17920.00, '2023-04-12 09:50:15', '', 1205.00);
-INSERT INTO `ntp_common_goods_day` VALUES (56, 10, 10, 15, 2560.00, 38400.00, '2023-04-12 09:51:20', '', 3139.00);
-INSERT INTO `ntp_common_goods_day` VALUES (57, 10, 10, 30, 2560.00, 76800.00, '2023-04-27 13:43:21', '', 11520.00);
-INSERT INTO `ntp_common_goods_day` VALUES (58, 10, 10, 60, 2560.00, 153600.00, '2023-04-27 13:43:25', '', 36864.00);
-INSERT INTO `ntp_common_goods_day` VALUES (59, 10, 10, 90, 2560.00, 230400.00, '2023-04-27 14:22:11', '', 93312.00);
-INSERT INTO `ntp_common_goods_day` VALUES (60, 10, 10, 120, 2560.00, 307200.00, '2023-04-27 14:22:34', '', 307200.00);
-INSERT INTO `ntp_common_goods_day` VALUES (62, 15, 15, 1, 1000.00, 1000.00, '2023-05-28 22:40:19', NULL, 1000.00);
-INSERT INTO `ntp_common_goods_day` VALUES (63, 14, 14, 1, 800.00, 800.00, '2023-05-28 22:40:41', NULL, 800.00);
-INSERT INTO `ntp_common_goods_day` VALUES (64, 13, 13, 1, 500.00, 500.00, '2023-05-28 22:40:57', NULL, 500.00);
-INSERT INTO `ntp_common_goods_day` VALUES (65, 12, 12, 1, 300.00, 300.00, '2023-05-28 22:41:14', NULL, 300.00);
-INSERT INTO `ntp_common_goods_day` VALUES (66, 11, 11, 1, 100.00, 100.00, '2023-05-28 22:41:26', NULL, 100.00);
-INSERT INTO `ntp_common_goods_day` VALUES (67, 16, 16, 7, 128.00, 896.00, '2023-05-29 10:22:29', NULL, 13.00);
-INSERT INTO `ntp_common_goods_day` VALUES (68, 16, 16, 15, 128.00, 1920.00, '2023-05-29 10:23:30', NULL, 29.00);
-INSERT INTO `ntp_common_goods_day` VALUES (69, 16, 16, 30, 128.00, 3840.00, '2023-05-29 10:23:56', NULL, 61.00);
-INSERT INTO `ntp_common_goods_day` VALUES (70, 16, 16, 60, 128.00, 7680.00, '2023-05-29 10:24:37', NULL, 127.00);
-INSERT INTO `ntp_common_goods_day` VALUES (71, 16, 16, 90, 128.00, 11520.00, '2023-05-29 10:24:58', NULL, 196.00);
-INSERT INTO `ntp_common_goods_day` VALUES (72, 16, 16, 120, 128.00, 15360.00, '2023-05-29 10:25:17', NULL, 15360.00);
 
 -- ----------------------------
 -- Table structure for ntp_common_goods_money
@@ -634,22 +567,6 @@ CREATE TABLE `ntp_common_goods_money`  (
 -- ----------------------------
 -- Records of ntp_common_goods_money
 -- ----------------------------
-INSERT INTO `ntp_common_goods_money` VALUES (1, 1, 1000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (2, 3, 3000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (3, 4, 5000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (4, 5, 8000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (5, 6, 10000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (6, 2, 1000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (7, 7, 3000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (8, 8, 5000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (9, 9, 8000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (10, 10, 10000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (11, 11, 1000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (12, 12, 3000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (13, 13, 5000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (14, 14, 8000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (15, 15, 10000.00, 0);
-INSERT INTO `ntp_common_goods_money` VALUES (16, 16, 588.00, 0);
 
 -- ----------------------------
 -- Table structure for ntp_common_goods_order
@@ -684,7 +601,7 @@ CREATE TABLE `ntp_common_goods_order`  (
   `order_no` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '订单号',
   `one_money` decimal(20, 0) NOT NULL DEFAULT 0 COMMENT '商品单价 单件商品价',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6200 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品订单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品订单表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_goods_order
@@ -725,7 +642,7 @@ CREATE TABLE `ntp_common_home_token`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `user_id` int(10) NULL DEFAULT NULL COMMENT '管理员ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12429 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '前台token' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '前台token' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_home_token
@@ -746,7 +663,7 @@ CREATE TABLE `ntp_common_invitation`  (
   `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '奖励币种类型  1 团队工资',
   `content` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '邀请奖励表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '邀请奖励表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ntp_common_invitation
@@ -794,11 +711,14 @@ CREATE TABLE `ntp_common_login_log`  (
   `login_ip` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登陆IP',
   `login_equipment` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '登陆设备',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 28992 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登陆日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登陆日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_login_log
 -- ----------------------------
+INSERT INTO `ntp_common_login_log` VALUES (1, 1, 1, '2026-02-27 10:15:58', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0');
+INSERT INTO `ntp_common_login_log` VALUES (2, 1, 1, '2026-02-27 10:24:40', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0');
+INSERT INTO `ntp_common_login_log` VALUES (3, 1, 1, '2026-02-27 11:52:51', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0');
 
 -- ----------------------------
 -- Table structure for ntp_common_notice
@@ -811,7 +731,7 @@ CREATE TABLE `ntp_common_notice`  (
   `status` tinyint(1) NULL DEFAULT NULL COMMENT '公告状态 1上架 0下架',
   `position` tinyint(2) NULL DEFAULT NULL COMMENT '公告位置 xxx',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '公告' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '公告' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ntp_common_notice
@@ -845,7 +765,7 @@ CREATE TABLE `ntp_common_pay_cash`  (
   `order_on` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '订单号',
   `is_status` tinyint(255) NOT NULL DEFAULT 0 COMMENT '1 提交到平台',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 71 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '提现表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '提现表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_pay_cash
@@ -869,7 +789,7 @@ CREATE TABLE `ntp_common_pay_money_log`  (
   `mark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sel`(`create_time`, `type`, `status`, `uid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 162111 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '资金流水表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '资金流水表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_pay_money_log
@@ -918,7 +838,7 @@ CREATE TABLE `ntp_common_pay_sys_bank`  (
   `is_default` tinyint(1) NULL DEFAULT NULL COMMENT '是否默认 1默认',
   `u_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1403 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '银行卡' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '银行卡' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ntp_common_pay_sys_bank
@@ -936,11 +856,38 @@ CREATE TABLE `ntp_common_sys_config`  (
   `type` int(11) NULL DEFAULT 1 COMMENT '类型 1文字 2图片  3富文本',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sel`(`name`(191)) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 86 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '后台配置表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 105 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '后台配置表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ntp_common_sys_config
 -- ----------------------------
+INSERT INTO `ntp_common_sys_config` VALUES (1, 'web_name', '管理系统', '', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (2, 'logo_url', '/logo.png', '', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (3, 'web_keywords', '关键词', '', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (4, 'web_description', '描述', '', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (5, 'app_down_ios', 'http://fir.dahxn.cn/7m1564', '苹果下载地址', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (6, 'app_down_android', 'https://downlist0002.oss-cn-beijing.aliyuncs.com/lszg__UNI__11EEAB3_0615141634.apk', '安卓下载地址', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (69, 'give_money_integral', '0', '签到赠送积分 数量', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (70, 'give_money_green', '0', '购买商品赠送绿币 比例 %', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (71, 'give_money_converge', '0', '购买商品赠送碳汇 %', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (72, 'give_money_thigh', '0', '购买商品赠送股权 % 为0 表示不赠送', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (73, 'give_money_vote', '100', '购买商品赠送碳票 %', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (74, 'withdrawal_commission', '0', '提现手续费(%)', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (80, 'withdrawal_start', '100', '最少提现金额', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (81, 'withdrawal_end', '9000', '最多提现金额', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (87, 'withdraw_date', '1,2,3,4,5', '提现时间,week可提现时间，周1周2', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (88, 'withdraw_num', '1', '每日提现次数', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (89, 'recharge_min', '50', '最低充值', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (90, 'agent_hire_one', '21', '1级返佣，。用户购买(%)', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (91, 'agent_hire_tow', '5', '2级返佣，。用户购买(%)', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (92, 'agent_hire_three', '2', '3级返佣，。用户购买(%)', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (93, 'app_gw', 'https://gw.lszgyuming.top/', '官网地址', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (94, 'app_down', 'https://down.lszgyuming.top/', '下载页面', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (100, 'app_renew', '新版本更新：1.修复部分已知BUG。2.新增部分功能。3.优化用户体验', 'app更新说明', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (101, 'payment_switch', '1', '支付开关：0：关闭；1：开启；', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (102, 'app_version', '3.1.4', 'app版本号', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (103, 'not_check_captcha', '0', '不验证验证码 0验证 1不验证', 1);
+INSERT INTO `ntp_common_sys_config` VALUES (104, 'code_off', '1', '验证码开关：0：关闭；1：开启', 1);
 
 -- ----------------------------
 -- Table structure for ntp_common_user
@@ -977,7 +924,7 @@ CREATE TABLE `ntp_common_user`  (
   `total_withdraw` decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '累计提现',
   `total_recharge` decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '累计充值',
   `total_red` decimal(12, 2) NOT NULL DEFAULT 0.00 COMMENT '分红',
-  `sfz` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '身份证号',
+  `sfz` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '身份证号',
   `is_withdraw` tinyint(1) NOT NULL DEFAULT 1 COMMENT '是否可提现。0不可 1可以',
   `agent_id_1` int(12) NOT NULL DEFAULT 0 COMMENT '1级',
   `agent_id_2` int(12) NOT NULL DEFAULT 0 COMMENT '2级',
@@ -987,7 +934,7 @@ CREATE TABLE `ntp_common_user`  (
   INDEX `sel`(`user_name`, `phone`, `agent_id_1`, `agent_id_2`, `agent_id_3`, `agent_id`) USING BTREE,
   INDEX `agent_id`(`agent_id`) USING BTREE,
   INDEX `is_real_name`(`is_real_name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 102076 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_user
@@ -1004,7 +951,7 @@ CREATE TABLE `ntp_common_user_sign_log`  (
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `money`(`uid`, `money`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 11828 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户签到' ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 10000 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户签到' ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of ntp_common_user_sign_log
@@ -1107,7 +1054,7 @@ CREATE TABLE `ntp_common_welfare`  (
   UNIQUE INDEX `title`(`title`) USING BTREE,
   INDEX `amount`(`amount`) USING BTREE,
   INDEX `type`(`type`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '公益文章表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '公益文章表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_common_welfare
@@ -1122,7 +1069,7 @@ CREATE TABLE `ntp_is_sfz`  (
   `sfzcode` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `se`(`sfzcode`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 31078 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 10000 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ntp_is_sfz
@@ -1148,7 +1095,7 @@ CREATE TABLE `ntp_money_fanyong_log`  (
   `sub_id` int(11) NULL DEFAULT 0 COMMENT '下级ID',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sel`(`user_id`, `money_type`, `is_add_to_user_account`, `user_name`, `create_time`, `product_id`, `sub_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 317 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户返佣表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户返佣表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ntp_money_fanyong_log
@@ -1194,7 +1141,7 @@ CREATE TABLE `ntp_money_send_log`  (
   `send_money` decimal(30, 2) NOT NULL COMMENT '发送金额',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sel`(`user_id`, `product_id`, `product_order_id`, `user_name`, `create_time`, `send_time`, `is_send`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 130080 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '产品收益表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '产品收益表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of ntp_money_send_log
@@ -1209,7 +1156,7 @@ CREATE TABLE `ntp_verify`  (
   `verify` int(11) NOT NULL,
   `ctime` datetime NOT NULL COMMENT '时间戳',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 42669 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 10000 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of ntp_verify

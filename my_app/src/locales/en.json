@@ -31,7 +31,10 @@
     "passwordError": "Password must be at least 6 characters",
     "codeSent": "Verification code sent",
     "registerSuccess": "Registration successful, welcome!",
-    "registerFailed": "Registration failed, please try again"
+    "registerFailed": "Registration failed, please try again",
+    "inviteCode": "Invite Code",
+    "inviteCodePlaceholder": "Enter invite code",
+    "inviteCodeError": "Please enter invite code"
   },
   "common": {
     "cancel": "Cancel",

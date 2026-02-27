@@ -59,6 +59,15 @@
         </div>
         <p v-if="codeErr" class="err-tip">{{ codeErr }}</p>
 
+        <!-- 邀请码 -->
+        <div class="field-label">{{ t('auth.inviteCode') }}</div>
+        <div class="field-group" :class="{ 'field-error': agentErr }">
+          <div class="field-icon"><Hash :size="16" /></div>
+          <input v-model="agentId" class="field-input" type="text"
+            :placeholder="t('auth.inviteCodePlaceholder')" @input="agentErr = ''" />
+        </div>
+        <p v-if="agentErr" class="err-tip">{{ agentErr }}</p>
+
         <!-- 密码 -->
         <div class="field-label">{{ t('password') }}</div>
         <div class="field-group" :class="{ 'field-error': passErr }">
@@ -97,7 +106,7 @@
 import { ref, onMounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { Phone, Lock, Eye, EyeOff, ChevronLeft, UserPlus, Loader2, KeyRound, RefreshCw } from 'lucide-vue-next'
+import { Phone, Lock, Eye, EyeOff, ChevronLeft, UserPlus, Loader2, KeyRound, RefreshCw, Hash } from 'lucide-vue-next'
 import { useAuth } from '@/hooks/useAuth'
 import { usePopup } from '@/composables/usePopup'
 import { fetchCaptcha } from '@/api/auth'
@@ -110,11 +119,13 @@ const { showPopup } = usePopup()
 const phone    = ref('')
 const code     = ref('')
 const password = ref('')
+const agentId  = ref('')
 const showPass = ref(false)
 const loading  = ref(false)
 const phoneErr = ref('')
 const codeErr  = ref('')
 const passErr  = ref('')
+const agentErr = ref('')
 
 // ── 验证码 canvas ──────────────────────────────────────────────────────────
 const captchaCanvas = ref<HTMLCanvasElement | null>(null)
@@ -205,6 +216,7 @@ function validate() {
   if (!/^1[3-9]\d{9}$/.test(phone.value))                    { phoneErr.value = t('auth.phoneError');    ok = false }
   if (code.value.trim().length < 4)                           { codeErr.value  = t('auth.codeError');     ok = false }
   if (password.value.length < 6)                              { passErr.value  = t('auth.passwordError'); ok = false }
+  if (!agentId.value.trim())                                  { agentErr.value = t('auth.inviteCodeError'); ok = false }
   return ok
 }
 
@@ -212,7 +224,7 @@ async function handleRegister() {
   if (!validate() || loading.value) return
   loading.value = true
   try {
-    await register(phone.value, code.value, password.value)
+    await register(phone.value, code.value, password.value, agentId.value)
     showPopup(t('auth.registerSuccess'), 'success')
   } catch {
     showPopup(t('auth.registerFailed'), 'loginFailed')

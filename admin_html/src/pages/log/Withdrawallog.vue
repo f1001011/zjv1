@@ -1,48 +1,50 @@
 <template>
   <div class='page-content'>
-    <el-row :gutter="20">
-      <el-col :xs="24" :sm="12" :lg="3">
-        <el-input placeholder="用户名称" v-model="searchParameter.user_name"></el-input>
-      </el-col>
-      <el-col :xs="24" :sm="12" :lg="3">
-        <el-input placeholder="用户ID" v-model="searchParameter.uid"></el-input>
-      </el-col>
-      <el-col :xs="24" :sm="12" :lg="4">
-        <el-input placeholder="订单号" v-model="searchParameter.order_on"></el-input>
-      </el-col>
-      <el-col :xs="24" :sm="12" :lg="3">
-            <el-select v-model="searchParameter.status" style="width:100%" placeholder="状态选择">
-                <el-option key="3" label="已拒绝" value="2"></el-option>
-                <el-option key="1" label="已提现" value="1"></el-option>
-                <el-option key="2" label="审核中" value="0"></el-option>
-            </el-select>
+    <div class="toolbar">
+      <div class="toolbar-title">提现日志</div>
+    </div>
+    <div class="search-wrap">
+      <el-row :gutter="12">
+        <el-col :xs="24" :sm="12" :lg="3">
+          <el-input size="small" placeholder="用户名称" prefix-icon="el-icon-user" v-model="searchParameter.user_name" clearable></el-input>
         </el-col>
         <el-col :xs="24" :sm="12" :lg="3">
-              <el-select v-model="searchParameter.pay_type" style="width:100%" placeholder="提现方式选择">
-                  <el-option key="1" label="个人提现" value="1"></el-option>
-                  <el-option key="2" label="团队提现" value="2"></el-option>
-              </el-select>
-          </el-col>
-
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :xs="24" :sm="12" :lg="6" class="el-col2" style="margin-top: 10px;">
-        <el-button @click="search">搜索</el-button>
-        <el-button @click="IsExcel">导出</el-button>
-        <el-button @click="expand(false)" v-if="is_show">关闭</el-button>
-        <el-button @click="expand(true)" v-else>展开</el-button>
-      </el-col>
-    </el-row>
-    <el-table height="80vh" style="margin-top: 15px" border  :data="roleList" :showPage="false" @selection-change="handleSelectionChange">
+          <el-input size="small" placeholder="用户ID" prefix-icon="el-icon-search" v-model="searchParameter.uid" clearable></el-input>
+        </el-col>
+        <el-col :xs="24" :sm="12" :lg="4">
+          <el-input size="small" placeholder="订单号" prefix-icon="el-icon-document" v-model="searchParameter.order_on" clearable></el-input>
+        </el-col>
+        <el-col :xs="24" :sm="12" :lg="3">
+          <el-select size="small" v-model="searchParameter.status" style="width:100%" placeholder="状态选择" clearable>
+            <el-option key="3" label="已拒绝" value="2"></el-option>
+            <el-option key="1" label="已提现" value="1"></el-option>
+            <el-option key="2" label="审核中" value="0"></el-option>
+          </el-select>
+        </el-col>
+        <el-col :xs="24" :sm="12" :lg="3">
+          <el-select size="small" v-model="searchParameter.pay_type" style="width:100%" placeholder="提现方式" clearable>
+            <el-option key="1" label="个人提现" value="1"></el-option>
+            <el-option key="2" label="团队提现" value="2"></el-option>
+          </el-select>
+        </el-col>
+        <el-col :xs="24" :sm="12" :lg="4">
+          <el-button size="small" type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+          <el-button size="small" icon="el-icon-download" @click="IsExcel">导出</el-button>
+          <el-button size="small" :icon="is_show?'el-icon-arrow-up':'el-icon-arrow-down'" @click="expand(!is_show)">{{is_show?'收起':'展开'}}</el-button>
+        </el-col>
+      </el-row>
+    </div>
+    <div class="table-wrap">
+    <el-table height="calc(80vh - 130px)" style="width:100%" stripe :data="roleList" :showPage="false"
+      :header-cell-style="headerCellStyle" :cell-style="cellStyle" @selection-change="handleSelectionChange">
       <el-table-column type="selection" label="ID" prop="id" :selectable='selectEnable'/>
-      <el-table-column width="100" label=" 用户 / 号码" prop="user_name">
+      <el-table-column width="120" label="用户信息" prop="user_name">
         <template slot-scope="scope">
-          <span style="color: rebeccapurple;">{{scope.row.u_id}}</span>
-          <br>
-          <span style="color: blue;">{{scope.row.user_name}}</span>
-          <br>
-          <span style="color: red;">{{scope.row.phone}}</span>
+          <div class="user-cell">
+            <span class="uid">ID: {{scope.row.u_id}}</span>
+            <span class="uname">{{scope.row.user_name}}</span>
+            <span class="phone">{{scope.row.phone}}</span>
+          </div>
         </template>
       </el-table-column>
       <!-- <el-table-column label="开始金额"  prop="money_before"/> -->
@@ -51,11 +53,13 @@
       <el-table-column label="手续费" prop="money_fee" width="80"/>
       <el-table-column label="实际到账金额" prop="money_actual" width="80" />
       <el-table-column label="订单编号" prop="order_on" width="120"/>
-      <el-table-column label="状态" width="80" prop="status" style="color: red;">
+      <el-table-column label="状态" width="80" prop="status" align="center">
         <template slot-scope="scope">
-            <div>{{scope.row.status ==1?'通过':(scope.row.status ==2?"拒绝":'待处理')}}</div>
+          <el-tag size="mini" :type="scope.row.status==1?'success':(scope.row.status==2?'danger':'warning')" effect="plain">
+            {{scope.row.status==1?'通过':(scope.row.status==2?'拒绝':'待处理')}}
+          </el-tag>
         </template>
-     </el-table-column>
+      </el-table-column>
 
       <!-- <el-table-column label="状态描述" prop="text"/> -->
       <!-- <el-table-column label="收款名" prop="u_bank_user_name"/> -->
@@ -122,6 +126,13 @@
           </template>
         </el-table-column> -->
     </el-table>
+    </div>
+    <div class="pagination-wrap">
+      <el-pagination @current-change="handleCurrentChange" @size-change="handleSizeChange"
+        :current-page="current" :page-sizes="[10, 20, 50, 100]" :page-size="pageSize"
+        layout="sizes, total, prev, pager, next, jumper" :total="allpage">
+      </el-pagination>
+    </div>
 
     <el-dialog :title="dialogTitle" width="500px" :visible.sync="dvEdit">
       <el-form ref="form" :model="form" label-width="80px">
@@ -140,16 +151,6 @@
         <el-button type="primary" @click="onSubmit">确 定</el-button>
       </span>
     </el-dialog>
-    <template v-if="allpage>20">
-            <el-pagination @current-change="handleCurrentChange"
-                           @size-change="handleSizeChange"
-                           :current-page="1"
-                           :page-sizes="[10, 20, 50, 100]"
-                           :page-size="pageSize"
-                           layout="sizes, total, prev, pager, next, jumper"
-                           :total="allpage">
-            </el-pagination>
-        </template>
   <!-- 修改金额弹出框 -->
     <el-dialog
       title="修改手续费与实际到账金额"
@@ -427,6 +428,12 @@
         this.current = 1;
         this.getUserList();
       },
+      headerCellStyle() {
+        return { background: '#f0f4ff', color: '#303133', fontWeight: '600', fontSize: '13px', borderBottom: '2px solid #dce6ff' };
+      },
+      cellStyle() {
+        return { fontSize: '13px', color: '#606266' };
+      },
 
       getUserList(){
         getPayListApi({uid:this.searchParameter.uid,pay_type:this.searchParameter.pay_type,status:this.searchParameter.status,'user_name': this.searchParameter.user_name,'is_excel':this.is_excel,'page':this.current,limit:this.pageSize}).then(res => {
@@ -548,62 +555,27 @@
 </script>
 
 <style lang='scss' scoped>
-  /* .page-content {
-    width: 100%;
-    height: 100%;
-  } */
-  .page-btns{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.page-content { width:100%; height:100%; background:#f5f7fa; padding:16px; box-sizing:border-box; }
+.toolbar { display:flex; align-items:center; background:#fff; border-radius:8px; padding:14px 20px; margin-bottom:12px; box-shadow:0 1px 6px rgba(0,0,0,0.06); }
+.toolbar-title { font-size:16px; font-weight:600; color:#1a1a2e; }
+.search-wrap { background:#fff; border-radius:8px; padding:16px 20px; margin-bottom:12px; box-shadow:0 1px 6px rgba(0,0,0,0.06); }
+.table-wrap { background:#fff; border-radius:8px; box-shadow:0 1px 6px rgba(0,0,0,0.06); overflow:hidden; }
+.pagination-wrap { display:flex; justify-content:flex-end; padding:12px 0 4px; }
+.user-cell { display:flex; flex-direction:column; gap:2px; font-size:12px; }
+.user-cell .uid { color:#909399; }
+.user-cell .uname { color:#409eff; font-weight:500; }
+.user-cell .phone { color:#f56c6c; }
+.page-btns { display:flex; justify-content:center; align-items:center; }
+.input { width:100%; text-align:center;
+  div { width:80%; display:flex; align-items:center; margin:0 auto;
+    span { width:100px; text-align:right; }
+    .el-input { width:60%; margin-left:3px; }
   }
-  >>> .el-dialog__header {
-    border: none;
-  }
-  >>> .el-dialog__footer {
-    border: none;
-  }
-  .input {
-    width: 100%;
-    text-align: center;
-    div {
-      width: 80%;
-      display: flex;
-      align-items: center;
-      margin: 0 auto;
-      span {
-        width: 100px;
-        text-align: right;
-      }
-      .el-input {
-        width: 60%;
-        margin-left: 3px;
-      }
-
-    }
-  }
-
-  .page-content {
-     width: 100%;
-     height: 100%;
-     overflow: auto !important;
-   }
-   >>> .el-table::-webkit-scrollbar {
-     width: 8px !important; /*滚动条宽度*/
-     height: 8px !important; /*滚动条高度*/
-   }
-   >>> .el-table__body-wrapper::-webkit-scrollbar {
-     width: 8px !important; /*滚动条宽度*/
-     height: 8px !important; /*滚动条高度*/
-   }
-   >>> .el-table__body-wrapper::-webkit-scrollbar-track {
-     border-radius: 10px; /*滚动条的背景区域的圆角*/
-     -webkit-box-shadow: inset 0 0 6px rgba(238,238,238, 0.3);
-     background-color: #eeeeee; /*滚动条的背景颜色*/
-   }
-   >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
-     border-radius: 10px; /*滚动条的圆角*/
-     -webkit-box-shadow: inset 0 0 6px rgba(145, 143, 0143, 0.3);
-     background-color: rgb(145, 143, 143); /*滚动条的背景颜色*/
-   }
+}
+>>> .el-table th { background:#f0f4ff !important; }
+>>> .el-table--striped .el-table__body tr.el-table__row--striped td { background:#fafbff; }
+>>> .el-table tbody tr:hover > td { background:#eef2ff !important; }
+>>> .el-table__body-wrapper::-webkit-scrollbar { width:6px; height:6px; }
+>>> .el-table__body-wrapper::-webkit-scrollbar-track { border-radius:10px; background-color:#f0f0f0; }
+>>> .el-table__body-wrapper::-webkit-scrollbar-thumb { border-radius:10px; background-color:#c0c4cc; }
 </style>

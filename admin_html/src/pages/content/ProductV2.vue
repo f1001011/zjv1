@@ -257,6 +257,12 @@
                 this.current = 1;
                 this.getProductList();
             },
+            headerCellStyle() {
+                return { background: '#f0f4ff', color: '#303133', fontWeight: '600', fontSize: '13px', borderBottom: '2px solid #dce6ff' };
+            },
+            cellStyle() {
+                return { fontSize: '13px', color: '#606266' };
+            },
             onSubmit() {
                 if (this.editProductType == 'edit') {
                     this.productEdit()
@@ -296,26 +302,87 @@
 </script>
 
 <style lang='scss' scoped>
-    .page-content {
-        width: 100%;
-        height: 100%;
+.page-content {
+    width: 100%;
+    height: 100%;
+    background: #f5f7fa;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+
+.toolbar-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a2e;
+    letter-spacing: 0.5px;
+}
+
+.btn-add {
+    background: linear-gradient(135deg, #4f7cff, #6a5acd);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 13px;
+    &:hover {
+        background: linear-gradient(135deg, #3a6aee, #5a4abd);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(79,124,255,0.35);
     }
-    >>> .el-table::-webkit-scrollbar {
-      width: 8px !important;
-      height: 8px !important;
-    }
-    >>> .el-table__body-wrapper::-webkit-scrollbar {
-      width: 8px !important;
-      height: 8px !important;
-    }
-    >>> .el-table__body-wrapper::-webkit-scrollbar-track {
-      border-radius: 10px;
-      -webkit-box-shadow: inset 0 0 6px rgba(238,238,238, 0.3);
-      background-color: #eeeeee;
-    }
-    >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      -webkit-box-shadow: inset 0 0 6px rgba(145, 143, 143, 0.3);
-      background-color: rgb(145, 143, 143);
-    }
+}
+
+.table-wrap {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    overflow: hidden;
+}
+
+.pagination-wrap {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 0 4px;
+}
+
+.text-muted {
+    color: #c0c4cc;
+    font-size: 12px;
+}
+
+>>> .el-table th {
+    background: #f0f4ff !important;
+}
+>>> .el-table--striped .el-table__body tr.el-table__row--striped td {
+    background: #fafbff;
+}
+>>> .el-table tbody tr:hover > td {
+    background: #eef2ff !important;
+}
+>>> .el-table::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+>>> .el-table__body-wrapper::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+>>> .el-table__body-wrapper::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+>>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #c0c4cc;
+    &:hover { background-color: #909399; }
+}
 </style>
