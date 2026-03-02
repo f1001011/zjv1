@@ -82,9 +82,10 @@ v-motion
 ```
 src/
 ├── api/
-│   ├── auth.ts          login/logout API calls
+│   ├── auth.ts          loginByPhone(), register(), fetchCaptcha()
 │   ├── balance.ts       fetchBalanceData()
 │   ├── product.ts       fetchCategories(), fetchProducts(), fetchHomeBalance()
+│   ├── vip.ts           fetchVipInfo(), fetchVipXpHistory()
 │   └── request.ts       Axios instance (baseURL, token interceptor)
 ├── components/
 │   ├── ActionModal.vue  Bottom-sheet modal for balance actions (deposit/withdraw/transfer/history)
@@ -106,13 +107,16 @@ src/
 │   └── index.ts         Routes + beforeEach (lang param + auth guard)
 ├── types/
 │   ├── balance.ts       BalanceData interface
-│   └── product.ts       CategoryItem, ProductItem interfaces
+│   ├── product.ts       CategoryItem, ProductItem interfaces
+│   └── vip.ts           VipInfo, XpRecord interfaces
 ├── views/
-│   ├── Home.vue         Product listing + carousel + balance quick card
+│   ├── Home.vue           Product listing + carousel + balance quick card
 │   ├── BalanceCenter.vue  Full balance page with digit roller + actions
-│   ├── Login.vue        Simple login form
-│   ├── Products.vue     Placeholder (coming soon)
-│   └── Vip.vue          Placeholder (coming soon)
+│   ├── Login.vue          Phone + password login, glass card + orb design
+│   ├── Register.vue       Phone + captcha + invite code + password, glass card
+│   ├── Products.vue       Product catalog (auth-gated)
+│   ├── ProductDetail.vue  Product detail page
+│   └── Vip.vue            VIP level, XP progress, privileges, XP history
 ├── App.vue              Root: useTheme() + PopupModal + BottomNav + RouterView
 ├── config.ts            Re-exports CURRENCY
 ├── i18n.ts              Shared i18n instance + setLocale()
@@ -156,8 +160,10 @@ showPopup('操作成功', 'success')   // preset key from popupPresets.ts
 | Name | Path | Auth | Component |
 |---|---|---|---|
 | Login | /login | No | Login.vue |
+| Register | /register | No | Register.vue |
 | Home | / | No | Home.vue |
 | Products | /products | Yes | Products.vue |
+| ProductDetail | /products/:id | Yes | ProductDetail.vue |
 | Vip | /vip | Yes | Vip.vue |
 | BalanceCenter | /balance | No | BalanceCenter.vue |
 
