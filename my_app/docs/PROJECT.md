@@ -110,7 +110,8 @@ src/
 │   ├── product.ts       CategoryItem, ProductItem interfaces
 │   └── vip.ts           VipInfo, XpRecord interfaces
 ├── views/
-│   ├── Home.vue           Product listing + carousel + balance quick card
+│   ├── HomeV2.vue         New homepage (current `/`) — orb bg, digit roller, hero card, animations
+│   ├── Home.vue           Old homepage (kept at `/home-v1`)
 │   ├── BalanceCenter.vue  Full balance page with digit roller + actions
 │   ├── Login.vue          Phone + password login, glass card + orb design
 │   ├── Register.vue       Phone + captcha + invite code + password, glass card
@@ -161,7 +162,8 @@ showPopup('操作成功', 'success')   // preset key from popupPresets.ts
 |---|---|---|---|
 | Login | /login | No | Login.vue |
 | Register | /register | No | Register.vue |
-| Home | / | No | Home.vue |
+| Home | / | No | HomeV2.vue |
+| HomeV1 | /home-v1 | No | Home.vue |
 | Products | /products | Yes | Products.vue |
 | ProductDetail | /products/:id | Yes | ProductDetail.vue |
 | Vip | /vip | Yes | Vip.vue |
