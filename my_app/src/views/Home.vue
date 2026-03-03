@@ -83,6 +83,18 @@
 
       <!-- Product Grid -->
       <div class="product-grid">
+        <template v-if="isLoading && displayProducts.length === 0">
+          <div v-for="n in 6" :key="'sk'+n" class="product-card glass-card product-skeleton">
+            <div class="sk-img"></div>
+            <div class="sk-info">
+              <div class="sk-line sk-name"></div>
+              <div class="sk-line sk-price"></div>
+            </div>
+          </div>
+        </template>
+        <div v-else-if="!isLoading && displayProducts.length === 0" class="products-empty">
+          <Package :size="32"/><span>暂无商品</span>
+        </div>
         <div v-for="(product, i) in displayProducts" :key="product.id"
           class="product-card glass-card"
           v-motion
@@ -102,7 +114,7 @@
           <div class="product-info">
             <div class="product-name">{{ product.name }}</div>
             <div class="product-price" :style="{ color: product.priceColor }">{{ CURRENCY }}{{ product.price }}</div>
-            <div class="product-stock">
+            <div v-if="product.maxPurchase > 0" class="product-stock">
               <ShoppingBag :size="9" />{{ t('home.purchasable', { n: product.maxPurchase }) }}
             </div>
           </div>
@@ -131,7 +143,7 @@ import {
   Zap, Phone, Crown, Gamepad2, Coffee,
   LayoutGrid, Flame, Gift, Star,
   Wifi, Signal, CreditCard, Music,
-  Sword, Gem, ShoppingCart, Car,
+  Sword, Gem, ShoppingCart, Car, Package,
 } from 'lucide-vue-next'
 import { fetchGoodsTypes, fetchGoodsList } from '@/api/product'
 import type { GoodsType, GoodsItem } from '@/types/product'
@@ -476,6 +488,15 @@ onUnmounted(() => {
 .product-grid {
   display:grid; grid-template-columns:repeat(2,1fr);
   gap:12px;
+.products-empty { grid-column:1/-1; display:flex; flex-direction:column; align-items:center; gap:8px; padding:40px 0; color:rgba(255,255,255,0.25); font-size:12px; }
+.product-skeleton { pointer-events:none; }
+.sk-img { height:110px; border-radius:12px; background:rgba(255,255,255,0.06); overflow:hidden; position:relative; }
+.sk-info { padding:10px; display:flex; flex-direction:column; gap:6px; }
+.sk-line { border-radius:6px; background:rgba(255,255,255,0.06); overflow:hidden; position:relative; }
+.sk-name { height:12px; width:80%; }
+.sk-price { height:11px; width:45%; }
+.sk-img::after, .sk-line::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.07) 50%,transparent 100%); animation:sk-shimmer 1.4s infinite; }
+@keyframes sk-shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
 }
 .product-card {
   overflow:hidden; cursor:pointer;

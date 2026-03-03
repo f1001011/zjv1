@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import HomeV2 from '../views/HomeV2.vue'
+import HomeV3 from '../views/HomeV3.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import BalanceCenter from '../views/BalanceCenter.vue'
@@ -14,8 +15,9 @@ const publicRoutes: Array<RouteRecordRaw> = [
     { path: '/login',    name: 'Login',        component: Login },
     { path: '/register', name: 'Register',     component: Register },
     { path: '/balance',  name: 'BalanceCenter', component: BalanceCenter },
-    { path: '/',         name: 'Home',          component: HomeV2 },
+    { path: '/home-v3',  name: 'Home',          component: HomeV2 },
     { path: '/home-v1',  name: 'HomeV1',        component: Home },
+    { path: '/',         name: 'HomeV3',        component: HomeV3 },
 ]
 
 // ── 需要登录 ────────────────────────────────────────────────────────────────

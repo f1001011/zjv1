@@ -30,7 +30,7 @@ const route  = useRoute()
 const { t }  = useI18n()
 
 const navItems = [
-  { name: 'Home',          path: '/',         icon: Home,    color: colors.red,   labelKey: 'nav.home'     },
+  { name: 'HomeV3',        path: '/',         icon: Home,    color: colors.red,   labelKey: 'nav.home'     },
   { name: 'Products',      path: '/products', icon: Package, color: colors.cyan,  labelKey: 'nav.products' },
   { name: 'Vip',           path: '/vip',      icon: Crown,   color: colors.amber, labelKey: 'nav.vip'      },
   { name: 'BalanceCenter', path: '/balance',  icon: User,    color: colors.lime,  labelKey: 'nav.mine'     },

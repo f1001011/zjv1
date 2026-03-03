@@ -27,7 +27,7 @@
           v-motion :initial="{ opacity:0 }"
           :enter="{ opacity:1, transition:{ delay:160 } }">
           {{ t('vip.totalXp') }}&nbsp;
-          <strong>{{ vipInfo?.totalXp.toLocaleString() ?? '—' }}</strong>&nbsp;{{ t('vip.xpUnit') }}
+          <strong>{{ vipInfo?.currentXp.toLocaleString() ?? '—' }}</strong>&nbsp;{{ t('vip.xpUnit') }}
         </div>
       </div>
 

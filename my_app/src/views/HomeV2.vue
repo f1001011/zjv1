@@ -56,7 +56,7 @@
             </div>
             <div class="hero-vip-chip">
               <Crown :size="9"/>
-              <span>VIP 会员</span>
+              <span>{{ t('home.vipMember') }}</span>
             </div>
           </div>
 
@@ -82,13 +82,13 @@
           <div class="hero-sub-row">
             <div class="hero-sub-item">
               <TrendingUp :size="11" class="sub-ic cyan"/>
-              <span class="sub-txt">今日收益</span>
+              <span class="sub-txt">{{ t('home.todayEarnings') }}</span>
               <span class="sub-val cyan">+¥18.50</span>
             </div>
             <div class="hero-sep-line"></div>
             <div class="hero-sub-item">
               <Lock :size="11" class="sub-ic amber"/>
-              <span class="sub-txt">冻结</span>
+              <span class="sub-txt">{{ t('home.frozen') }}</span>
               <span class="sub-val amber">¥0.00</span>
             </div>
           </div>
@@ -170,18 +170,17 @@
           <div class="section-ic-wrap flame-wrap">
             <Flame :size="12"/>
           </div>
-          热门商品
+          {{ t('home.hotProducts') }}
         </div>
         <button class="view-all-btn" @click="router.push('/products')">
-          全部 <ChevronRight :size="11"/>
+          {{ t('home.viewAll') }} <ChevronRight :size="11"/>
         </button>
       </div>
 
       <div class="hot-scroll"
         v-motion :initial="{ opacity:0, x:28 }" :enter="{ opacity:1, x:0, transition:{ delay:450 } }">
         <div v-if="hotProducts.length === 0" class="hot-empty">
-          <Package :size="26"/>
-          <span>暂无商品</span>
+          <Package :size="26"/><span>{{ t('home.noProducts') }}</span>
         </div>
         <div v-for="(product, hi) in hotProducts" :key="product.id"
           class="hot-card"
@@ -212,7 +211,7 @@
           <div class="section-ic-wrap grid-wrap">
             <LayoutGrid :size="12"/>
           </div>
-          全部商品
+          {{ t('home.allProducts') }}
         </div>
       </div>
 
@@ -231,6 +230,18 @@
 
       <!-- Product Grid -->
       <div class="product-grid">
+        <template v-if="isLoading && displayProducts.length === 0">
+          <div v-for="n in 6" :key="'sk'+n" class="product-card glass-card product-skeleton">
+            <div class="sk-img"></div>
+            <div class="sk-info">
+              <div class="sk-line sk-name"></div>
+              <div class="sk-line sk-price"></div>
+            </div>
+          </div>
+        </template>
+        <div v-else-if="!isLoading && displayProducts.length === 0" class="products-empty">
+          <Package :size="32"/><span>{{ t('home.noProducts') }}</span>
+        </div>
         <div v-for="(product, i) in displayProducts" :key="product.id"
           class="product-card glass-card"
           v-motion
@@ -258,7 +269,7 @@
           <div class="product-info">
             <div class="product-name">{{ product.name }}</div>
             <div class="product-price" :style="{ color: product.priceColor }">¥{{ product.price }}</div>
-            <div class="product-stock">
+            <div v-if="product.maxPurchase > 0" class="product-stock">
               <ShoppingBag :size="9"/>{{ t('home.purchasable', { n: product.maxPurchase }) }}
             </div>
           </div>
@@ -294,16 +305,17 @@ import { fetchUserInfo } from '@/api/auth'
 import { userBalance, setUserBalance } from '@/stores/user'
 
 const router = useRouter()
-const { t, locale } = useI18n()
+const { t, tm, locale } = useI18n()
+const isLoggedIn = computed(() => !!localStorage.getItem('token'))
 
 // ── Time greeting ─────────────────────────────────────────────────────────────
 const timeGreeting = computed(() => {
   const h = new Date().getHours()
-  if (h < 6)  return '夜深了'
-  if (h < 12) return '早上好'
-  if (h < 14) return '中午好'
-  if (h < 18) return '下午好'
-  return '晚上好'
+  if (h < 6)  return t('home.greetNight')
+  if (h < 12) return t('home.greetMorning')
+  if (h < 14) return t('home.greetNoon')
+  if (h < 18) return t('home.greetAfternoon')
+  return t('home.greetEvening')
 })
 
 // ── Digit roller ──────────────────────────────────────────────────────────────
@@ -349,47 +361,41 @@ async function loadHomeBalance() {
 
 // ── Hero actions ──────────────────────────────────────────────────────────────
 const heroActions = computed(() => [
-  { key: 'deposit',  label: '充值', icon: ArrowDownCircle, color: colors.red,   glow: colors.redGlow,   onClick: () => router.push('/balance') },
-  { key: 'withdraw', label: '提现', icon: ArrowUpCircle,   color: colors.cyan,  glow: colors.cyanGlow,  onClick: () => router.push('/balance') },
-  { key: 'transfer', label: '转账', icon: ArrowLeftRight,  color: colors.amber, glow: colors.amberGlow, onClick: () => router.push('/balance') },
-  { key: 'history',  label: '明细', icon: ClipboardList,   color: colors.lime,  glow: colors.limeGlow,  onClick: () => router.push('/balance') },
+  { key: 'deposit',  label: t('home.deposit'),  icon: ArrowDownCircle, color: colors.red,   glow: colors.redGlow,   onClick: () => router.push('/balance') },
+  { key: 'withdraw', label: t('home.withdraw'), icon: ArrowUpCircle,   color: colors.cyan,  glow: colors.cyanGlow,  onClick: () => router.push('/balance') },
+  { key: 'transfer', label: t('home.transfer'), icon: ArrowLeftRight,  color: colors.amber, glow: colors.amberGlow, onClick: () => router.push('/balance') },
+  { key: 'history',  label: t('home.history'),  icon: ClipboardList,   color: colors.lime,  glow: colors.limeGlow,  onClick: () => router.push('/balance') },
 ])
 
 // ── Notice bar ────────────────────────────────────────────────────────────────
-const noticeList = [
-  '🎉 限时活动：充值满100送20，立即体验！',
-  '📢 新用户专享福利，首充立减50元',
-  '⚡ 热门商品秒杀进行中，低至1折起',
-  '🎁 VIP会员专属礼包，点击领取',
-  '✅ 平台安全认证，资金100%有保障',
-]
+const noticeList = computed(() => tm('home.notices') as string[])
 
 // ── Quick features ────────────────────────────────────────────────────────────
-const quickFeatures: Array<{
+const quickFeatures = computed((): Array<{
   key: string; label: string; icon: Component;
   color: string; glow: string; onClick: () => void
-}> = [
-  { key: 'data',   label: '流量',  icon: Wifi,         color: colors.cyan,  glow: colors.cyanGlow,  onClick: () => router.push('/products') },
-  { key: 'phone',  label: '话费',  icon: Phone,        color: colors.amber, glow: colors.amberGlow, onClick: () => router.push('/products') },
-  { key: 'member', label: '会员',  icon: Crown,        color: colors.red,   glow: colors.redGlow,   onClick: () => router.push('/vip') },
-  { key: 'game',   label: '游戏',  icon: Gamepad2,     color: colors.lime,  glow: colors.limeGlow,  onClick: () => router.push('/products') },
-  { key: 'vip',    label: 'VIP',   icon: Star,         color: colors.amber, glow: colors.amberGlow, onClick: () => router.push('/vip') },
-  { key: 'shop',   label: '商品',  icon: ShoppingCart, color: colors.red,   glow: colors.redGlow,   onClick: () => router.push('/products') },
-  { key: 'coffee', label: '生活',  icon: Coffee,       color: colors.cyan,  glow: colors.cyanGlow,  onClick: () => router.push('/products') },
-  { key: 'more',   label: '更多',  icon: LayoutGrid,   color: 'rgba(255,255,255,0.45)', glow: 'rgba(255,255,255,0.15)', onClick: () => {} },
-]
+}> => [
+  { key: 'data',   label: t('home.feat.data'),   icon: Wifi,         color: colors.cyan,  glow: colors.cyanGlow,  onClick: () => router.push('/products') },
+  { key: 'phone',  label: t('home.feat.phone'),  icon: Phone,        color: colors.amber, glow: colors.amberGlow, onClick: () => router.push('/products') },
+  { key: 'member', label: t('home.feat.member'), icon: Crown,        color: colors.red,   glow: colors.redGlow,   onClick: () => router.push('/vip') },
+  { key: 'game',   label: t('home.feat.game'),   icon: Gamepad2,     color: colors.lime,  glow: colors.limeGlow,  onClick: () => router.push('/products') },
+  { key: 'vip',    label: 'VIP',                 icon: Star,         color: colors.amber, glow: colors.amberGlow, onClick: () => router.push('/vip') },
+  { key: 'shop',   label: t('home.feat.shop'),   icon: ShoppingCart, color: colors.red,   glow: colors.redGlow,   onClick: () => router.push('/products') },
+  { key: 'coffee', label: t('home.feat.life'),   icon: Coffee,       color: colors.cyan,  glow: colors.cyanGlow,  onClick: () => router.push('/products') },
+  { key: 'more',   label: t('home.feat.more'),   icon: LayoutGrid,   color: 'rgba(255,255,255,0.45)', glow: 'rgba(255,255,255,0.15)', onClick: () => {} },
+])
 
 // ── Promo cards ───────────────────────────────────────────────────────────────
 const promoCards = computed(() => [
   {
-    tag: '新用户专享', title: '首充赠 50 元', sub: '注册立享 · 限时优惠',
+    tag: t('home.promo1.tag'), title: t('home.promo1.title'), sub: t('home.promo1.sub'),
     bg:   'linear-gradient(135deg, rgba(255,77,77,0.22) 0%, rgba(255,23,68,0.12) 100%)',
     glow: 'radial-gradient(circle at 20% 50%, rgba(255,77,77,0.4), transparent 65%)',
     tagColor: colors.red,
-    icon: Gift, onClick: () => router.push('/balance'),
+    icon: Gift, onClick: () => router.push(isLoggedIn.value ? '/balance' : '/register'),
   },
   {
-    tag: 'VIP 专属', title: '会员特权礼包', sub: '折扣 · 客服 · 专属礼包',
+    tag: t('home.promo2.tag'), title: t('home.promo2.title'), sub: t('home.promo2.sub'),
     bg:   'linear-gradient(135deg, rgba(255,184,0,0.20) 0%, rgba(255,109,0,0.10) 100%)',
     glow: 'radial-gradient(circle at 20% 50%, rgba(255,184,0,0.38), transparent 65%)',
     tagColor: colors.amber,
@@ -1280,6 +1286,15 @@ onUnmounted(() => {
 .product-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+.products-empty { grid-column:1/-1; display:flex; flex-direction:column; align-items:center; gap:8px; padding:40px 0; color:rgba(255,255,255,0.25); font-size:12px; }
+.product-skeleton { pointer-events:none; }
+.sk-img { height:110px; border-radius:12px; background:rgba(255,255,255,0.06); overflow:hidden; position:relative; }
+.sk-info { padding:10px; display:flex; flex-direction:column; gap:6px; }
+.sk-line { border-radius:6px; background:rgba(255,255,255,0.06); overflow:hidden; position:relative; }
+.sk-name { height:12px; width:80%; }
+.sk-price { height:11px; width:45%; }
+.sk-img::after, .sk-line::after { content:''; position:absolute; inset:0; background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.07) 50%,transparent 100%); animation:sk-shimmer 1.4s infinite; }
+@keyframes sk-shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
   gap: 11px;
 }
 .product-card {
